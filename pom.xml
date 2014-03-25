@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ch.hsr.faith.android</groupId>
 	<artifactId>faith-app</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>apk</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<robospice.version>1.4.11</robospice.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -18,19 +24,35 @@
 			<artifactId>support-v4</artifactId>
 			<version>r7</version>
 		</dependency>
+		<dependency>
+			<groupId>com.octo.android.robospice</groupId>
+			<artifactId>robospice</artifactId>
+			<version>${robospice.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.octo.android.robospice</groupId>
+			<artifactId>robospice-spring-android</artifactId>
+			<version>${robospice.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.octo.android.robospice</groupId>
+			<artifactId>robospice-google-http-client</artifactId>
+			<version>${robospice.version}</version>
+		</dependency>
 	</dependencies>
-	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	
+
 	<scm>
 		<connection>scm:git:git@github.com:SE2Prj-FAITH/FAITH-AndroidApp.git</connection>
 		<developerConnection>scm:git:git@github.com:SE2Prj-FAITH/FAITH-AndroidApp.git</developerConnection>
 		<url>https://github.com/SE2Prj-FAITH/FAITH-AndroidApp</url>
 		<tag>HEAD</tag>
 	</scm>
-	
+
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<sourceDirectory>src</sourceDirectory>
@@ -104,15 +126,15 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<distributionManagement>
-    	<repository>
-    		<id>nexus</id>
-    		<url>http://nexus.kapfi.ch/nexus/content/repositories/releases</url>
-    	</repository>
-    	<snapshotRepository>
-    		<id>nexus</id>
-    		<url>http://nexus.kapfi.ch/nexus/content/repositories/snapshots</url>
-   		</snapshotRepository>
-    </distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<url>http://nexus.kapfi.ch/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<url>http://nexus.kapfi.ch/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project> 
