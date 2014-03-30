@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
@@ -71,6 +73,12 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	public void onGroupItemClick(MenuItem mi)
+	{
+		Intent intent = new Intent(this.getBaseContext(),LoginActivity.class);
+		startActivity(intent);
+		
 	}
 
 	/**

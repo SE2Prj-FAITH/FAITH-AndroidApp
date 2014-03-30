@@ -21,14 +21,19 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <service
             android:name="ch.hsr.faith.android.app.services.JSONSpiceService"
             android:exported="false" />
-    </application>
 
+        <activity
+            android:name="ch.hsr.faith.android.app.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+    </application>
 
 </manifest>
