@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.domain.UserAccount;
+import ch.hsr.faith.android.app.services.UserAccountService;
 
 public class LoginActivity extends Activity {
 
@@ -43,18 +45,21 @@ public class LoginActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void loginButtonClicked()
-	{
-		//TODO Daniel: get InputFields and handle event
-		/*String email = ((TextEmailAddress)findViewById(R.id.editTextEmail)).getText().toString();
-		
+
+	public void loginButtonClicked() {
+		String email = ((EditText) findViewById(R.id.editTextEmail)).getText()
+				.toString();
+		String password = ((EditText) findViewById(R.id.editTextPassword))
+				.getText().toString();
+
 		UserAccount user = new UserAccount();
 		user.setEmail(email);
-		user.setPassword(password);*/
+		user.setPassword(password);
+
+		UserAccountService service = new UserAccountService();
+		service.login(user);
 	}
-	
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
