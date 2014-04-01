@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ch.hsr.faith.android.app.LoginActivity" >
+    tools:context="ch.hsr.faith.android.app.activities.RegisterUserAccountActivity" >
 
     <item
         android:id="@+id/action_settings"

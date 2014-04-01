@@ -31,8 +31,8 @@
             android:exported="false" />
 
         <activity
-            android:name="ch.hsr.faith.android.app.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:name="ch.hsr.faith.android.app.activities.RegisterUserAccountActivity"
+            android:label="@string/title_activity_register_user_acccount" >
         </activity>
     </application>
 

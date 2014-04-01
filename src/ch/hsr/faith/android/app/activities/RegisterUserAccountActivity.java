@@ -13,16 +13,15 @@ import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.domain.UserAccount;
 import ch.hsr.faith.android.app.services.UserAccountService;
 
-public class LoginActivity extends Activity {
+public class RegisterUserAccountActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		setContentView(R.layout.activity_registeruseraccount);
 
 		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -30,7 +29,7 @@ public class LoginActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.registeruseraccount, menu);
 		return true;
 	}
 
@@ -46,13 +45,13 @@ public class LoginActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void loginButtonClicked() {
-		String email = ((EditText) findViewById(R.id.editTextEmail)).getText()
-				.toString();
-		String password = ((EditText) findViewById(R.id.editTextPassword))
-				.getText().toString();
+	public void registerButtonClicked(View view) {
+		String userName = ((EditText) findViewById(R.id.editUserAccountUserName)).getText().toString();
+		String email = ((EditText) findViewById(R.id.editUserAccountEmail)).getText().toString();
+		String password = ((EditText) findViewById(R.id.editUserAccountPasswort)).getText().toString();
 
 		UserAccount user = new UserAccount();
+		user.setUserName(userName);
 		user.setEmail(email);
 		user.setPassword(password);
 
@@ -69,10 +68,8 @@ public class LoginActivity extends Activity {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_login,
-					container, false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_registeruseraccount, container, false);
 			return rootView;
 		}
 	}

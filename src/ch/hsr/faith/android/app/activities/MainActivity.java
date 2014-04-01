@@ -74,11 +74,24 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	public void onGroupItemClick(MenuItem mi)
-	{
-		Intent intent = new Intent(this.getBaseContext(),LoginActivity.class);
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			return true;
+		case R.id.action_registeruseraccount:
+			onRegisterItemClick(item);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	public void onRegisterItemClick(MenuItem mi) {
+		Intent intent = new Intent(this.getBaseContext(), RegisterUserAccountActivity.class);
 		startActivity(intent);
-		
 	}
 
 	/**

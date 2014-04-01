@@ -5,10 +5,9 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
-<item	
-    	android:id="@+id/action_login"
+	<item	
+    	android:id="@+id/action_registeruseraccount"
         android:orderInCategory="99"
         android:showAsAction="never"
-        android:title="@string/activity_login"
-    	android:onClick="onGroupItemClick"/>
+        android:title="@string/activity_register_user"/>
 </menu>
