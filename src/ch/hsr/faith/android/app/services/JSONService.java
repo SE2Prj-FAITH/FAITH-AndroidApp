@@ -15,8 +15,10 @@ import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.exception.CacheCreationException;
 import com.octo.android.robospice.persistence.springandroid.json.jackson.JacksonObjectPersisterFactory;
 
-public class JSONSpiceService extends SpringAndroidSpiceService {
+public class JSONService extends SpringAndroidSpiceService {
 
+	public static final String SERVICE_BASE_URL_PROPERTY_KEY = "base_url";
+	
 	@Override
 	public CacheManager createCacheManager(Application application) throws CacheCreationException {
 		CacheManager cacheManager = new CacheManager();

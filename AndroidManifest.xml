@@ -27,7 +27,7 @@
         </activity>
 
         <service
-            android:name="ch.hsr.faith.android.app.services.JSONSpiceService"
+            android:name="ch.hsr.faith.android.app.services.JSONService"
             android:exported="false" />
 
         <activity
