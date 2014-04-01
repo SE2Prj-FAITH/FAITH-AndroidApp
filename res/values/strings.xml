@@ -6,11 +6,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="activity_register_user">Register account</string>
     <string name="title_activity_register_user_acccount">Register new Account</string>
+    <string name="title_activity_register_user_acccount_confirmation">Account registered</string>
     <string name="button_register">Register</string>
     
     <string name="registeruser_form_title">Please enter the following information to create a new user account:</string>
-    <string name="user_account_username">Username</string>
-    <string name="user_account_password">Password</string>
-    <string name="user_account_email">E-Mail</string>
+	<string name="labelUserAccountUserId">id</string>
+    <string name="labelUserAccountUserName">Username</string>
+    <string name="labelUserAccountPassword">Password</string>
+    <string name="labelUserAccountEmail">E-Mail</string>
+    <string name="registeruser_confirmation_title">Thanks for registering. Your account information:</string>
 
 </resources>

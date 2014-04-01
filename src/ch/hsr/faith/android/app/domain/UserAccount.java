@@ -1,10 +1,19 @@
 package ch.hsr.faith.android.app.domain;
 
-public class UserAccount {
+import java.io.Serializable;
 
+public class UserAccount implements Serializable {
+
+	private static final long serialVersionUID = 4980954194729732034L;
+	
+	Long id;
 	String userName;
 	String email;
 	String password;
+
+	public Long getId() {
+		return id;
+	}
 
 	public String getUserName() {
 		return userName;

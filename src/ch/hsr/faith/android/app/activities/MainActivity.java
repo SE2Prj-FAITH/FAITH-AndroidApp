@@ -4,30 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.adapters.ExpandableListAdapter;
+import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.domain.FurnitureCategory;
 import ch.hsr.faith.android.app.domain.FurnitureCategoryList;
+import ch.hsr.faith.android.app.dto.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.services.FurnitureCategoriesRootRequest;
-import ch.hsr.faith.android.app.services.JSONService;
 import ch.hsr.faith.android.app.util.PropertyReader;
 
-import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
-	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
-	private TextView testServiceResponseTextView;
 	private String lastFurnitureCategoriesRootRequestCacheKey;
 
 	ExpandableListAdapter listAdapter;
@@ -39,21 +33,12 @@ public class MainActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		loadSystemProperties();
-		spiceManager.start(this);
-	}
-
-	@Override
-	protected void onStop() {
-		spiceManager.shouldStop();
-		super.onStop();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		// testServiceResponseTextView = (TextView)
-		// findViewById(R.id.TestServiceResponseView);
 
 		// get the listview
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -101,30 +86,22 @@ public class MainActivity extends Activity {
 		MainActivity.this.setProgressBarIndeterminateVisibility(true);
 		FurnitureCategoriesRootRequest request = new FurnitureCategoriesRootRequest();
 		lastFurnitureCategoriesRootRequestCacheKey = request.createCacheKey();
-		spiceManager.execute(request, lastFurnitureCategoriesRootRequestCacheKey, DurationInMillis.ONE_MINUTE, new FurnitureCategoriesListRequestListener());
+		spiceManager.execute(request, lastFurnitureCategoriesRootRequestCacheKey, DurationInMillis.ONE_MINUTE, new FurnitureCategoriesListRequestListener(this));
 	}
 
-	private class FurnitureCategoriesListRequestListener implements RequestListener<FurnitureCategoryList> {
+	private class FurnitureCategoriesListRequestListener extends BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList> {
 
-		public void onRequestFailure(SpiceException spiceException) {
-			testServiceResponseTextView.setText("Error loading data: " + spiceException.getLocalizedMessage());
+		public FurnitureCategoriesListRequestListener(BaseActivity baseActivity) {
+			super(baseActivity);
 		}
 
-		public void onRequestSuccess(FurnitureCategoryList furnitureCategoryList) {
-			// testServiceResponseTextView.setText("\n\nCategories:\n");
-			// for (FurnitureCategory furnitureCategory : furnitureCategoryList)
-			// {
-			// testServiceResponseTextView.append(furnitureCategory.getName() +
-			// "\n");
-			// }
-			// FurnitureCategoryList categories = request.loadDataFromNetwork();
-
-			for (FurnitureCategory s : furnitureCategoryList) {
+		@Override
+		protected void handleSuccess(FurnitureCategoryList data) {
+			for (FurnitureCategory s : data) {
 				listDataHeader.add(s.getName());
 			}
 			listAdapter.notifyDataSetChanged();
 		}
-
 	}
 
 	private void loadSystemProperties() {

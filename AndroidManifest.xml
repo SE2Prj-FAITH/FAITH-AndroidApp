@@ -34,6 +34,10 @@
             android:name="ch.hsr.faith.android.app.activities.RegisterUserAccountActivity"
             android:label="@string/title_activity_register_user_acccount" >
         </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.RegisterUserAccountConfirmationActivity"
+            android:label="@string/title_activity_register_user_acccount_confirmation" >
+        </activity>
     </application>
 
 </manifest>

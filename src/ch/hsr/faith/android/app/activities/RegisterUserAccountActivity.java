@@ -1,7 +1,9 @@
 package ch.hsr.faith.android.app.activities;
 
-import android.app.Activity;
+import java.util.List;
+
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,11 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.domain.UserAccount;
-import ch.hsr.faith.android.app.services.UserAccountService;
+import ch.hsr.faith.android.app.dto.UserAccountResponse;
+import ch.hsr.faith.android.app.services.RegisterUserAccountRequest;
 
-public class RegisterUserAccountActivity extends Activity {
+public class RegisterUserAccountActivity extends BaseActivity {
+
+	private TextView failuresTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +33,19 @@ public class RegisterUserAccountActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	protected void onStart() {
+		super.onStart();
+		failuresTextView = (TextView) findViewById(R.id.RegisterUserFailures);
+	}
 
-		// Inflate the menu; this adds items to the action bar if it is present.
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.registeruseraccount, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -55,8 +63,35 @@ public class RegisterUserAccountActivity extends Activity {
 		user.setEmail(email);
 		user.setPassword(password);
 
-		UserAccountService service = new UserAccountService();
-		service.login(user);
+		failuresTextView.setText("");
+		failuresTextView.setVisibility(TextView.INVISIBLE);
+
+		RegisterUserAccountRequest request = new RegisterUserAccountRequest(user);
+		spiceManager.execute(request, new RegisterUserAccountRequestListener(this));
+	}
+
+	private class RegisterUserAccountRequestListener extends BaseRequestListener<UserAccountResponse, UserAccount> {
+
+		public RegisterUserAccountRequestListener(BaseActivity baseActivity) {
+			super(baseActivity);
+		}
+
+		@Override
+		protected void handleSuccess(UserAccount userAccount) {
+			Intent intent = new Intent(baseActivity, RegisterUserAccountConfirmationActivity.class);
+			intent.putExtra("registeredUserAccount", userAccount);
+			startActivity(intent);
+		}
+
+		@Override
+		protected void handleFailures(List<String> failures) {
+			String failureText = new String();
+			for (String string : failures) {
+				failureText = failureText + string + "\n";
+			}
+			failuresTextView.setText(failureText);
+			failuresTextView.setVisibility(TextView.VISIBLE);
+		}
 	}
 
 	/**

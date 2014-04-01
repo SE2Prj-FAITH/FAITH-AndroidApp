@@ -2,28 +2,21 @@ package ch.hsr.faith.android.app.services;
 
 import org.springframework.web.client.RestClientException;
 
-import ch.hsr.faith.android.app.domain.FurnitureCategoryList;
+import ch.hsr.faith.android.app.dto.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.util.PropertyReader;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-public class FurnitureCategoriesRootRequest extends SpringAndroidSpiceRequest<FurnitureCategoryList> {
+public class FurnitureCategoriesRootRequest extends SpringAndroidSpiceRequest<FurnitureCategoryListResponse> {
 
 	public FurnitureCategoriesRootRequest() {
-		super(FurnitureCategoryList.class);
+		super(FurnitureCategoryListResponse.class);
 	}
 
 	@Override
-	public FurnitureCategoryList loadDataFromNetwork() {
+	public FurnitureCategoryListResponse loadDataFromNetwork() throws RestClientException {
 		String url = PropertyReader.getProperty(JSONService.SERVICE_BASE_URL_PROPERTY_KEY) + "/furniture-categories/all-roots";
-		FurnitureCategoryList result;
-		try {
-			result = getRestTemplate().getForObject(url, FurnitureCategoryList.class);
-		} catch (RestClientException e) {
-			System.err.println("communication error");
-			result = new FurnitureCategoryList();
-		}
-		return result;
+		return getRestTemplate().getForObject(url, FurnitureCategoryListResponse.class);
 	}
 
 	public String createCacheKey() {
