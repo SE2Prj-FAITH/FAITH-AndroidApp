@@ -9,9 +9,9 @@
     <string name="title_activity_register_user_acccount_confirmation">compte enregistré</string>
     <string name="button_register">Registrer</string>
     
-    <string name="registeruser_form_title">S'il vous plaît entrer les informations suivantes pour créer un nouveau compte d'utilisateur:</string>
+    <string name="registeruser_form_title">Sil vous plait entrer les informations suivantes pour creer un nouveau compte d utilisateur:</string>
 	<string name="labelUserAccountUserId">id</string>
-    <string name="labelUserAccountUserName">Nom d'utilisateur</string>
+    <string name="labelUserAccountUserName">Nom d utilisateur</string>
     <string name="labelUserAccountPassword">mot de passe</string>
     <string name="labelUserAccountEmail">email</string>
     <string name="registeruser_confirmation_title">Merci pour vous inscrire. Information de votre compte:</string>
