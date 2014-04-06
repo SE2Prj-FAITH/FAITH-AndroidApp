@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FAITH App FR</string>
+    <string name="action_settings">Ajustage</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="activity_register_user">Inscrivez-vous compte</string>
+    <string name="title_activity_register_user_acccount">enregistrer nouveau compte</string>
+    <string name="title_activity_register_user_acccount_confirmation">compte enregistré</string>
+    <string name="button_register">Registrer</string>
+    
+    <string name="registeruser_form_title">Sil vous plait entrer les informations suivantes pour creer un nouveau compte d utilisateur:</string>
+	<string name="labelUserAccountUserId">id</string>
+    <string name="labelUserAccountUserName">Nom d utilisateur</string>
+    <string name="labelUserAccountPassword">mot de passe</string>
+    <string name="labelUserAccountEmail">email</string>
+    <string name="registeruser_confirmation_title">Merci pour vous inscrire. Information de votre compte:</string>
+
+</resources>
