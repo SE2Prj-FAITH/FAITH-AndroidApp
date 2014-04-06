@@ -33,14 +33,6 @@
         </TextView>
         
         <EditText
-            android:id="@+id/editUserAccountUserName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/labelUserAccountUserName"
-            android:inputType="text" >
-        </EditText>
-
-        <EditText
             android:id="@+id/editUserAccountEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

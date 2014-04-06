@@ -1,6 +1,6 @@
 package ch.hsr.faith.android.app.dto;
 
-import ch.hsr.faith.android.app.domain.UserAccount;
+import ch.hsr.faith.domain.UserAccount;
 
 public class UserAccountResponse extends BaseJSONResponse<UserAccount> {
 

@@ -14,9 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
-import ch.hsr.faith.android.app.domain.UserAccount;
 import ch.hsr.faith.android.app.dto.UserAccountResponse;
 import ch.hsr.faith.android.app.services.RegisterUserAccountRequest;
+import ch.hsr.faith.domain.UserAccount;
 
 public class RegisterUserAccountActivity extends BaseActivity {
 
@@ -54,12 +54,10 @@ public class RegisterUserAccountActivity extends BaseActivity {
 	}
 
 	public void registerButtonClicked(View view) {
-		String userName = ((EditText) findViewById(R.id.editUserAccountUserName)).getText().toString();
 		String email = ((EditText) findViewById(R.id.editUserAccountEmail)).getText().toString();
 		String password = ((EditText) findViewById(R.id.editUserAccountPasswort)).getText().toString();
 
 		UserAccount user = new UserAccount();
-		user.setUserName(userName);
 		user.setEmail(email);
 		user.setPassword(password);
 

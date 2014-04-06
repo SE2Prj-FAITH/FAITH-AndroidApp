@@ -11,7 +11,6 @@
     
     <string name="registeruser_form_title">Please enter the following information to create a new user account:</string>
 	<string name="labelUserAccountUserId">id</string>
-    <string name="labelUserAccountUserName">Username</string>
     <string name="labelUserAccountPassword">Password</string>
     <string name="labelUserAccountEmail">E-Mail</string>
     <string name="registeruser_confirmation_title">Thanks for registering. Your account information:</string>

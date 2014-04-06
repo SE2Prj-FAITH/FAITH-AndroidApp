@@ -1,8 +1,8 @@
 package ch.hsr.faith.android.app.services;
 
-import ch.hsr.faith.android.app.domain.UserAccount;
 import ch.hsr.faith.android.app.dto.UserAccountResponse;
 import ch.hsr.faith.android.app.util.PropertyReader;
+import ch.hsr.faith.domain.UserAccount;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 

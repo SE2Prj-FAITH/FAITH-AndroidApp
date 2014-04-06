@@ -12,11 +12,11 @@ import android.widget.ExpandableListView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.adapters.ExpandableListAdapter;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
-import ch.hsr.faith.android.app.domain.FurnitureCategory;
-import ch.hsr.faith.android.app.domain.FurnitureCategoryList;
+import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
 import ch.hsr.faith.android.app.dto.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.services.FurnitureCategoriesRootRequest;
 import ch.hsr.faith.android.app.util.PropertyReader;
+import ch.hsr.faith.domain.FurnitureCategory;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 

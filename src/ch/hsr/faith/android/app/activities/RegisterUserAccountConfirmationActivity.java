@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
-import ch.hsr.faith.android.app.domain.UserAccount;
+import ch.hsr.faith.domain.UserAccount;
 
 public class RegisterUserAccountConfirmationActivity extends BaseActivity {
 
@@ -41,11 +41,9 @@ public class RegisterUserAccountConfirmationActivity extends BaseActivity {
 
 	private void fillData(UserAccount userAccount) {
 		TextView idTextView = (TextView) findViewById(R.id.textViewUserAccountUserId);
-		TextView userNameTextView = (TextView) findViewById(R.id.textViewUserAccountUserName);
 		TextView emailTextView = (TextView) findViewById(R.id.textViewUserAccountEmail);
 
 		idTextView.setText(userAccount.getId().toString());
-		userNameTextView.setText(userAccount.getUserName());
 		emailTextView.setText(userAccount.getEmail());
 	}
 

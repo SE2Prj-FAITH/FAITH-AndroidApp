@@ -9,10 +9,16 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<faith-domain-version>1.0.1-SNAPSHOT</faith-domain-version>
 		<robospice.version>1.4.11</robospice.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>ch.hsr.faith</groupId>
+			<artifactId>faith-domain</artifactId>
+			<version>${faith-domain-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
