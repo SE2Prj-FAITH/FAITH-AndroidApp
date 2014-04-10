@@ -18,7 +18,7 @@ public class RegisterUserAccountConfirmationActivity extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.registeruseraccount, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 

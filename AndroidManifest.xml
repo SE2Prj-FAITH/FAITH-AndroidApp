@@ -38,6 +38,14 @@
             android:name="ch.hsr.faith.android.app.activities.RegisterUserAccountConfirmationActivity"
             android:label="@string/title_activity_register_user_acccount_confirmation" >
         </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.AboutFaithActivity"
+            android:label="@string/title_activity_about_faith" >
+        </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>
