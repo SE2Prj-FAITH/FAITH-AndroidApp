@@ -10,6 +10,9 @@ import org.springframework.web.client.RestTemplate;
 
 import android.app.Application;
 
+import ch.hsr.faith.android.app.util.LocaleUtil;
+import ch.hsr.faith.android.app.util.PropertyReader;
+
 import com.octo.android.robospice.SpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.exception.CacheCreationException;
@@ -17,8 +20,6 @@ import com.octo.android.robospice.persistence.springandroid.json.jackson.Jackson
 
 public class JSONService extends SpringAndroidSpiceService {
 
-	public static final String SERVICE_BASE_URL_PROPERTY_KEY = "base_url";
-	
 	@Override
 	public CacheManager createCacheManager(Application application) throws CacheCreationException {
 		CacheManager cacheManager = new CacheManager();
@@ -42,5 +43,9 @@ public class JSONService extends SpringAndroidSpiceService {
 		listHttpMessageConverters.add(stringHttpMessageConverter);
 		restTemplate.setMessageConverters(listHttpMessageConverters);
 		return restTemplate;
+	}
+
+	public static String getServiceUrl(String serviceName) {
+		return PropertyReader.getProperty("base_url") + serviceName + "?lang=" + LocaleUtil.getCurrentLocale() + "&";
 	}
 }
