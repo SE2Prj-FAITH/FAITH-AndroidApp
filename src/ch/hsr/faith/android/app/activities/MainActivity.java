@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.adapters.ExpandableListAdapter;
