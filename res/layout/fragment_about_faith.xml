@@ -16,6 +16,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="43dp"
-        android:text="About this application" />
+        android:text="@string/about_application_text" />
 
 </RelativeLayout>
