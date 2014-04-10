@@ -15,6 +15,7 @@ import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
 import ch.hsr.faith.android.app.dto.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.services.FurnitureCategoriesRootRequest;
+import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.android.app.util.PropertyReader;
 import ch.hsr.faith.domain.FurnitureCategory;
 
@@ -98,7 +99,7 @@ public class MainActivity extends BaseActivity {
 		@Override
 		protected void handleSuccess(FurnitureCategoryList data) {
 			for (FurnitureCategory s : data) {
-				listDataHeader.add(s.getName());
+				listDataHeader.add(s.getName().getText(LocaleUtil.getCurrentLocale()));
 			}
 			listAdapter.notifyDataSetChanged();
 		}
