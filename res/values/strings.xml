@@ -8,11 +8,13 @@
     <string name="title_activity_register_user_acccount">Register new Account</string>
     <string name="title_activity_register_user_acccount_confirmation">Account registered</string>
     <string name="button_register">Register</string>
-    
     <string name="registeruser_form_title">Please enter the following information to create a new user account:</string>
-	<string name="labelUserAccountUserId">id</string>
+    <string name="labelUserAccountUserId">id</string>
     <string name="labelUserAccountPassword">Password</string>
     <string name="labelUserAccountEmail">E-Mail</string>
     <string name="registeruser_confirmation_title">Thanks for registering. Your account information:</string>
+    <string name="title_activity_about_faith">About this application</string>
+    <string name="about_application">About</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>
