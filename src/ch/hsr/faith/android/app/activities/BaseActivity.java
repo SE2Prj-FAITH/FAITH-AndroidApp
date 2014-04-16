@@ -45,12 +45,20 @@ public class BaseActivity extends Activity {
 		case R.id.action_registeruseraccount:
 			onRegisterItemClick(item);
 			return true;
+		case R.id.action_loginuseraccount:
+			onLoginItemClick(item);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
 	
+	private void onLoginItemClick(MenuItem item) {
+		Intent intent = new Intent(this.getBaseContext(), LoginUserAccountActivity.class);
+		startActivity(intent);
+	}
+
 	private void onSettingsItemClick(MenuItem item) {
 		Intent intent = new Intent(this.getBaseContext(), SettingsActivity.class);
 		startActivity(intent);

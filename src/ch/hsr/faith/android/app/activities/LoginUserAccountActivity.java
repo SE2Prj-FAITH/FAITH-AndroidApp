@@ -14,29 +14,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
+import ch.hsr.faith.android.app.dto.LoginUserAccountResponse;
 import ch.hsr.faith.android.app.dto.UserAccountResponse;
-import ch.hsr.faith.android.app.services.RegisterUserAccountRequest;
+import ch.hsr.faith.android.app.services.LoginUserAccountRequest;
 import ch.hsr.faith.domain.UserAccount;
 
-public class RegisterUserAccountActivity extends BaseActivity {
+public class LoginUserAccountActivity extends BaseActivity {
 
 	private TextView failuresTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_registeruseraccount);
+		setContentView(R.layout.activity_login_user_account);
+		
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		failuresTextView = (TextView) findViewById(R.id.RegisterUserFailures);
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,40 +43,28 @@ public class RegisterUserAccountActivity extends BaseActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void registerButtonClicked(View view) {
-		String email = ((EditText) findViewById(R.id.editUserAccountEmail)).getText().toString();
-		String password = ((EditText) findViewById(R.id.editUserAccountPasswort)).getText().toString();
+	public void LoginButtonClicked(View view) {
+		String email = ((EditText) findViewById(R.id.EditTextEmail)).getText().toString();
+		String password = ((EditText) findViewById(R.id.EditTextPassword)).getText().toString();
 
 		UserAccount user = new UserAccount();
 		user.setEmail(email);
 		user.setPassword(password);
 
-		failuresTextView.setText("");
-		failuresTextView.setVisibility(TextView.INVISIBLE);
-
-		RegisterUserAccountRequest request = new RegisterUserAccountRequest(user);
-		spiceManager.execute(request, new RegisterUserAccountRequestListener(this));
+		
+		LoginUserAccountRequest request = new LoginUserAccountRequest(user);
+		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
 	}
 
-	private class RegisterUserAccountRequestListener extends BaseRequestListener<UserAccountResponse, UserAccount> {
+	private class LoginUserAccountRequestListener extends BaseRequestListener<LoginUserAccountResponse, String> {
 
-		public RegisterUserAccountRequestListener(BaseActivity baseActivity) {
+		public LoginUserAccountRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
 
-		@Override
-		protected void handleSuccess(UserAccount userAccount) {
-			Intent intent = new Intent(baseActivity, RegisterUserAccountConfirmationActivity.class);
-			intent.putExtra("registeredUserAccount", userAccount);
-			startActivity(intent);
-		}
 
 		@Override
 		protected void handleFailures(List<String> failures) {
@@ -89,6 +74,13 @@ public class RegisterUserAccountActivity extends BaseActivity {
 			}
 			failuresTextView.setText(failureText);
 			failuresTextView.setVisibility(TextView.VISIBLE);
+		}
+
+		@Override
+		protected void handleSuccess(String data) {
+			Intent intent = new Intent(baseActivity, MainActivity.class);
+			intent.putExtra("LogedInUserAccount", data);
+			startActivity(intent);
 		}
 	}
 
@@ -102,7 +94,7 @@ public class RegisterUserAccountActivity extends BaseActivity {
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_registeruseraccount, container, false);
+			View rootView = inflater.inflate(R.layout.fragment_login_user_account, container, false);
 			return rootView;
 		}
 	}
