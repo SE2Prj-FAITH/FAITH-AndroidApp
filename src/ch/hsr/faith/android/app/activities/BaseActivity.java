@@ -3,9 +3,11 @@ package ch.hsr.faith.android.app.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.services.JSONService;
 
@@ -14,7 +16,20 @@ import com.octo.android.robospice.SpiceManager;
 public class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
-
+	
+	SharedPreferences loginData;
+	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";
+	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
+	
+	protected String getUserEmail() { 
+		return loginData.getString(faithLoginEmailPreferenceName, null);
+	}
+	
+	protected String getUserPassword() { 
+		return loginData.getString(faithLoginPasswordPreferenceName, null);
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,6 +38,7 @@ public class BaseActivity extends Activity {
 				showErrorDialog(throwable.getMessage());
 			}
 		});
+		loginData = getSharedPreferences("FAIHT-LOGIN-DATE", 0);
 	}
 
 	@Override

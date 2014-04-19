@@ -8,7 +8,8 @@ import ch.hsr.faith.android.app.dto.BaseJSONResponse;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> implements RequestListener<T> {
+public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R>
+		implements RequestListener<T> {
 
 	protected BaseActivity baseActivity;
 
@@ -17,7 +18,28 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 	}
 
 	public void onRequestFailure(SpiceException spiceException) {
-		baseActivity.showErrorDialog(spiceException.getMessage());
+
+		if (spiceException.getCause().getMessage().equals("401 Unauthorized")) {
+			class WrapperJSONResponse extends BaseJSONResponse<R> {
+				@Override
+				public String getStatus() {
+					return STATUS_FAIL;
+				}
+
+				@Override
+				public String getErrorMessage() {
+					return "Invalid Credentials";
+				}
+
+				@Override
+				public R getData() {
+					return null;
+				}
+			}
+			onRequestSuccess((T) new WrapperJSONResponse());
+		} else {
+			baseActivity.showErrorDialog(spiceException.getMessage());
+		}
 	}
 
 	public void onRequestSuccess(T result) {

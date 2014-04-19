@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +35,16 @@ public class LoginUserAccountActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	public void onStart() { 
+		super.onStart();
+		EditText emailField =  ((EditText) findViewById(R.id.EditTextEmail));
+		EditText passwordField =  ((EditText) findViewById(R.id.EditTextPassword));
+		
+		emailField.setText(getUserEmail());
+		passwordField.setText("");
+		passwordField.requestFocus();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,9 +65,17 @@ public class LoginUserAccountActivity extends BaseActivity {
 		user.setEmail(email);
 		user.setPassword(password);
 
+		storeCredentialsOnSharedMemory(user);
 		
 		LoginUserAccountRequest request = new LoginUserAccountRequest(user);
 		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
+	}
+	
+	private void storeCredentialsOnSharedMemory(UserAccount user) { 
+		Editor editor = loginData.edit();
+		editor.putString(faithLoginEmailPreferenceName, user.getEmail());
+		editor.putString(faithLoginPasswordPreferenceName, user.getPassword());
+		editor.apply();
 	}
 
 	private class LoginUserAccountRequestListener extends BaseRequestListener<LoginUserAccountResponse, String> {
@@ -69,14 +88,15 @@ public class LoginUserAccountActivity extends BaseActivity {
 		@Override
 		protected void handleFailures(List<String> failures) {
 			Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
+			EditText passwordField =  ((EditText) findViewById(R.id.EditTextPassword));
+			passwordField.setText("");
+			passwordField.requestFocus();
 		}
 
 		@Override
 		protected void handleSuccess(String data) {
 			Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
-			Intent intent = new Intent(baseActivity, MainActivity.class);
-			intent.putExtra("LogedInUserAccount", data);
-			startActivity(intent);
+			finish();
 		}
 	}
 
