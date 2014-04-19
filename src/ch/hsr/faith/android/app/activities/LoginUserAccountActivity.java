@@ -28,19 +28,19 @@ public class LoginUserAccountActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_user_account);
-		
 
 		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
+			getFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
 	@Override
-	public void onStart() { 
+	public void onStart() {
 		super.onStart();
-		EditText emailField =  ((EditText) findViewById(R.id.EditTextEmail));
-		EditText passwordField =  ((EditText) findViewById(R.id.EditTextPassword));
-		
+		EditText emailField = ((EditText) findViewById(R.id.EditTextEmail));
+		EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
+
 		emailField.setText(getUserEmail());
 		passwordField.setText("");
 		passwordField.requestFocus();
@@ -58,44 +58,51 @@ public class LoginUserAccountActivity extends BaseActivity {
 	}
 
 	public void LoginButtonClicked(View view) {
-		String email = ((EditText) findViewById(R.id.EditTextEmail)).getText().toString();
-		String password = ((EditText) findViewById(R.id.EditTextPassword)).getText().toString();
+		String email = ((EditText) findViewById(R.id.EditTextEmail)).getText()
+				.toString();
+		String password = ((EditText) findViewById(R.id.EditTextPassword))
+				.getText().toString();
 
 		UserAccount user = new UserAccount();
 		user.setEmail(email);
 		user.setPassword(password);
 
 		storeCredentialsOnSharedMemory(user);
-		
+
 		LoginUserAccountRequest request = new LoginUserAccountRequest(user);
-		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
+		spiceManager
+				.execute(request, new LoginUserAccountRequestListener(this));
 	}
-	
-	private void storeCredentialsOnSharedMemory(UserAccount user) { 
+
+	private void storeCredentialsOnSharedMemory(UserAccount user) {
 		Editor editor = loginData.edit();
 		editor.putString(faithLoginEmailPreferenceName, user.getEmail());
 		editor.putString(faithLoginPasswordPreferenceName, user.getPassword());
 		editor.apply();
 	}
 
-	private class LoginUserAccountRequestListener extends BaseRequestListener<LoginUserAccountResponse, String> {
+	private class LoginUserAccountRequestListener extends
+			BaseRequestListener<LoginUserAccountResponse, String> {
 
 		public LoginUserAccountRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
 
-
 		@Override
 		protected void handleFailures(List<String> failures) {
-			Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
-			EditText passwordField =  ((EditText) findViewById(R.id.EditTextPassword));
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.authentication_message_failure),
+					Toast.LENGTH_LONG).show();
+			EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 			passwordField.setText("");
 			passwordField.requestFocus();
 		}
 
 		@Override
 		protected void handleSuccess(String data) {
-			Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.authentication_message_success),
+					Toast.LENGTH_LONG).show();
 			finish();
 		}
 	}
@@ -109,8 +116,10 @@ public class LoginUserAccountActivity extends BaseActivity {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_login_user_account, container, false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(
+					R.layout.fragment_login_user_account, container, false);
 			return rootView;
 		}
 	}
