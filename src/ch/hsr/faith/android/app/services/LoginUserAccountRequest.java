@@ -12,29 +12,15 @@ import ch.hsr.faith.domain.UserAccount;
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 public class LoginUserAccountRequest extends
-		SpringAndroidSpiceRequest<LoginUserAccountResponse> {
-
-	private String user;
-	private String password;
+		AuthenticatedRequest<LoginUserAccountResponse> {
 
 	public LoginUserAccountRequest(UserAccount user) {
-		super(LoginUserAccountResponse.class);
-		this.user = user.getEmail();
-		this.password = user.getPassword();
+		super(user, LoginUserAccountResponse.class);
 	}
 
 	@Override
 	public LoginUserAccountResponse loadDataFromNetwork() throws Exception {
-		HttpAuthentication authHeader = new HttpBasicAuthentication(user,
-				password);
-		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.setAuthorization(authHeader);
-		HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-
-		return getRestTemplate().exchange(
-				JSONService.getServiceUrl("/useraccount/login"),
-				HttpMethod.GET, requestEntity,
-				LoginUserAccountResponse.class).getBody();
+		return loadDataFromGetRequest(JSONService.getServiceUrl("/useraccount/login"));
 	}
 
 	public String createCacheKey() {

@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.LoginUserAccountResponse;
-import ch.hsr.faith.android.app.dto.UserAccountResponse;
 import ch.hsr.faith.android.app.services.LoginUserAccountRequest;
 import ch.hsr.faith.domain.UserAccount;
 
@@ -68,16 +68,12 @@ public class LoginUserAccountActivity extends BaseActivity {
 
 		@Override
 		protected void handleFailures(List<String> failures) {
-			String failureText = new String();
-			for (String string : failures) {
-				failureText = failureText + string + "\n";
-			}
-			failuresTextView.setText(failureText);
-			failuresTextView.setVisibility(TextView.VISIBLE);
+			Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_LONG).show();
 		}
 
 		@Override
 		protected void handleSuccess(String data) {
+			Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
 			Intent intent = new Intent(baseActivity, MainActivity.class);
 			intent.putExtra("LogedInUserAccount", data);
 			startActivity(intent);
