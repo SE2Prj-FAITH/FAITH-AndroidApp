@@ -11,8 +11,7 @@ import ch.hsr.faith.domain.UserAccount;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-public class AuthenticatedRequest<ResponseType> extends
-		SpringAndroidSpiceRequest<ResponseType> {
+public abstract class AuthenticatedRequest<ResponseType> extends SpringAndroidSpiceRequest<ResponseType> {
 	private UserAccount credentials;
 	private Class<ResponseType> responseType;
 
@@ -22,38 +21,25 @@ public class AuthenticatedRequest<ResponseType> extends
 		this.credentials = credentials;
 	}
 
-	public ResponseType loadDataFromGetRequest(String url)
-			throws Exception {
- 
-		ResponseEntity<ResponseType> response = getRestTemplate().exchange(url,
-				HttpMethod.GET, getRequestEntity(), ((Class<ResponseType>) responseType));
+	public ResponseType loadDataFromGetRequest(String url) throws Exception {
+		ResponseEntity<ResponseType> response = getRestTemplate().exchange(url, HttpMethod.GET, getRequestEntity(), ((Class<ResponseType>) responseType));
 		return response.getBody();
 	}
-	
-	public ResponseType loadDataFromPostRequest(String url, Object body)
-			throws Exception {
- 
-		ResponseEntity<ResponseType> response = getRestTemplate().exchange(url,
-				HttpMethod.POST, getRequestEntity(), ((Class<ResponseType>) responseType), body);
+
+	public ResponseType loadDataFromPostRequest(String url, Object body) throws Exception {
+		ResponseEntity<ResponseType> response = getRestTemplate().exchange(url, HttpMethod.POST, getRequestEntity(body), ((Class<ResponseType>) responseType));
 		return response.getBody();
 	}
 
 	private HttpEntity<Object> getRequestEntity() {
+		return getRequestEntity(null);
+	}
 
-		HttpAuthentication authHeader = new HttpBasicAuthentication(
-				credentials.getEmail(), credentials.getPassword());
+	private HttpEntity<Object> getRequestEntity(Object body) {
+		HttpAuthentication authHeader = new HttpBasicAuthentication(credentials.getEmail(), credentials.getPassword());
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setAuthorization(authHeader);
-		HttpEntity<Object> requestEntity = new HttpEntity<Object>(
-				requestHeaders);
+		HttpEntity<Object> requestEntity = new HttpEntity<Object>(body, requestHeaders);
 		return requestEntity;
 	}
-
-	@Override
-	public ResponseType loadDataFromNetwork() throws Exception {
-		// FIXME mvetsch :  This method must be overwritten by the subclass
-		// 					I guess this is ugly!
-		throw new RuntimeException("This method is not intended to call, must be overwritten.");
-	}
-
 }

@@ -8,8 +8,7 @@ import ch.hsr.faith.android.app.dto.BaseJSONResponse;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R>
-		implements RequestListener<T> {
+public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> implements RequestListener<T> {
 
 	protected BaseActivity baseActivity;
 

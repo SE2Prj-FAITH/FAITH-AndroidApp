@@ -3,7 +3,6 @@ package ch.hsr.faith.android.app.activities;
 import java.util.List;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
@@ -21,8 +19,6 @@ import ch.hsr.faith.android.app.services.LoginUserAccountRequest;
 import ch.hsr.faith.domain.UserAccount;
 
 public class LoginUserAccountActivity extends BaseActivity {
-
-	private TextView failuresTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
