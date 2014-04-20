@@ -33,9 +33,6 @@ public class MainActivity extends BaseActivity {
 		loadSystemProperties();
 	}
 
-	
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +50,6 @@ public class MainActivity extends BaseActivity {
 		// setting list adapter
 		expListView.setAdapter(listAdapter);
 	}
-
 
 	/**
 	 * Laedt alle Hauptkategorien (Furniture-Categories)

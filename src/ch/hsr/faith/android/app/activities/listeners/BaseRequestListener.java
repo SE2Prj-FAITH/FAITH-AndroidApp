@@ -15,6 +15,7 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 
 	public BaseRequestListener(BaseActivity baseActivity) {
 		this.baseActivity = baseActivity;
+		showRequestProgressDialogOnGUI();
 	}
 
 	public void onRequestFailure(SpiceException spiceException) {
@@ -23,6 +24,7 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		} else {
 			baseActivity.showErrorDialog(spiceException.getMessage());
 		}
+		hideRequestProgressDialogOnGUI();
 	}
 
 	public void onRequestSuccess(T result) {
@@ -35,6 +37,7 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		} else {
 			baseActivity.showErrorDialog("Service returned unknown response status!");
 		}
+		hideRequestProgressDialogOnGUI();
 	}
 
 	private boolean isErrorAnAuthenticationFailure(SpiceException spiceException) {
@@ -51,6 +54,14 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		// By default, if there is a login failure, app shows a text 'invalid
 		// credentials'. Override this method to handle more specific!
 		Toast.makeText(baseActivity.getApplicationContext(), baseActivity.getString(ch.hsr.faith.android.app.R.string.authentication_message_failure), Toast.LENGTH_LONG).show();
+	}
+
+	private void showRequestProgressDialogOnGUI() {
+		baseActivity.showRequestProgressDialog(baseActivity.getString(ch.hsr.faith.android.app.R.string.request_progress_dialog_loading));
+	}
+
+	private void hideRequestProgressDialogOnGUI() {
+		baseActivity.hideRequestProgressDialog();
 	}
 
 }

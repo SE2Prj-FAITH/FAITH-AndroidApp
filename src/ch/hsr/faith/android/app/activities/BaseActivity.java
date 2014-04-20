@@ -2,6 +2,7 @@ package ch.hsr.faith.android.app.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,20 +16,20 @@ import com.octo.android.robospice.SpiceManager;
 public class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
-	
-	SharedPreferences loginData;
+	protected SharedPreferences loginData;
 	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";
 	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
-	
-	protected String getUserEmail() { 
+
+	private ProgressDialog requestProgressDialog;
+
+	protected String getUserEmail() {
 		return loginData.getString(faithLoginEmailPreferenceName, null);
 	}
-	
-	protected String getUserPassword() { 
+
+	protected String getUserPassword() {
 		return loginData.getString(faithLoginPasswordPreferenceName, null);
 	}
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class BaseActivity extends Activity {
 			}
 		});
 		loginData = getSharedPreferences("FAIHT-LOGIN-DATE", 0);
+		requestProgressDialog = new ProgressDialog(this);
 	}
 
 	@Override
@@ -68,7 +70,6 @@ public class BaseActivity extends Activity {
 		}
 	}
 
-	
 	private void onLoginItemClick(MenuItem item) {
 		Intent intent = new Intent(this.getBaseContext(), LoginUserAccountActivity.class);
 		startActivity(intent);
@@ -89,7 +90,6 @@ public class BaseActivity extends Activity {
 		startActivity(intent);
 	}
 
-	
 	public void showErrorDialog(String message) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		AlertDialog dialog = builder.create();
@@ -97,6 +97,17 @@ public class BaseActivity extends Activity {
 		dialog.setMessage("Error orrured: " + message);
 		dialog.setIcon(android.R.drawable.ic_dialog_alert);
 		dialog.show();
+	}
+
+	public void showRequestProgressDialog(String message) {
+		requestProgressDialog.setMessage(message);
+		requestProgressDialog.setCancelable(false);
+		requestProgressDialog.show();
+	}
+
+	public void hideRequestProgressDialog() {
+		if (requestProgressDialog.isShowing())
+			requestProgressDialog.dismiss();
 	}
 
 	@Override
