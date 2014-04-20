@@ -50,6 +50,13 @@
             android:name="ch.hsr.faith.android.app.activities.LoginUserAccountActivity"
             android:label="@string/title_activity_login_user_account" >
         </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.FacilitiesActivity"
+            android:label="@string/title_activity_facilities" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hsr.faith.android.app.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
