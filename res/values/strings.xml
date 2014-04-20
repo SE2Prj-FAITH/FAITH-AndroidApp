@@ -23,7 +23,11 @@
     <string name="authentication_button_text">Log in</string>
     <string name="authentication_message_success">authentication successful</string>
     <string name="authentication_message_failure">invalid credentials</string>
+
     <string name="title_activity_furniture_main">Furniture</string>
     <string name="title_activity_facility_main">Facility</string>
+
+    <string name="request_progress_dialog_loading">Loading &#8230;</string>
+
 
 </resources>

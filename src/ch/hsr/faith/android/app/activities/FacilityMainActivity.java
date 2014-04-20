@@ -1,25 +1,11 @@
 package ch.hsr.faith.android.app.activities;
 
-import ch.hsr.faith.android.app.R;
-import ch.hsr.faith.android.app.R.id;
-import ch.hsr.faith.android.app.R.layout;
-import ch.hsr.faith.android.app.R.menu;
-import ch.hsr.faith.android.app.R.string;
-import android.app.Activity;
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import ch.hsr.faith.android.app.R;
 
 public class FacilityMainActivity extends Activity implements
 		ActionBar.OnNavigationListener {
