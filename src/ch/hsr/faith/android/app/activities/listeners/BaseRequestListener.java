@@ -2,6 +2,7 @@ package ch.hsr.faith.android.app.activities.listeners;
 
 import java.util.List;
 
+import android.widget.Toast;
 import ch.hsr.faith.android.app.activities.BaseActivity;
 import ch.hsr.faith.android.app.dto.BaseJSONResponse;
 
@@ -14,10 +15,16 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 
 	public BaseRequestListener(BaseActivity baseActivity) {
 		this.baseActivity = baseActivity;
+		showRequestProgressDialogOnGUI();
 	}
 
 	public void onRequestFailure(SpiceException spiceException) {
-		baseActivity.showErrorDialog(spiceException.getMessage());
+		if (isErrorAnAuthenticationFailure(spiceException)) {
+			handleAuthenticationFailure();
+		} else {
+			baseActivity.showErrorDialog(spiceException.getMessage());
+		}
+		hideRequestProgressDialogOnGUI();
 	}
 
 	public void onRequestSuccess(T result) {
@@ -30,12 +37,31 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		} else {
 			baseActivity.showErrorDialog("Service returned unknown response status!");
 		}
+		hideRequestProgressDialogOnGUI();
+	}
+
+	private boolean isErrorAnAuthenticationFailure(SpiceException spiceException) {
+		return spiceException.getCause().getMessage().equals("401 Unauthorized");
 	}
 
 	protected abstract void handleSuccess(R data);
 
 	protected void handleFailures(List<String> failures) {
 		// By default, failures are not handled. Override this method to handle!
+	}
+
+	protected void handleAuthenticationFailure() {
+		// By default, if there is a login failure, app shows a text 'invalid
+		// credentials'. Override this method to handle more specific!
+		Toast.makeText(baseActivity.getApplicationContext(), baseActivity.getString(ch.hsr.faith.android.app.R.string.authentication_message_failure), Toast.LENGTH_LONG).show();
+	}
+
+	private void showRequestProgressDialogOnGUI() {
+		baseActivity.showRequestProgressDialog(baseActivity.getString(ch.hsr.faith.android.app.R.string.request_progress_dialog_loading));
+	}
+
+	private void hideRequestProgressDialogOnGUI() {
+		baseActivity.hideRequestProgressDialog();
 	}
 
 }

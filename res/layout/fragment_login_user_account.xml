@@ -17,7 +17,11 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="37dp"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:hint="@string/authentication_email_field_default_text"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/EditTextPassword"
@@ -26,10 +30,9 @@
         android:layout_alignLeft="@+id/EditTextEmail"
         android:layout_below="@+id/EditTextEmail"
         android:ems="10"
-        android:inputType="textPassword"
-        android:text="Password" >
+        android:hint="@string/authentication_password_field_default_text"
+        android:inputType="textPassword">
 
-        <requestFocus />
     </EditText>
 
     <Button
@@ -39,7 +42,7 @@
         android:layout_alignLeft="@+id/EditTextPassword"
         android:layout_below="@+id/EditTextPassword"
         android:layout_marginTop="18dp"
-        android:text="Authenticate"
-    	android:onClick="LoginButtonClicked" />
+        android:onClick="LoginButtonClicked"
+        android:text="@string/authentication_button_text" />
 
 </RelativeLayout>

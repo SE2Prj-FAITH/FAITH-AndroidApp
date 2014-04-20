@@ -1,9 +1,7 @@
 package ch.hsr.faith.android.app.activities;
 
-import java.util.List;
-
 import android.app.Fragment;
-import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,29 +9,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.LoginUserAccountResponse;
-import ch.hsr.faith.android.app.dto.UserAccountResponse;
 import ch.hsr.faith.android.app.services.LoginUserAccountRequest;
 import ch.hsr.faith.domain.UserAccount;
 
 public class LoginUserAccountActivity extends BaseActivity {
 
-	private TextView failuresTextView;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_user_account);
-		
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
+	@Override
+	public void onStart() {
+		super.onStart();
+		EditText emailField = ((EditText) findViewById(R.id.EditTextEmail));
+		EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
+
+		emailField.setText(getUserEmail());
+		passwordField.setText("");
+		passwordField.requestFocus();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,9 +58,17 @@ public class LoginUserAccountActivity extends BaseActivity {
 		user.setEmail(email);
 		user.setPassword(password);
 
-		
+		storeCredentialsOnSharedMemory(user);
+
 		LoginUserAccountRequest request = new LoginUserAccountRequest(user);
 		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
+	}
+
+	private void storeCredentialsOnSharedMemory(UserAccount user) {
+		Editor editor = loginData.edit();
+		editor.putString(faithLoginEmailPreferenceName, user.getEmail());
+		editor.putString(faithLoginPasswordPreferenceName, user.getPassword());
+		editor.apply();
 	}
 
 	private class LoginUserAccountRequestListener extends BaseRequestListener<LoginUserAccountResponse, String> {
@@ -65,22 +77,18 @@ public class LoginUserAccountActivity extends BaseActivity {
 			super(baseActivity);
 		}
 
-
 		@Override
-		protected void handleFailures(List<String> failures) {
-			String failureText = new String();
-			for (String string : failures) {
-				failureText = failureText + string + "\n";
-			}
-			failuresTextView.setText(failureText);
-			failuresTextView.setVisibility(TextView.VISIBLE);
+		protected void handleAuthenticationFailure() {
+			super.handleAuthenticationFailure();
+			EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
+			passwordField.setText("");
+			passwordField.requestFocus();
 		}
 
 		@Override
 		protected void handleSuccess(String data) {
-			Intent intent = new Intent(baseActivity, MainActivity.class);
-			intent.putExtra("LogedInUserAccount", data);
-			startActivity(intent);
+			Toast.makeText(getApplicationContext(), getString(R.string.authentication_message_success), Toast.LENGTH_LONG).show();
+			finish();
 		}
 	}
 
