@@ -1,4 +1,4 @@
-package ch.hsr.faith.android.app.dto;
+package ch.hsr.faith.android.app.services.response;
 
 
 public class LoginUserAccountResponse extends BaseJSONResponse<String> {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import android.widget.Toast;
 import ch.hsr.faith.android.app.activities.BaseActivity;
-import ch.hsr.faith.android.app.dto.BaseJSONResponse;
+import ch.hsr.faith.android.app.services.response.BaseJSONResponse;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;

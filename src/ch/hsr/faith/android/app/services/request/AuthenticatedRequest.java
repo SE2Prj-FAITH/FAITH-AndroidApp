@@ -1,4 +1,4 @@
-package ch.hsr.faith.android.app.services;
+package ch.hsr.faith.android.app.services.request;
 
 import org.springframework.http.HttpAuthentication;
 import org.springframework.http.HttpBasicAuthentication;

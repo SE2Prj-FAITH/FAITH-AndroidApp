@@ -1,8 +1,9 @@
-package ch.hsr.faith.android.app.services;
+package ch.hsr.faith.android.app.services.request;
 
 import org.springframework.web.client.RestClientException;
 
-import ch.hsr.faith.android.app.dto.FurnitureCategoryListResponse;
+import ch.hsr.faith.android.app.services.JSONService;
+import ch.hsr.faith.android.app.services.response.FurnitureCategoryListResponse;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
