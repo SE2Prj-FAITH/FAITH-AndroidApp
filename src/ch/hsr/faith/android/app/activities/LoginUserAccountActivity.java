@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
-import ch.hsr.faith.android.app.dto.LoginUserAccountResponse;
-import ch.hsr.faith.android.app.services.LoginUserAccountRequest;
+import ch.hsr.faith.android.app.services.request.LoginUserAccountRequest;
+import ch.hsr.faith.android.app.services.response.LoginUserAccountResponse;
 import ch.hsr.faith.domain.UserAccount;
 
 public class LoginUserAccountActivity extends BaseActivity {

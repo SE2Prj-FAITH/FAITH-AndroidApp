@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
-import ch.hsr.faith.android.app.dto.UserAccountResponse;
-import ch.hsr.faith.android.app.services.RegisterUserAccountRequest;
+import ch.hsr.faith.android.app.services.request.RegisterUserAccountRequest;
+import ch.hsr.faith.android.app.services.response.UserAccountResponse;
 import ch.hsr.faith.domain.UserAccount;
 
 public class RegisterUserAccountActivity extends BaseActivity {
