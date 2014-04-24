@@ -11,10 +11,10 @@
         android:showAsAction="never"
         android:title="@string/activity_register_user" />
     <item
-        android:id="@+id/action_facilities"
+        android:id="@+id/action_facilities_management"
         android:orderInCategory="2"
         android:showAsAction="never"
-        android:title="@string/action_facilities" />
+        android:title="@string/action_facilities_management" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="9"

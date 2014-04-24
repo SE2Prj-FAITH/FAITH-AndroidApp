@@ -57,6 +57,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.hsr.faith.android.app.activities.BaseActivity" />
         </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.FacilitiesActivity"
+            android:label="@string/title_activity_facilities" >
+        </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.FacilitiesManagementActivity"
+            android:label="@string/title_activity_facilities_management" >
+        </activity>
     </application>
 
 </manifest>
