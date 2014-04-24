@@ -1,24 +1,32 @@
 package ch.hsr.faith.android.app.activities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
-import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
-import ch.hsr.faith.android.app.dto.FurnitureCategoryListResponse;
-import ch.hsr.faith.android.app.services.FacilitiesGetRequest;
-import ch.hsr.faith.android.app.services.FurnitureCategoriesRootRequest;
-import ch.hsr.faith.android.app.util.LocaleUtil;
-import ch.hsr.faith.domain.FurnitureCategory;
+import ch.hsr.faith.android.app.dto.FacilityList;
+import ch.hsr.faith.android.app.services.request.FacilitiesGetRequest;
+import ch.hsr.faith.android.app.services.response.FacilityListResponse;
+import ch.hsr.faith.domain.Facility;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 public class FacilitiesManagementActivity extends BaseActivity {
+	private String lastFacilitiesGetByCategoryRequestCacheKey;
+
+	ArrayList<String> listData;
+	private FacilityAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,50 +36,66 @@ public class FacilitiesManagementActivity extends BaseActivity {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-
+	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.facilities_management, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	protected void onStart() {
+		super.onStart();
+		loadFacilityList();
 	}
 	
-	/*private void loadFacilityList() {
-		FacilitiesGetRequest request = new FacilitiesGetRequest();
-		lastFurnitureCategoriesRootRequestCacheKey = request.createCacheKey();
+	private void loadFacilityList() {
+		FacilitiesGetRequest request = new FacilitiesGetRequest(getUserAccount());
+		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
 		spiceManager.execute(request,
-				lastFurnitureCategoriesRootRequestCacheKey,
+				lastFacilitiesGetByCategoryRequestCacheKey,
 				DurationInMillis.ONE_MINUTE,
-				new FurnitureCategoriesListRequestListener(this));
+				new FacilitiesListRequestListener(this));
 	}
 
-	private class FurnitureCategoriesListRequestListener
-			extends
-			BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList> {
+	private class FacilitiesListRequestListener extends BaseRequestListener<FacilityListResponse, FacilityList> {
 
-		public FurnitureCategoriesListRequestListener(BaseActivity baseActivity) {
+		public FacilitiesListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
 
 		@Override
-		protected void handleSuccess(FurnitureCategoryList data) {
-			for (FurnitureCategory s : data) {
-				listDataHeader.add(s.getName().getText(
-						LocaleUtil.getCurrentLocale()));
+		protected void handleSuccess(FacilityList data) {
+			for (Facility facility : data) {
+				adapter.add(facility);
 			}
-			listAdapter.notifyDataSetChanged();
+			adapter.notifyDataSetChanged();
 		}
 		
-		// hier handleAuthenticationFailure() von BaseRequestListener überschreiben um direkt zu Login Activity zu gelangen
-	}*/
+		@Override
+		protected void handleAuthenticationFailure() {
+			Intent intent = new Intent(FacilitiesManagementActivity.this.getBaseContext(), LoginUserAccountActivity.class);
+			startActivity(intent);
+		}
+	}
+	
+	private class FacilityAdapter extends ArrayAdapter<Facility> {
+
+		public FacilityAdapter(Context context, int textViewResourceId, List<Facility> objects) {
+			super(context, textViewResourceId, objects);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			Facility facility = getItem(position);
+			if (convertView == null) {
+				convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, null);
+			}
+			TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
+			textView.setText(facility.getName());
+			return convertView;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			Facility facility = super.getItem(position);
+			return facility.getId();
+		}
+	}
 
 
 	/**

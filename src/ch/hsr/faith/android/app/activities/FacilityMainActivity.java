@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
+import ch.hsr.faith.android.app.dto.FacilityCategoryList;
+import ch.hsr.faith.android.app.services.request.FacilityCategoriesGetAllRequest;
+import ch.hsr.faith.android.app.services.response.FacilityCategoryListResponse;
 import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.domain.FacilityCategory;
 

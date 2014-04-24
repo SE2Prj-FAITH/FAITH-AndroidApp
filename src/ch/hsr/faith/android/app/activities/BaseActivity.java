@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.services.JSONService;
+import ch.hsr.faith.domain.UserAccount;
 
 import com.octo.android.robospice.SpiceManager;
 
@@ -21,6 +22,13 @@ public class BaseActivity extends Activity {
 	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
 
 	private ProgressDialog requestProgressDialog;
+	
+	protected UserAccount getUserAccount() {
+		UserAccount authUser = new UserAccount();
+		authUser.setEmail(getUserEmail());
+		authUser.setPassword(getUserPassword());
+		return authUser;
+	}
 
 	protected String getUserEmail() {
 		return loginData.getString(faithLoginEmailPreferenceName, null);
