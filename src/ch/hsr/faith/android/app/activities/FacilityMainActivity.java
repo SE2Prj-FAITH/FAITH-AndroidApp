@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,6 +56,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 		facilityCategoriesListView = (ListView) findViewById(R.id.facilityMain_ListView);
 		adapter = new FacilityCategoryAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<FacilityCategory>());
 		facilityCategoriesListView.setAdapter(adapter);
+		facilityCategoriesListView.setOnItemClickListener(new OnFacilityCategoryClickedListener());
 	}
 
 	/**
@@ -118,6 +121,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 
 		@Override
 		protected void handleSuccess(FacilityCategoryList data) {
+			adapter.clear();
 			for (FacilityCategory facilityCategory : data) {
 				adapter.add(facilityCategory);
 			}
@@ -146,6 +150,20 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 		public long getItemId(int position) {
 			FacilityCategory category = super.getItem(position);
 			return category.getId();
+		}
+	}
+
+	private class OnFacilityCategoryClickedListener implements OnItemClickListener {
+
+		public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+			FacilityCategory facilityCategory = (FacilityCategory) facilityCategoriesListView.getItemAtPosition(position);
+			openFacilitiesList(facilityCategory);
+		}
+
+		private void openFacilitiesList(FacilityCategory facilityCategory) {
+			Intent intent = new Intent(FacilityMainActivity.this, FacilitiesTabActivity.class);
+			intent.putExtra("facilityCategory", facilityCategory);
+			startActivity(intent);
 		}
 	}
 

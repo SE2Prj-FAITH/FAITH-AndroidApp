@@ -53,9 +53,10 @@
         <activity
             android:name="ch.hsr.faith.android.app.activities.FacilityMainActivity"
             android:label="@string/title_activity_facility_main" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.hsr.faith.android.app.activities.BaseActivity" />
+        </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.FacilitiesTabActivity"
+            android:label="@string/title_activity_facilities_tabbed" >
         </activity>
     </application>
 
