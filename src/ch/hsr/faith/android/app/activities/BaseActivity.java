@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.services.JSONService;
+import ch.hsr.faith.domain.UserAccount;
 
 import com.octo.android.robospice.SpiceManager;
 
@@ -21,6 +22,13 @@ public abstract class BaseActivity extends Activity {
 	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
 
 	private ProgressDialog requestProgressDialog;
+	
+	protected UserAccount getUserAccount() {
+		UserAccount authUser = new UserAccount();
+		authUser.setEmail(getUserEmail());
+		authUser.setPassword(getUserPassword());
+		return authUser;
+	}
 
 	protected String getUserEmail() {
 		return loginData.getString(faithLoginEmailPreferenceName, null);
@@ -28,6 +36,10 @@ public abstract class BaseActivity extends Activity {
 
 	protected String getUserPassword() {
 		return loginData.getString(faithLoginPasswordPreferenceName, null);
+	}
+	
+	protected boolean isLoggedIn() {
+		return true;
 	}
 
 	@Override
@@ -65,6 +77,9 @@ public abstract class BaseActivity extends Activity {
 		case R.id.action_loginuseraccount:
 			onLoginItemClick(item);
 			return true;
+		case R.id.action_facilities_management:
+			onFacilitiesItemClick(item);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -85,8 +100,13 @@ public abstract class BaseActivity extends Activity {
 		startActivity(intent);
 	}
 
-	public void onRegisterItemClick(MenuItem mi) {
+	private void onRegisterItemClick(MenuItem mi) {
 		Intent intent = new Intent(this.getBaseContext(), RegisterUserAccountActivity.class);
+		startActivity(intent);
+	}
+
+	private void onFacilitiesItemClick(MenuItem mi) {
+		Intent intent = new Intent(this.getBaseContext(), FacilitiesManagementActivity.class);
 		startActivity(intent);
 	}
 

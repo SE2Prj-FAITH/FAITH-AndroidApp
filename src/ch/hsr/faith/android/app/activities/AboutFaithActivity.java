@@ -20,9 +20,6 @@ public class AboutFaithActivity extends BaseActivity {
 		}
 	}
 
-	
-
-	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

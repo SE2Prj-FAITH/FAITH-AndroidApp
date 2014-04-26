@@ -18,6 +18,8 @@
     <string name="title_activity_settings">Settings</string>
     <string name="about_application_text">About our application some information</string>
     <string name="title_activity_login_user_account">Log in</string>
+    <string name="action_facilities_management">Facilities</string>
+    <string name="title_activity_facilities">Organize Facilities</string>
     <string name="authentication_email_field_default_text">E-mail</string>
     <string name="authentication_password_field_default_text">Password</string>
     <string name="authentication_button_text">Log in</string>
@@ -29,5 +31,6 @@
     <string name="activity_facilities_tabbed_tab_list">List</string>
     <string name="activity_facilities_tabbed_tab_map">Map</string>
     <string name="title_activity_facilities_tabbed">Facilities</string>
+    <string name="title_activity_facilities_management">Manage Facilities</string>
 
 </resources>
