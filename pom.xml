@@ -11,6 +11,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<faith-domain-version>1.0.1-SNAPSHOT</faith-domain-version>
 		<robospice.version>1.4.11</robospice.version>
+		<slf4j-version>1.7.7</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<android-log4j-version>1.0.3</android-log4j-version>
 	</properties>
 
 	<dependencies>
@@ -49,6 +52,28 @@
 			<groupId>com.octo.android.robospice</groupId>
 			<artifactId>robospice-google-http-client</artifactId>
 			<version>${robospice.version}</version>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.mindpipe.android</groupId>
+			<artifactId>android-logging-log4j</artifactId>
+			<version>${android-log4j-version}</version>
 		</dependency>
 	</dependencies>
 
