@@ -28,6 +28,10 @@
     <string name="title_activity_furniture_main">Furniture</string>
     <string name="title_activity_facility_main">Facility</string>
     <string name="request_progress_dialog_loading">Loading &#8230;</string>
+    <string name="activity_facilities_tabbed_tab_list">List</string>
+    <string name="activity_facilities_tabbed_tab_map">Map</string>
+    <string name="title_activity_facilities_tabbed">Facilities</string>
     <string name="title_activity_facilities_management">Manage Facilities</string>
+    <string name="facility_rowitem_level_image_description">Level Symbol</string>
 
 </resources>

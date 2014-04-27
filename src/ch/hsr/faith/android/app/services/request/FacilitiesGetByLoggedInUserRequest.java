@@ -6,8 +6,9 @@ import ch.hsr.faith.android.app.services.JSONService;
 import ch.hsr.faith.android.app.services.response.FacilityListResponse;
 import ch.hsr.faith.domain.UserAccount;
 
-public class FacilitiesGetRequest extends AuthenticatedRequest<FacilityListResponse> {
-	public FacilitiesGetRequest() {
+
+public class FacilitiesGetByLoggedInUserRequest extends AuthenticatedRequest<FacilityListResponse> {
+	public FacilitiesGetByLoggedInUserRequest() {
 		// Vorübergehender Dummy UserAccount
 		super(new UserAccount(), FacilityListResponse.class);
 	}
@@ -18,6 +19,6 @@ public class FacilitiesGetRequest extends AuthenticatedRequest<FacilityListRespo
 	}
 
 	public String createCacheKey() {
-		return "facilities.all";
+		return "facilities.byUserAccount";
 	}
 }

@@ -14,7 +14,7 @@ import ch.hsr.faith.domain.UserAccount;
 
 import com.octo.android.robospice.SpiceManager;
 
-public class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
 	protected SharedPreferences loginData;

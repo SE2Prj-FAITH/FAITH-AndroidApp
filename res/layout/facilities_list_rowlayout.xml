@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent"
+   android:paddingLeft="16dp"
+   android:paddingRight="16dp"
+   android:paddingTop="16dp"
+   android:paddingBottom="16dp" >
+
+    <TextView
+      android:id="@+id/facility_rowitem_category_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_toLeftOf="@+id/facility_rowitem_distance"
+      android:textSize="9pt" />
+   <TextView
+      android:id="@+id/facility_rowitem_distance"
+      android:layout_width="70dp"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:textSize="8pt" />
+   <TextView
+      android:id="@+id/facility_rowitem_facility_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/facility_rowitem_category_name"
+      android:layout_alignParentLeft="true"
+      android:layout_toLeftOf="@+id/facility_rowitem_level_image"
+      android:textSize="11pt" />
+   <ImageView 
+      android:id="@+id/facility_rowitem_level_image" 
+      android:layout_width="70dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/facility_rowitem_distance"
+      android:layout_alignParentRight="true"
+      android:contentDescription="@string/facility_rowitem_level_image_description"
+      android:visibility="invisible" />
+   
+</RelativeLayout>

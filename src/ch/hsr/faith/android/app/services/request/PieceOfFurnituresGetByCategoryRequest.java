@@ -8,11 +8,11 @@ import ch.hsr.faith.domain.FurnitureCategory;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
-public class PieceOfFurnituresGetRequest extends SpringAndroidSpiceRequest<PieceOfFurnitureListResponse> {
+public class PieceOfFurnituresGetByCategoryRequest extends SpringAndroidSpiceRequest<PieceOfFurnitureListResponse> {
 
 	private FurnitureCategory furnitureCategory;
 
-	public PieceOfFurnituresGetRequest(FurnitureCategory furnitureCategory) {
+	public PieceOfFurnituresGetByCategoryRequest(FurnitureCategory furnitureCategory) {
 		super(PieceOfFurnitureListResponse.class);
 		this.furnitureCategory = furnitureCategory;
 	}
