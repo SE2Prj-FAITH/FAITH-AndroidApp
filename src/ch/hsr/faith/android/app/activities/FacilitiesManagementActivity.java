@@ -44,7 +44,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	}
 	
 	private void loadFacilityList() {
-		FacilitiesGetRequest request = new FacilitiesGetRequest(getUserAccount());
+		FacilitiesGetRequest request = new FacilitiesGetRequest();
 		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
 		spiceManager.execute(request,
 				lastFacilitiesGetByCategoryRequestCacheKey,

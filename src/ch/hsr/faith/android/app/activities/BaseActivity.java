@@ -22,13 +22,6 @@ public class BaseActivity extends Activity {
 	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
 
 	private ProgressDialog requestProgressDialog;
-	
-	protected UserAccount getUserAccount() {
-		UserAccount authUser = new UserAccount();
-		authUser.setEmail(getUserEmail());
-		authUser.setPassword(getUserPassword());
-		return authUser;
-	}
 
 	protected String getUserEmail() {
 		return loginData.getString(faithLoginEmailPreferenceName, null);
@@ -36,6 +29,13 @@ public class BaseActivity extends Activity {
 
 	protected String getUserPassword() {
 		return loginData.getString(faithLoginPasswordPreferenceName, null);
+	}
+	
+	protected UserAccount getUserAccount() {
+		UserAccount authUser = new UserAccount();
+		authUser.setEmail(getUserEmail());
+		authUser.setPassword(getUserPassword());
+		return authUser;
 	}
 	
 	protected boolean isLoggedIn() {
