@@ -18,4 +18,8 @@ public class FacilitiesMapFragment extends Fragment {
 		return view;
 	}
 
+	public void updateData() {
+		// update facilities on map view ...
+	}
+
 }

@@ -25,5 +25,5 @@ public class FacilitiesTabListener implements ActionBar.TabListener {
 	public void onTabReselected(Tab tab, FragmentTransaction fragmentTransaction) {
 		// do nothing
 	}
-	
+
 }

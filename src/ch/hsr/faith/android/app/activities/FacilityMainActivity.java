@@ -142,6 +142,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 				convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, null);
 			}
 			TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
+			textView.setTextSize(17);
 			textView.setText(facilityCategory.getName().getText(LocaleUtil.getCurrentLocale()));
 			return convertView;
 		}

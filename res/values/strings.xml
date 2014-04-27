@@ -32,5 +32,6 @@
     <string name="activity_facilities_tabbed_tab_map">Map</string>
     <string name="title_activity_facilities_tabbed">Facilities</string>
     <string name="title_activity_facilities_management">Manage Facilities</string>
+    <string name="facility_rowitem_level_image_description">Level Symbol</string>
 
 </resources>
