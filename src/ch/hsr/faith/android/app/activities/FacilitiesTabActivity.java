@@ -1,14 +1,13 @@
 package ch.hsr.faith.android.app.activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.FacilitiesTabListener;
 import ch.hsr.faith.domain.FacilityCategory;
 
-public class FacilitiesTabActivity extends Activity {
+public class FacilitiesTabActivity extends BaseActivity {
 
 	private ActionBar.Tab tabFacilitiesList;
 	private ActionBar.Tab tabFacilitiesMap;

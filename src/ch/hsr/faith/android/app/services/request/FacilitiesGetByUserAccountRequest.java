@@ -1,22 +1,23 @@
 package ch.hsr.faith.android.app.services.request;
 
+import ch.hsr.faith.android.app.services.JSONService;
 import ch.hsr.faith.android.app.services.response.FacilityListResponse;
 import ch.hsr.faith.domain.UserAccount;
 
-public class FacilitiesGetRequest extends AuthenticatedRequest<FacilityListResponse> {
+public class FacilitiesGetByUserAccountRequest extends AuthenticatedRequest<FacilityListResponse> {
 	private UserAccount ownerAccount;
 	
-	public FacilitiesGetRequest(UserAccount ownerAccount) {
+	public FacilitiesGetByUserAccountRequest(UserAccount ownerAccount) {
 		super(ownerAccount, FacilityListResponse.class);
 		this.ownerAccount = ownerAccount;
 	}
 
 	@Override
 	public FacilityListResponse loadDataFromNetwork() throws Exception {
-		return loadDataFromGetRequest("/facilities/findByUserAccountId/" + ownerAccount.getId());
+		return loadDataFromGetRequest(JSONService.getServiceUrl("/facilities/findByUserAccountId/" + ownerAccount.getId()));
 	}
 
 	public String createCacheKey() {
-		return "facilities.all";
+		return "facilities.byUserAccount";
 	}
 }

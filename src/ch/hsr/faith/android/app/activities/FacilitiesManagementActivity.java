@@ -15,7 +15,7 @@ import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FacilityList;
-import ch.hsr.faith.android.app.services.request.FacilitiesGetRequest;
+import ch.hsr.faith.android.app.services.request.FacilitiesGetByUserAccountRequest;
 import ch.hsr.faith.android.app.services.response.FacilityListResponse;
 import ch.hsr.faith.domain.Facility;
 
@@ -44,7 +44,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	}
 	
 	private void loadFacilityList() {
-		FacilitiesGetRequest request = new FacilitiesGetRequest(getUserAccount());
+		FacilitiesGetByUserAccountRequest request = new FacilitiesGetByUserAccountRequest(getUserAccount());
 		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
 		spiceManager.execute(request,
 				lastFacilitiesGetByCategoryRequestCacheKey,
