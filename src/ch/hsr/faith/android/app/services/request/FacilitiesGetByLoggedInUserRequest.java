@@ -8,14 +8,24 @@ import ch.hsr.faith.domain.UserAccount;
 
 
 public class FacilitiesGetByLoggedInUserRequest extends AuthenticatedRequest<FacilityListResponse> {
+	// Vorübergehender Dummy UserAccount
+	static UserAccount authUser;
+	
 	public FacilitiesGetByLoggedInUserRequest() {
-		// Vorübergehender Dummy UserAccount
-		super(new UserAccount(), FacilityListResponse.class);
+		super(getUser(), FacilityListResponse.class);
+	}
+	
+	private static UserAccount getUser() {
+		UserAccount authUser = new UserAccount();
+		authUser.setEmail("all@facilities.owner");
+		authUser.setPassword("1234");
+		authUser.setId(2421L);
+		return authUser;
 	}
 
 	@Override
 	public FacilityListResponse loadDataFromNetwork() throws RestClientException {
-		return getRestTemplate().getForObject(JSONService.getServiceUrl("/facility/findByUsersFacilities"), FacilityListResponse.class);
+		return getRestTemplate().getForObject(JSONService.getServiceUrl("/facilities/findUsersFacilities"), FacilityListResponse.class);
 	}
 
 	public String createCacheKey() {

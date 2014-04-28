@@ -3,6 +3,8 @@ package ch.hsr.faith.android.app.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +29,9 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	ArrayList<String> listData;
 	private FacilityAdapter adapter;
 	
+
+	Logger logger = Logger.getRootLogger();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,10 +51,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	private void loadFacilityList() {
 		FacilitiesGetByLoggedInUserRequest request = new FacilitiesGetByLoggedInUserRequest();
 		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
-		spiceManager.execute(request,
-				lastFacilitiesGetByCategoryRequestCacheKey,
-				DurationInMillis.ONE_MINUTE,
-				new FacilitiesListRequestListener(this));
+		spiceManager.execute(request, lastFacilitiesGetByCategoryRequestCacheKey, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
 	}
 
 	private class FacilitiesListRequestListener extends BaseRequestListener<FacilityListResponse, FacilityList> {
@@ -68,7 +70,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 		
 		@Override
 		protected void handleAuthenticationFailure() {
-			Intent intent = new Intent(FacilitiesManagementActivity.this.getBaseContext(), LoginUserAccountActivity.class);
+			Intent intent = new Intent(baseActivity, LoginUserAccountActivity.class);
 			startActivity(intent);
 		}
 	}
