@@ -7,15 +7,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import ch.hsr.faith.domain.UserAccount;
+import ch.hsr.faith.android.app.util.Login;
 
 import com.octo.android.robospice.request.springandroid.SpringAndroidSpiceRequest;
 
 public abstract class AuthenticatedRequest<ResponseType> extends SpringAndroidSpiceRequest<ResponseType> {
-	private UserAccount credentials;
+	private Login credentials;
 	private Class<ResponseType> responseType;
 
-	public AuthenticatedRequest(UserAccount credentials, Class<ResponseType> responseType) {
+	public AuthenticatedRequest(Login credentials, Class<ResponseType> responseType) {
 		super((Class<ResponseType>) responseType);
 		this.responseType = responseType;
 		this.credentials = credentials;
