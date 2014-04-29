@@ -5,14 +5,16 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
@@ -24,22 +26,22 @@ import ch.hsr.faith.domain.Facility;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 public class FacilitiesManagementActivity extends BaseActivity {
+	Logger logger = Logger.getRootLogger();
 	private String lastFacilitiesGetByCategoryRequestCacheKey;
 
 	ArrayList<String> listData;
+	private ListView facilityListView;
 	private FacilityAdapter adapter;
-	
-
-	Logger logger = Logger.getRootLogger();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_facilities_management);
 
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		facilityListView = (ListView) findViewById(R.id.facilitiesManagement_ListView);
+		adapter = new FacilityAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<Facility>());
+		facilityListView.setAdapter(adapter);
+		facilityListView.setOnItemClickListener(new OnFacilityClickedListener());
 	}
 	
 	@Override
@@ -49,7 +51,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	}
 	
 	private void loadFacilityList() {
-		FacilitiesGetByLoggedInUserRequest request = new FacilitiesGetByLoggedInUserRequest();
+		FacilitiesGetByLoggedInUserRequest request = new FacilitiesGetByLoggedInUserRequest(getLoginObject());
 		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
 		spiceManager.execute(request, lastFacilitiesGetByCategoryRequestCacheKey, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
 	}
@@ -62,6 +64,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 
 		@Override
 		protected void handleSuccess(FacilityList data) {
+			logger.debug("success part");
 			for (Facility facility : data) {
 				adapter.add(facility);
 			}
@@ -98,21 +101,18 @@ public class FacilitiesManagementActivity extends BaseActivity {
 			return facility.getId();
 		}
 	}
+	
+	private class OnFacilityClickedListener implements OnItemClickListener {
 
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
+		public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+			Facility facility= (Facility) facilityListView.getItemAtPosition(position);
+			openFacilitySettings(facility);
 		}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_facilities_management, container, false);
-			return rootView;
+		private void openFacilitySettings(Facility facility) {
+			Intent intent = new Intent(FacilitiesManagementActivity.this, FacilitySettingsActivity.class);
+			intent.putExtra("facility", facility);
+			startActivity(intent);
 		}
 	}
-
 }

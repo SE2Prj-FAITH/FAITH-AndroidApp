@@ -62,6 +62,13 @@
             android:name="ch.hsr.faith.android.app.activities.FacilitiesTabActivity"
             android:label="@string/title_activity_facilities_tabbed" >
         </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.FacilitySettingsActivity"
+            android:label="@string/title_activity_facility_settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.hsr.faith.android.app.activities.FacilitiesManagementActivity" />
+        </activity>
     </application>
 
 </manifest>

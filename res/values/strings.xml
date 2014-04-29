@@ -33,5 +33,6 @@
     <string name="title_activity_facilities_tabbed">Facilities</string>
     <string name="title_activity_facilities_management">Manage Facilities</string>
     <string name="facility_rowitem_level_image_description">Level Symbol</string>
+    <string name="title_activity_facility_settings">FacilitySettingsActivity</string>
 
 </resources>

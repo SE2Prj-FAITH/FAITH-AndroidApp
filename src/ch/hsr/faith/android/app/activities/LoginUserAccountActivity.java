@@ -14,7 +14,7 @@ import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.services.request.LoginUserAccountRequest;
 import ch.hsr.faith.android.app.services.response.LoginUserAccountResponse;
-import ch.hsr.faith.domain.UserAccount;
+import ch.hsr.faith.android.app.util.Login;
 
 public class LoginUserAccountActivity extends BaseActivity {
 
@@ -34,9 +34,11 @@ public class LoginUserAccountActivity extends BaseActivity {
 		EditText emailField = ((EditText) findViewById(R.id.EditTextEmail));
 		EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 
-		emailField.setText(getUserEmail());
-		passwordField.setText("");
-		passwordField.requestFocus();
+		if(getLoginObject().isAuthenticated()) { 
+			emailField.setText(getLoginObject().getEmail());
+			passwordField.setText("");
+			passwordField.requestFocus();
+		}
 	}
 
 	@Override
@@ -54,20 +56,18 @@ public class LoginUserAccountActivity extends BaseActivity {
 		String email = ((EditText) findViewById(R.id.EditTextEmail)).getText().toString();
 		String password = ((EditText) findViewById(R.id.EditTextPassword)).getText().toString();
 
-		UserAccount user = new UserAccount();
-		user.setEmail(email);
-		user.setPassword(password);
+		Login login = new Login(email, password);
 
-		storeCredentialsOnSharedMemory(user);
+		storeCredentialsOnSharedMemory(login);
 
-		LoginUserAccountRequest request = new LoginUserAccountRequest(user);
+		LoginUserAccountRequest request = new LoginUserAccountRequest(login);
 		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
 	}
 
-	private void storeCredentialsOnSharedMemory(UserAccount user) {
+	private void storeCredentialsOnSharedMemory(Login login) {
 		Editor editor = loginData.edit();
-		editor.putString(faithLoginEmailPreferenceName, user.getEmail());
-		editor.putString(faithLoginPasswordPreferenceName, user.getPassword());
+		editor.putString(faithLoginEmailPreferenceName, login.getEmail());
+		editor.putString(faithLoginPasswordPreferenceName, login.getPassword());
 		editor.apply();
 	}
 

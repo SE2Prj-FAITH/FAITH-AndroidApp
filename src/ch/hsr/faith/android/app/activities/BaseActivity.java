@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.services.JSONService;
-import ch.hsr.faith.domain.UserAccount;
+import ch.hsr.faith.android.app.util.Login;
 
 import com.octo.android.robospice.SpiceManager;
 
@@ -20,26 +20,17 @@ public abstract class BaseActivity extends Activity {
 	protected SharedPreferences loginData;
 	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";
 	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
+	private Login loginObject;
 
 	private ProgressDialog requestProgressDialog;
 
-	protected String getUserEmail() {
-		return loginData.getString(faithLoginEmailPreferenceName, null);
-	}
-
-	protected String getUserPassword() {
-		return loginData.getString(faithLoginPasswordPreferenceName, null);
-	}
-	
-	protected UserAccount getUserAccount() {
-		UserAccount authUser = new UserAccount();
-		authUser.setEmail(getUserEmail());
-		authUser.setPassword(getUserPassword());
-		return authUser;
-	}
-	
-	protected boolean isLoggedIn() {
-		return true;
+	protected Login getLoginObject() {
+		if (loginObject == null) {
+			String email = loginData.getString(faithLoginEmailPreferenceName, null);
+			String password = loginData.getString(faithLoginPasswordPreferenceName, null);
+			loginObject = new Login(email, password);
+		}
+		return loginObject;
 	}
 
 	@Override
