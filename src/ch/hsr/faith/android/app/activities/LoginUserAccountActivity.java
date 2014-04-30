@@ -14,6 +14,7 @@ import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.services.request.LoginUserAccountRequest;
 import ch.hsr.faith.android.app.services.response.LoginUserAccountResponse;
+import ch.hsr.faith.android.app.util.Login;
 
 public class LoginUserAccountActivity extends BaseActivity {
 

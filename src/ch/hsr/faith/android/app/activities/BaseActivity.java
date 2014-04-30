@@ -20,12 +20,9 @@ public abstract class BaseActivity extends Activity {
 	protected SharedPreferences loginData;
 	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";
 	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
-<<<<<<< HEAD
-	
-=======
+
 	private Login loginObject;
 
->>>>>>> f38dc444e4a67be143e5d605ddedd1043fa13104
 	private ProgressDialog requestProgressDialog;
 
 	protected Login getLoginObject() {
