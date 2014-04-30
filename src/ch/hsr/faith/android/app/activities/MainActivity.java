@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.adapters.ExpandableListAdapter;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
+import ch.hsr.faith.android.app.logging.Log4JConfigurator;
 import ch.hsr.faith.android.app.services.request.FurnitureCategoriesRootRequest;
 import ch.hsr.faith.android.app.services.response.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.util.LocaleUtil;
@@ -21,8 +24,7 @@ import ch.hsr.faith.domain.FurnitureCategory;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 
-public class MainActivity extends BaseActivity implements
-		ActionBar.OnNavigationListener {
+public class MainActivity extends BaseActivity implements ActionBar.OnNavigationListener {
 
 	private String lastFurnitureCategoriesRootRequestCacheKey;
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
@@ -49,18 +51,11 @@ public class MainActivity extends BaseActivity implements
 		actionBar.setDisplayHomeAsUpEnabled(false);
 
 		// Set up the dropdown list navigation in the action bar.
-		actionBar
-				.setListNavigationCallbacks(
-						// Specify a SpinnerAdapter to populate the dropdown
-						// list.
-						new ArrayAdapter<String>(
-								actionBar.getThemedContext(),
-								android.R.layout.simple_list_item_1,
-								android.R.id.text1,
-								new String[] {
-									getString(R.string.title_activity_furniture_main),
-										getString(R.string.title_activity_facility_main), }),
-						this);
+		actionBar.setListNavigationCallbacks(
+		// Specify a SpinnerAdapter to populate the dropdown
+		// list.
+				new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1, android.R.id.text1, new String[] {
+						getString(R.string.title_activity_furniture_main), getString(R.string.title_activity_facility_main), }), this);
 
 		// get the listview
 		expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -69,8 +64,7 @@ public class MainActivity extends BaseActivity implements
 		listDataChild = new HashMap<String, List<String>>();
 		loadFurnitureCategories();
 
-		listAdapter = new ExpandableListAdapter(this, listDataHeader,
-				listDataChild);
+		listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
 		// setting list adapter
 		expListView.setAdapter(listAdapter);
@@ -86,16 +80,14 @@ public class MainActivity extends BaseActivity implements
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		// Restore the previously serialized current dropdown position.
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-			getActionBar().setSelectedNavigationItem(
-					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
+			getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 		}
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// Serialize the current dropdown position.
-		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
-				.getSelectedNavigationIndex());
+		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar().getSelectedNavigationIndex());
 	}
 
 	public boolean onNavigationItemSelected(int position, long id) {
@@ -114,10 +106,9 @@ public class MainActivity extends BaseActivity implements
 	}
 
 	private void onFacilitySpinnerClick() {
-		Intent intent = new Intent(this.getBaseContext(),
-				FacilityMainActivity.class);
+		Intent intent = new Intent(this.getBaseContext(), FacilityMainActivity.class);
 		startActivity(intent);
-		//calling finish() on an activity, the method onDestroy() is executed
+		// calling finish() on an activity, the method onDestroy() is executed
 		finish();
 	}
 
@@ -128,15 +119,12 @@ public class MainActivity extends BaseActivity implements
 		MainActivity.this.setProgressBarIndeterminateVisibility(true);
 		FurnitureCategoriesRootRequest request = new FurnitureCategoriesRootRequest();
 		lastFurnitureCategoriesRootRequestCacheKey = request.createCacheKey();
-		spiceManager.execute(request,
-				lastFurnitureCategoriesRootRequestCacheKey,
-				DurationInMillis.ONE_MINUTE,
-				new FurnitureCategoriesListRequestListener(this));
+		spiceManager.execute(request, lastFurnitureCategoriesRootRequestCacheKey, DurationInMillis.ONE_MINUTE, new FurnitureCategoriesListRequestListener(this));
 	}
 
-	private class FurnitureCategoriesListRequestListener
-			extends
-			BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList> {
+	private class FurnitureCategoriesListRequestListener extends BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList> {
+
+		Logger logger = Logger.getRootLogger();
 
 		public FurnitureCategoriesListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
@@ -144,9 +132,9 @@ public class MainActivity extends BaseActivity implements
 
 		@Override
 		protected void handleSuccess(FurnitureCategoryList data) {
+			logger.debug("List with FurnitureCategories successfully loaded");
 			for (FurnitureCategory s : data) {
-				listDataHeader.add(s.getName().getText(
-						LocaleUtil.getCurrentLocale()));
+				listDataHeader.add(s.getName().getText(LocaleUtil.getCurrentLocale()));
 			}
 			listAdapter.notifyDataSetChanged();
 		}
@@ -154,6 +142,7 @@ public class MainActivity extends BaseActivity implements
 
 	private void loadSystemProperties() {
 		PropertyReader.initProperties(this);
+		Log4JConfigurator.configure();
 	}
 
 }
