@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 
+
 public class PropertyReader {
 
 	private static final String PROPERTY_FILE_NAME = "faith_app.properties";

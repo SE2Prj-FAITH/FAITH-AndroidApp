@@ -19,7 +19,7 @@ public class BaseActivity extends Activity {
 	protected SharedPreferences loginData;
 	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";
 	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
-
+	
 	private ProgressDialog requestProgressDialog;
 
 	protected String getUserEmail() {
@@ -30,6 +30,9 @@ public class BaseActivity extends Activity {
 		return loginData.getString(faithLoginPasswordPreferenceName, null);
 	}
 
+	
+
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

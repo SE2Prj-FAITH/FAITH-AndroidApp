@@ -27,7 +27,7 @@
     <string name="title_activity_furniture_main">Furniture</string>
     <string name="title_activity_facility_main">Facility</string>
 
-    <string name="request_progress_dialog_loading">Loading &#8230;</string>
-
-
+    <string name="request_progress_dialog_loading">Loading ...</string>
+	<string name="checkBoxSaveCurrentGpsLocation">Save my current GPS location</string>
+	<string name="dialog_alert_gps_disabled"> Your GPS is disabled. To receive exact location, please enable GPS in your phone settings.</string>
 </resources>

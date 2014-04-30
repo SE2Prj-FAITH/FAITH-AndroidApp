@@ -2,8 +2,6 @@ package ch.hsr.faith.android.app.activities.adapters;
 import java.util.HashMap;
 import java.util.List;
 
-import ch.hsr.faith.android.app.R;
- 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -11,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import ch.hsr.faith.android.app.R;
  
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
