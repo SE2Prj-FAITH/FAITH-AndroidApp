@@ -66,8 +66,8 @@ public class LoginUserAccountActivity extends BaseActivity {
 
 	private void storeCredentialsOnSharedMemory(Login login) {
 		Editor editor = loginData.edit();
-		editor.putString(faithLoginEmailPreferenceName, login.getEmail());
-		editor.putString(faithLoginPasswordPreferenceName, login.getPassword());
+		editor.putString(loginEmailPreferenceName, login.getEmail());
+		editor.putString(loginPasswordPreferenceName, login.getPassword());
 		editor.apply();
 	}
 

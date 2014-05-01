@@ -1,7 +1,7 @@
 package ch.hsr.faith.android.app.activities.listeners;
 
 import java.util.List;
-
+import ch.hsr.faith.android.app.R;
 import android.widget.Toast;
 import ch.hsr.faith.android.app.activities.BaseActivity;
 import ch.hsr.faith.android.app.services.response.BaseJSONResponse;
@@ -9,7 +9,7 @@ import ch.hsr.faith.android.app.services.response.BaseJSONResponse;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> implements RequestListener<T> {
+public abstract class BaseRequestListener<T extends BaseJSONResponse<S>, S> implements RequestListener<T> {
 
 	protected BaseActivity baseActivity;
 
@@ -35,7 +35,7 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_SUCCESS)) {
 			handleSuccess(result.getData());
 		} else {
-			baseActivity.showErrorDialog("Service returned unknown response status!");
+			baseActivity.showErrorDialog(baseActivity.getText(R.string.service_return_status_unknown).toString());
 		}
 		hideRequestProgressDialogOnGUI();
 	}
@@ -44,7 +44,7 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		return spiceException.getCause().getMessage().equals("401 Unauthorized");
 	}
 
-	protected abstract void handleSuccess(R data);
+	protected abstract void handleSuccess(S data);
 
 	protected void handleFailures(List<String> failures) {
 		// By default, failures are not handled. Override this method to handle!

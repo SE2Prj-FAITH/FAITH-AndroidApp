@@ -67,7 +67,6 @@ public class GeoLocationService extends BaseActivity {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 		}
 
-
 	};
 
 	LocationListener locationListenerNetwork = new LocationListener() {
@@ -125,9 +124,10 @@ public class GeoLocationService extends BaseActivity {
 
 	public static abstract class LocationResult {
 		public abstract void gotLocation(Location location);
+
 		public abstract Location getLoc();
+
 		public abstract void setLoc(Location location);
-		
-		
+
 	}
 }

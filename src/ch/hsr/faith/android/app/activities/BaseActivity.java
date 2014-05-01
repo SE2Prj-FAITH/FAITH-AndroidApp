@@ -18,25 +18,19 @@ public abstract class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
 	protected SharedPreferences loginData;
-	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";
-	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
-
+	protected static final String loginEmailPreferenceName = "LOGIN_EMAIL", loginDateSharedPreference = "FAITH-LOGIN-DATE", loginPasswordPreferenceName = "LOGIN_PASSWORD";
 	private Login loginObject;
-
 	private ProgressDialog requestProgressDialog;
 
 	protected Login getLoginObject() {
 		if (loginObject == null) {
-			String email = loginData.getString(faithLoginEmailPreferenceName, null);
-			String password = loginData.getString(faithLoginPasswordPreferenceName, null);
+			String email = loginData.getString(loginEmailPreferenceName, null);
+			String password = loginData.getString(loginPasswordPreferenceName, null);
 			loginObject = new Login(email, password);
 		}
 		return loginObject;
 	}
 
-	
-
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,7 +39,7 @@ public abstract class BaseActivity extends Activity {
 				showErrorDialog(throwable.getMessage());
 			}
 		});
-		loginData = getSharedPreferences("FAIHT-LOGIN-DATE", 0);
+		loginData = getSharedPreferences(loginDateSharedPreference, 0);
 		requestProgressDialog = new ProgressDialog(this);
 	}
 
@@ -108,8 +102,8 @@ public abstract class BaseActivity extends Activity {
 	public void showErrorDialog(String message) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		AlertDialog dialog = builder.create();
-		dialog.setTitle("Error");
-		dialog.setMessage("Error orrured: " + message);
+		dialog.setTitle(R.string.error);
+		dialog.setMessage(R.string.error_occured_message + message);
 		dialog.setIcon(android.R.drawable.ic_dialog_alert);
 		dialog.show();
 	}

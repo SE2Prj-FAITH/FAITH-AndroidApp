@@ -3,7 +3,6 @@ package ch.hsr.faith.android.app.activities;
 import org.apache.log4j.Logger;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.services.GeoLocationService;
@@ -24,9 +22,9 @@ public class SettingsActivity extends BaseActivity {
 	GeoLocationService.LocationResult locationResult;
 	private Editor editor;
 	protected SharedPreferences geoLocation;
-	protected String faithGeoLocationLatitudePreferenceName = "LOCATION_LATITUDE";
-	protected String faithGeoLocationLongitudePreferenceName = "LOCATION_LONGITUDE";
-	private static View checkBoxSaveGpsData;
+	protected static final String geoLocationLatitudePreferenceName = "LOCATION_LATITUDE", geoLocationLongitudePreferenceName = "LOCATION_LONGITUDE",
+			positionSharedPreference = "FAITH-POSITION";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,15 +33,18 @@ public class SettingsActivity extends BaseActivity {
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		geoLocation = getSharedPreferences("FAITH-Position", 0);
 
-		String latitudePreferencesString = geoLocation.getString(faithGeoLocationLatitudePreferenceName, null);
-		String longitudePreferencesString = geoLocation.getString(faithGeoLocationLongitudePreferenceName, null);
+	}
+
+	@Override
+	protected void onStart() {
+
+		String latitudePreferencesString = geoLocation.getString(geoLocationLatitudePreferenceName, null);
+		String longitudePreferencesString = geoLocation.getString(geoLocationLongitudePreferenceName, null);
 		if (latitudePreferencesString != null && longitudePreferencesString != null) {
-//			((CheckBox)checkBoxSaveGpsData).setChecked(true);
-			Toast.makeText(getApplicationContext(), "your position is already saved" , Toast.LENGTH_LONG).show();
+			View checkBoxSaveGpsData = findViewById(R.id.checkBoxSaveGpsData);
+			((CheckBox) checkBoxSaveGpsData).setChecked(true);
 		}
-
 	}
 
 	public void onCheckboxSaveGpsLocClicked(View view) {
@@ -106,12 +107,12 @@ public class SettingsActivity extends BaseActivity {
 
 		try {
 			editor = geoLocation.edit();
-			editor.putString(faithGeoLocationLatitudePreferenceName, String.valueOf((float) loc.getLatitude()));
-			editor.putString(faithGeoLocationLongitudePreferenceName, String.valueOf((float) loc.getLongitude()));
+			editor.putString(geoLocationLatitudePreferenceName, String.valueOf((float) loc.getLatitude()));
+			editor.putString(geoLocationLongitudePreferenceName, String.valueOf((float) loc.getLongitude()));
 			editor.apply();
 			Logger.getRootLogger().info(
-					"Wrote to shared preferences: Longitude -> " + geoLocation.getString(faithGeoLocationLongitudePreferenceName, "__nothing saved__") + " and Latitude -> "
-							+ geoLocation.getString(faithGeoLocationLatitudePreferenceName, " __nothing saved__"));
+					"Wrote to shared preferences: Longitude -> " + geoLocation.getString(geoLocationLongitudePreferenceName, "__nothing saved__") + " and Latitude -> "
+							+ geoLocation.getString(geoLocationLatitudePreferenceName, " __nothing saved__"));
 			Toast t = Toast.makeText(getApplicationContext(), "Location sucessfully saved ", Toast.LENGTH_LONG);
 			t.show();
 		} catch (Exception ex) {
@@ -139,7 +140,6 @@ public class SettingsActivity extends BaseActivity {
 			return rootView;
 		}
 
-		
 	}
 
 }
