@@ -59,53 +59,32 @@ public abstract class BaseActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.action_about:
-			onAboutItemClick(item);
+			startActivity(AboutFaithActivity.class);
 			return true;
 		case R.id.action_settings:
-			onSettingsItemClick(item);
+			startActivity(SettingsActivity.class);
 			return true;
 		case R.id.action_registeruseraccount:
-			onRegisterItemClick(item);
+			startActivity(RegisterUserAccountActivity.class);
 			return true;
 		case R.id.action_loginuseraccount:
-			onLoginItemClick(item);
+			startActivity(LoginUserAccountActivity.class);
 			return true;
 		case R.id.action_facilities_management:
-			onFacilitiesItemClick(item);
+			startActivity(FacilitiesManagementActivity.class);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void onLoginItemClick(MenuItem item) {
-		Intent intent = new Intent(this.getBaseContext(), LoginUserAccountActivity.class);
+	private void startActivity(Class<?> activityClass) { 
+		Intent intent = new Intent(this.getBaseContext(), activityClass);
 		startActivity(intent);
 	}
-
-	private void onSettingsItemClick(MenuItem item) {
-		Intent intent = new Intent(this.getBaseContext(), SettingsActivity.class);
-		startActivity(intent);
-	}
-
-	private void onAboutItemClick(MenuItem item) {
-		Intent intent = new Intent(this.getBaseContext(), AboutFaithActivity.class);
-		startActivity(intent);
-	}
-
-	private void onRegisterItemClick(MenuItem mi) {
-		Intent intent = new Intent(this.getBaseContext(), RegisterUserAccountActivity.class);
-		startActivity(intent);
-	}
-
-	private void onFacilitiesItemClick(MenuItem mi) {
-		Intent intent = new Intent(this.getBaseContext(), FacilitiesManagementActivity.class);
-		startActivity(intent);
-	}
-
+	
 	public void showErrorDialog(String message) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		AlertDialog dialog = builder.create();
