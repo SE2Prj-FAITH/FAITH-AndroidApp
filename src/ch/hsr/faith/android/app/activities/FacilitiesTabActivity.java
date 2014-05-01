@@ -5,9 +5,9 @@ import android.os.Bundle;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.activities.listeners.FacilitiesTabListener;
-import ch.hsr.faith.android.app.dto.FacilityList;
-import ch.hsr.faith.android.app.services.request.FacilitiesGetByCategoryRequest;
-import ch.hsr.faith.android.app.services.response.FacilityListResponse;
+import ch.hsr.faith.android.app.dto.FacilityWithDistanceList;
+import ch.hsr.faith.android.app.services.request.FacilitiesWithDistanceGetByCategoryRequest;
+import ch.hsr.faith.android.app.services.response.FacilityWithDistanceListResponse;
 import ch.hsr.faith.domain.FacilityCategory;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
@@ -20,7 +20,7 @@ public class FacilitiesTabActivity extends BaseActivity {
 	private FacilitiesMapFragment facilitiesMapFragment;
 
 	private FacilityCategory facilityCategory;
-	private FacilityList facilityList = new FacilityList();
+	private FacilityWithDistanceList facilityList = new FacilityWithDistanceList();
 
 	private String facilitiesGetByCategoryRequestCacheKey;
 
@@ -52,24 +52,26 @@ public class FacilitiesTabActivity extends BaseActivity {
 
 	private void loadFacilities() {
 		if (facilityCategory != null) {
-			FacilitiesGetByCategoryRequest request = new FacilitiesGetByCategoryRequest(facilityCategory);
+			// TODO: get current or saved location (now fixed location HSR is
+			// used)
+			FacilitiesWithDistanceGetByCategoryRequest request = new FacilitiesWithDistanceGetByCategoryRequest(facilityCategory, 47.22332, 8.81728);
 			facilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
 			spiceManager.execute(request, facilitiesGetByCategoryRequestCacheKey, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
 		}
 	}
 
-	public FacilityList getFacilityList() {
+	public FacilityWithDistanceList getFacilityList() {
 		return facilityList;
 	}
-	
-	private class FacilitiesListRequestListener extends BaseRequestListener<FacilityListResponse, FacilityList> {
+
+	private class FacilitiesListRequestListener extends BaseRequestListener<FacilityWithDistanceListResponse, FacilityWithDistanceList> {
 
 		public FacilitiesListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
 
 		@Override
-		protected void handleSuccess(FacilityList data) {
+		protected void handleSuccess(FacilityWithDistanceList data) {
 			facilityList = data;
 			FacilitiesTabActivity.this.facilitiesListFragment.updateData();
 			FacilitiesTabActivity.this.facilitiesMapFragment.updateData();

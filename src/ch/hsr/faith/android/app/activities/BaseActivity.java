@@ -18,14 +18,17 @@ public abstract class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
 	protected SharedPreferences loginData;
-	protected static final String loginEmailPreferenceName = "LOGIN_EMAIL", loginDateSharedPreference = "FAITH-LOGIN-DATE", loginPasswordPreferenceName = "LOGIN_PASSWORD";
+	protected static final String PREFERENCE_NAME_LOGIN_EMAIL = "LOGIN_EMAIL";
+	protected static final String PREFERENCE_NAME_LOGIN_PASWORD = "LOGIN_PASSWORD";
+	protected static final String PREFERENCE_NAME_LOGIN = "FAITH_LOGIN";
+
 	private Login loginObject;
 	private ProgressDialog requestProgressDialog;
 
 	protected Login getLoginObject() {
 		if (loginObject == null) {
-			String email = loginData.getString(loginEmailPreferenceName, null);
-			String password = loginData.getString(loginPasswordPreferenceName, null);
+			String email = loginData.getString(PREFERENCE_NAME_LOGIN_EMAIL, null);
+			String password = loginData.getString(PREFERENCE_NAME_LOGIN_PASWORD, null);
 			loginObject = new Login(email, password);
 		}
 		return loginObject;
@@ -39,7 +42,7 @@ public abstract class BaseActivity extends Activity {
 				showErrorDialog(throwable.getMessage());
 			}
 		});
-		loginData = getSharedPreferences(loginDateSharedPreference, 0);
+		loginData = getSharedPreferences(PREFERENCE_NAME_LOGIN, 0);
 		requestProgressDialog = new ProgressDialog(this);
 	}
 
@@ -52,50 +55,29 @@ public abstract class BaseActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.action_about:
-			onAboutItemClick(item);
+			startActivity(AboutFaithActivity.class);
 			return true;
 		case R.id.action_settings:
-			onSettingsItemClick(item);
+			startActivity(SettingsActivity.class);
 			return true;
 		case R.id.action_registeruseraccount:
-			onRegisterItemClick(item);
+			startActivity(RegisterUserAccountActivity.class);
 			return true;
 		case R.id.action_loginuseraccount:
-			onLoginItemClick(item);
+			startActivity(LoginUserAccountActivity.class);
 			return true;
 		case R.id.action_facilities_management:
-			onFacilitiesItemClick(item);
+			startActivity(FacilitiesManagementActivity.class);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void onLoginItemClick(MenuItem item) {
-		Intent intent = new Intent(this.getBaseContext(), LoginUserAccountActivity.class);
-		startActivity(intent);
-	}
-
-	private void onSettingsItemClick(MenuItem item) {
-		Intent intent = new Intent(this.getBaseContext(), SettingsActivity.class);
-		startActivity(intent);
-	}
-
-	private void onAboutItemClick(MenuItem item) {
-		Intent intent = new Intent(this.getBaseContext(), AboutFaithActivity.class);
-		startActivity(intent);
-	}
-
-	private void onRegisterItemClick(MenuItem mi) {
-		Intent intent = new Intent(this.getBaseContext(), RegisterUserAccountActivity.class);
-		startActivity(intent);
-	}
-
-	private void onFacilitiesItemClick(MenuItem mi) {
-		Intent intent = new Intent(this.getBaseContext(), FacilitiesManagementActivity.class);
+	private void startActivity(Class<?> activityClass) {
+		Intent intent = new Intent(this.getBaseContext(), activityClass);
 		startActivity(intent);
 	}
 
