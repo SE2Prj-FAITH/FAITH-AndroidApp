@@ -16,10 +16,10 @@ import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.services.GeoLocationService;
 
 public class SettingsActivity extends BaseActivity {
-
-	GeoLocationService geoLocationService;
-	boolean gotTheLocation;
-	GeoLocationService.LocationResult locationResult;
+	private Logger logger = Logger.getRootLogger();
+	private GeoLocationService geoLocationService;
+	private boolean gotTheLocation;
+	private GeoLocationService.LocationResult locationResult;
 	private Editor editor;
 	protected SharedPreferences geoLocation;
 	protected static final String geoLocationLatitudePreferenceName = "LOCATION_LATITUDE", geoLocationLongitudePreferenceName = "LOCATION_LONGITUDE",
@@ -38,7 +38,9 @@ public class SettingsActivity extends BaseActivity {
 
 	@Override
 	protected void onStart() {
-
+		super.onStart();
+		geoLocation = getSharedPreferences(positionSharedPreference, 0);
+		logger.info(geoLocation);
 		String latitudePreferencesString = geoLocation.getString(geoLocationLatitudePreferenceName, null);
 		String longitudePreferencesString = geoLocation.getString(geoLocationLongitudePreferenceName, null);
 		if (latitudePreferencesString != null && longitudePreferencesString != null) {
@@ -97,7 +99,6 @@ public class SettingsActivity extends BaseActivity {
 		editor = geoLocation.edit();
 		editor.clear();
 		editor.apply();
-
 		Toast t = Toast.makeText(getApplicationContext(), "Location sucessfully removed", Toast.LENGTH_LONG);
 		t.show();
 
@@ -110,9 +111,8 @@ public class SettingsActivity extends BaseActivity {
 			editor.putString(geoLocationLatitudePreferenceName, String.valueOf((float) loc.getLatitude()));
 			editor.putString(geoLocationLongitudePreferenceName, String.valueOf((float) loc.getLongitude()));
 			editor.apply();
-			Logger.getRootLogger().info(
-					"Wrote to shared preferences: Longitude -> " + geoLocation.getString(geoLocationLongitudePreferenceName, "__nothing saved__") + " and Latitude -> "
-							+ geoLocation.getString(geoLocationLatitudePreferenceName, " __nothing saved__"));
+			logger.info("Wrote to shared preferences: Longitude -> " + geoLocation.getString(geoLocationLongitudePreferenceName, null) + " and Latitude -> "
+					+ geoLocation.getString(geoLocationLatitudePreferenceName, null));
 			Toast t = Toast.makeText(getApplicationContext(), "Location sucessfully saved ", Toast.LENGTH_LONG);
 			t.show();
 		} catch (Exception ex) {
@@ -122,8 +122,11 @@ public class SettingsActivity extends BaseActivity {
 		return;
 	}
 
+	@Override
 	protected void onPause() {
-		geoLocationService.cancelTimer();
+		super.onPause();
+		if (geoLocationService != null)
+			geoLocationService.cancelTimer();
 	}
 
 	/**
