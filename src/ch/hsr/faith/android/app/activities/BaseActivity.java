@@ -18,8 +18,9 @@ public abstract class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
 	protected SharedPreferences loginData;
-	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";
-	protected String faithLoginPasswordPreferenceName = "LOGIN_PASSWORD";
+	protected static final String PREFERENCE_NAME_LOGIN_EMAIL = "LOGIN_EMAIL";
+	protected static final String PREFERENCE_NAME_LOGIN_PASWORD = "LOGIN_PASSWORD";
+	protected static final String PREFERENCE_NAME_LOGIN = "FAITH_LOGIN";
 
 	private Login loginObject;
 
@@ -27,8 +28,8 @@ public abstract class BaseActivity extends Activity {
 
 	protected Login getLoginObject() {
 		if (loginObject == null) {
-			String email = loginData.getString(faithLoginEmailPreferenceName, null);
-			String password = loginData.getString(faithLoginPasswordPreferenceName, null);
+			String email = loginData.getString(PREFERENCE_NAME_LOGIN_EMAIL, null);
+			String password = loginData.getString(PREFERENCE_NAME_LOGIN_PASWORD, null);
 			loginObject = new Login(email, password);
 		}
 		return loginObject;
@@ -45,7 +46,7 @@ public abstract class BaseActivity extends Activity {
 				showErrorDialog(throwable.getMessage());
 			}
 		});
-		loginData = getSharedPreferences("FAIHT-LOGIN-DATE", 0);
+		loginData = getSharedPreferences(PREFERENCE_NAME_LOGIN, 0);
 		requestProgressDialog = new ProgressDialog(this);
 	}
 

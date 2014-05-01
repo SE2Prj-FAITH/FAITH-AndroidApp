@@ -66,8 +66,14 @@ public class LoginUserAccountActivity extends BaseActivity {
 
 	private void storeCredentialsOnSharedMemory(Login login) {
 		Editor editor = loginData.edit();
-		editor.putString(faithLoginEmailPreferenceName, login.getEmail());
-		editor.putString(faithLoginPasswordPreferenceName, login.getPassword());
+		editor.putString(PREFERENCE_NAME_LOGIN_EMAIL, login.getEmail());
+		editor.putString(PREFERENCE_NAME_LOGIN_PASWORD, login.getPassword());
+		editor.apply();
+	}
+	
+	private void removePasswordFromSharedPreferences() { 
+		Editor editor = loginData.edit();
+		editor.remove(PREFERENCE_NAME_LOGIN_PASWORD);
 		editor.apply();
 	}
 
@@ -83,6 +89,8 @@ public class LoginUserAccountActivity extends BaseActivity {
 			EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 			passwordField.setText("");
 			passwordField.requestFocus();
+			
+			removePasswordFromSharedPreferences();
 		}
 
 		@Override
