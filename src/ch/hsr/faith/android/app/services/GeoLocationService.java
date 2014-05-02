@@ -12,12 +12,27 @@ import ch.hsr.faith.android.app.activities.BaseActivity;
 
 public class GeoLocationService extends BaseActivity {
 
-	Timer timer1;
-	LocationManager locationManager;
-	LocationResult locationResult;
-	boolean gps_enabled = false;
-	boolean network_enabled = false;
+	private Timer timer1;
+	private LocationManager locationManager;
+	protected LocationResult locationResult;
+	private boolean gps_enabled = false;
+	private boolean network_enabled = false;
 
+	public static final String geoLocationLatitudePreferenceName = "LOCATION_LATITUDE", geoLocationLongitudePreferenceName = "LOCATION_LONGITUDE",
+			positionSharedPreference = "FAITH-POSITION";
+	
+	public static String getGeoLocationLatitudePreferenceName() {
+		return geoLocationLatitudePreferenceName;
+	}
+
+	public static String getGeoLocationLongitudePreferenceName(){
+		return geoLocationLongitudePreferenceName;
+	}
+
+	public static String getPositionSharedPreference() {
+		return positionSharedPreference;
+	}
+	
 	public boolean invokeGettingLocation(Context context, LocationResult result) {
 		locationResult = result;
 		if (locationManager == null)
@@ -96,26 +111,26 @@ public class GeoLocationService extends BaseActivity {
 			locationManager.removeUpdates(locationListenerGps);
 			locationManager.removeUpdates(locationListenerNetwork);
 
-			Location net_loc = null, gps_loc = null;
+			Location networkLocation = null, gpsLocation = null;
 			if (gps_enabled)
-				gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+				gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 			if (network_enabled)
-				net_loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+				networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-			if (gps_loc != null && net_loc != null) {
-				if (gps_loc.getTime() > net_loc.getTime())
-					locationResult.gotLocation(gps_loc);
+			if (gpsLocation != null && networkLocation != null) {
+				if (gpsLocation.getTime() > networkLocation.getTime())
+					locationResult.gotLocation(gpsLocation);
 				else
-					locationResult.gotLocation(net_loc);
+					locationResult.gotLocation(networkLocation);
 				return;
 			}
 
-			if (gps_loc != null) {
-				locationResult.gotLocation(gps_loc);
+			if (gpsLocation != null) {
+				locationResult.gotLocation(gpsLocation);
 				return;
 			}
-			if (net_loc != null) {
-				locationResult.gotLocation(net_loc);
+			if (networkLocation != null) {
+				locationResult.gotLocation(networkLocation);
 				return;
 			}
 			locationResult.gotLocation(null);

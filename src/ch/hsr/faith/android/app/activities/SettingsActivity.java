@@ -22,14 +22,10 @@ public class SettingsActivity extends BaseActivity {
 	private GeoLocationService.LocationResult locationResult;
 	private Editor editor;
 	protected SharedPreferences geoLocation;
-	protected static final String geoLocationLatitudePreferenceName = "LOCATION_LATITUDE", geoLocationLongitudePreferenceName = "LOCATION_LONGITUDE",
-			positionSharedPreference = "FAITH-POSITION";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
@@ -39,10 +35,10 @@ public class SettingsActivity extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		geoLocation = getSharedPreferences(positionSharedPreference, 0);
-		logger.info(geoLocation);
-		String latitudePreferencesString = geoLocation.getString(geoLocationLatitudePreferenceName, null);
-		String longitudePreferencesString = geoLocation.getString(geoLocationLongitudePreferenceName, null);
+		geoLocation = getSharedPreferences(GeoLocationService.getPositionSharedPreference(), 0);
+		String latitudePreferencesString = geoLocation.getString(GeoLocationService.getGeoLocationLatitudePreferenceName(), null);
+		String longitudePreferencesString = geoLocation.getString(GeoLocationService.getGeoLocationLongitudePreferenceName(), null);
+
 		if (latitudePreferencesString != null && longitudePreferencesString != null) {
 			View checkBoxSaveGpsData = findViewById(R.id.checkBoxSaveGpsData);
 			((CheckBox) checkBoxSaveGpsData).setChecked(true);
@@ -108,16 +104,26 @@ public class SettingsActivity extends BaseActivity {
 
 		try {
 			editor = geoLocation.edit();
-			editor.putString(geoLocationLatitudePreferenceName, String.valueOf((float) loc.getLatitude()));
-			editor.putString(geoLocationLongitudePreferenceName, String.valueOf((float) loc.getLongitude()));
+			editor.putString(GeoLocationService.getGeoLocationLatitudePreferenceName(), String.valueOf((float) loc.getLatitude()));
+			editor.putString(GeoLocationService.getGeoLocationLongitudePreferenceName(), String.valueOf((float) loc.getLongitude()));
 			editor.apply();
-			logger.info("Wrote to shared preferences: Longitude -> " + geoLocation.getString(geoLocationLongitudePreferenceName, null) + " and Latitude -> "
-					+ geoLocation.getString(geoLocationLatitudePreferenceName, null));
-			Toast t = Toast.makeText(getApplicationContext(), "Location sucessfully saved ", Toast.LENGTH_LONG);
-			t.show();
+			logger.info("Wrote to shared preferences: Longitude -> " + geoLocation.getString(GeoLocationService.getGeoLocationLongitudePreferenceName(), null) + " and Latitude -> "
+					+ geoLocation.getString(GeoLocationService.getGeoLocationLatitudePreferenceName(), null));
+
+			this.runOnUiThread(new Runnable() {
+				  public void run() {
+				    Toast.makeText(getApplicationContext(), "Location successfully saved.", Toast.LENGTH_SHORT).show();
+				  }
+				});
+			
 		} catch (Exception ex) {
-			Toast t = Toast.makeText(getApplicationContext(), "Location could not be saved: ", Toast.LENGTH_LONG);
-			t.show();
+
+			this.runOnUiThread(new Runnable() {
+				  public void run() {
+
+			Toast.makeText(getBaseContext(), "Location could not be saved: ", Toast.LENGTH_LONG).show();
+				  }
+			});
 		}
 		return;
 	}
