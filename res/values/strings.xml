@@ -18,12 +18,14 @@
     <string name="title_activity_settings">Settings</string>
     <string name="about_application_text">This application is written and designed by TeamFAITH within the scope of the module "Software Engineering 2 Project" at the University of Applied Sciences, Rapperswil. \n \n Developpers: \n \t - Stefan Kapferer \n \t - Mathias Vetsch \n \t - Dominic Mühlhaupt \n \t - Daniel Kolb \n \t - Haris Sisic \n \n Contact: Mathias Vetsch, mvetsch@hsr.ch </string>
     <string name="title_activity_login_user_account">Log in</string>
-    <string name="action_facilities_management">Facilities</string>
+    <string name="title_activity_logout_user_account">Log out</string>
+    <string name="action_facilities_management">My Facilities</string>
     <string name="title_activity_facilities">Organize Facilities</string>
     <string name="authentication_email_field_default_text">E-mail</string>
     <string name="authentication_password_field_default_text">Password</string>
     <string name="authentication_button_text">Log in</string>
     <string name="authentication_message_success">authentication successful</string>
+    <string name="authentication_message_logout">Successfully logged out</string>
     <string name="authentication_message_failure">invalid credentials</string>
     <string name="title_activity_furniture_main">Furniture</string>
     <string name="title_activity_facility_main">Facility</string>
