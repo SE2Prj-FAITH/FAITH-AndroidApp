@@ -37,9 +37,11 @@
     <string name="title_activity_facilities_tabbed">Facilities</string>
     <string name="title_activity_facilities_management">Manage Facilities</string>
     <string name="facility_rowitem_level_image_description">Level Symbol</string>
-    <string name="title_activity_facility_settings">FacilitySettingsActivity</string>
+    <string name="title_edit_facility_activity">Edit Facility</string>
     <string name="error_occured_message">Error orrured: </string>
     <string name="service_return_status_unknown">Service returned unknown response status!</string>
     <string name="error">Error</string>
+    <string name="edit_facility_tab_info">Info</string>
+    <string name="edit_facility_tab_inventory">Inventory</string>
 
 </resources>

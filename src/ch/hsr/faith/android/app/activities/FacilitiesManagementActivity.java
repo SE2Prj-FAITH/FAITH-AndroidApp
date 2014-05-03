@@ -32,7 +32,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	ArrayList<String> listData;
 	private ListView facilityListView;
 	private FacilityAdapter adapter;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,13 +43,13 @@ public class FacilitiesManagementActivity extends BaseActivity {
 		facilityListView.setAdapter(adapter);
 		facilityListView.setOnItemClickListener(new OnFacilityClickedListener());
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
 		loadFacilityList();
 	}
-	
+
 	private void loadFacilityList() {
 		FacilitiesGetByLoggedInUserRequest request = new FacilitiesGetByLoggedInUserRequest(getLoginObject());
 		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
@@ -70,14 +70,14 @@ public class FacilitiesManagementActivity extends BaseActivity {
 			}
 			adapter.notifyDataSetChanged();
 		}
-		
+
 		@Override
 		protected void handleAuthenticationFailure() {
 			Intent intent = new Intent(baseActivity, LoginUserAccountActivity.class);
 			startActivity(intent);
 		}
 	}
-	
+
 	private class FacilityAdapter extends ArrayAdapter<Facility> {
 
 		public FacilityAdapter(Context context, int textViewResourceId, List<Facility> objects) {
@@ -101,16 +101,16 @@ public class FacilitiesManagementActivity extends BaseActivity {
 			return facility.getId();
 		}
 	}
-	
+
 	private class OnFacilityClickedListener implements OnItemClickListener {
 
 		public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-			Facility facility= (Facility) facilityListView.getItemAtPosition(position);
+			Facility facility = (Facility) facilityListView.getItemAtPosition(position);
 			openFacilitySettings(facility);
 		}
 
 		private void openFacilitySettings(Facility facility) {
-			Intent intent = new Intent(FacilitiesManagementActivity.this, FacilitySettingsActivity.class);
+			Intent intent = new Intent(FacilitiesManagementActivity.this, EditFacilityActivity.class);
 			intent.putExtra("facility", facility);
 			startActivity(intent);
 		}
