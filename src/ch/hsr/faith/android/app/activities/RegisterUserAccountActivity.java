@@ -76,8 +76,8 @@ public class RegisterUserAccountActivity extends BaseActivity {
 
 		@Override
 		protected void handleSuccess(UserAccount userAccount) {
-			Intent intent = new Intent(baseActivity, RegisterUserAccountConfirmationActivity.class);
-			intent.putExtra("registeredUserAccount", userAccount);
+			Intent intent = new Intent(activityRequesting, RegisterUserAccountConfirmationActivity.class);
+			intent.putExtra(EXTRA_USER_ACCOUNT, userAccount);
 			startActivity(intent);
 		}
 

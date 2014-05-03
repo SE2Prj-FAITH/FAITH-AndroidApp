@@ -3,8 +3,6 @@ package ch.hsr.faith.android.app.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
@@ -116,9 +114,6 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 	}
 
 	private class FacilityCategoriesListRequestListener extends BaseRequestListener<FacilityCategoryListResponse, FacilityCategoryList> {
-
-		Logger logger = Logger.getRootLogger();
-		
 		public FacilityCategoriesListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
@@ -168,7 +163,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 
 		private void openFacilitiesList(FacilityCategory facilityCategory) {
 			Intent intent = new Intent(FacilityMainActivity.this, FacilitiesTabActivity.class);
-			intent.putExtra("facilityCategory", facilityCategory);
+			intent.putExtra(EXTRA_FACILITY_CATEGORY, facilityCategory);
 			startActivity(intent);
 		}
 	}

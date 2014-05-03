@@ -3,5 +3,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ch.hsr.faith.android.app.LoginUserAccountActivity"
+    tools:context="ch.hsr.faith.android.app.activities.AddFacilityActivity"
     tools:ignore="MergeRootFrame" />

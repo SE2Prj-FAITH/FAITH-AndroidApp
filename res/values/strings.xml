@@ -33,6 +33,18 @@
     <string name="title_activity_facilities_tabbed">Facilities</string>
     <string name="title_activity_facilities_management">Manage Facilities</string>
     <string name="facility_rowitem_level_image_description">Level Symbol</string>
-    <string name="title_activity_facility_settings">FacilitySettingsActivity</string>
+    <string name="title_activity_facility_settings">Facility Settings</string>
+    <string name="button_add_facility">Add Facility</string>
+    <string name="title_activity_add_facility">Add Facility</string>
+    <string name="labelFacilityName">Name of Facility</string>
+	<string name="labelFacilityStreet">Street</string>
+	<string name="labelFacilityZip">Zipcode</string>
+	<string name="labelFacilityCity">City</string>
+	<string name="labelFacilityHomepage">Homepage</string>
+	<string name="labelFacilityPhone">Phone</string>
+	<string name="labelFacilityEmail">E-Mail Address</string>
+	<string name="buttonAddFacility">Add Facility</string>
+	<string name="authentication_button_register_text">Register</string>
+	<string name="authentication_button_cancel_text">Cancel</string>
 
 </resources>

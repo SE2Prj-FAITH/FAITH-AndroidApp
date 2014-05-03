@@ -8,8 +8,16 @@
     tools:ignore="MergeRootFrame" >
 
     <ListView
-        android:id="@+id/facilitiesManagement_ListView"
+        android:id="@+id/facilitiesManagement_facilitiesList"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dip" />
+
+    <Button
+        android:id="@+id/facilitiesManagement_addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_add_facility"
+        android:onClick="addFacility" />
 
 </LinearLayout>

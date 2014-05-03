@@ -3,8 +3,6 @@ package ch.hsr.faith.android.app.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +24,6 @@ import ch.hsr.faith.domain.Facility;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 public class FacilitiesManagementActivity extends BaseActivity {
-	Logger logger = Logger.getRootLogger();
 	private String lastFacilitiesGetByCategoryRequestCacheKey;
 
 	ArrayList<String> listData;
@@ -37,8 +34,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_facilities_management);
-
-		facilityListView = (ListView) findViewById(R.id.facilitiesManagement_ListView);
+		facilityListView = (ListView) findViewById(R.id.facilitiesManagement_facilitiesList);
 		adapter = new FacilityAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<Facility>());
 		facilityListView.setAdapter(adapter);
 		facilityListView.setOnItemClickListener(new OnFacilityClickedListener());
@@ -55,6 +51,11 @@ public class FacilitiesManagementActivity extends BaseActivity {
 		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
 		spiceManager.execute(request, lastFacilitiesGetByCategoryRequestCacheKey, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
 	}
+	
+	public void addFacility(View view) {
+		Intent intent = new Intent(this, AddFacilityActivity.class);
+		startActivity(intent);
+	}
 
 	private class FacilitiesListRequestListener extends BaseRequestListener<FacilityListResponse, FacilityList> {
 
@@ -64,17 +65,12 @@ public class FacilitiesManagementActivity extends BaseActivity {
 
 		@Override
 		protected void handleSuccess(FacilityList data) {
-			logger.debug("success part");
+			logger.debug("List of facilities owned by logged in user successfully loaded.");
+			adapter.clear();
 			for (Facility facility : data) {
 				adapter.add(facility);
 			}
 			adapter.notifyDataSetChanged();
-		}
-		
-		@Override
-		protected void handleAuthenticationFailure() {
-			Intent intent = new Intent(baseActivity, LoginUserAccountActivity.class);
-			startActivity(intent);
 		}
 	}
 	
@@ -111,7 +107,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 
 		private void openFacilitySettings(Facility facility) {
 			Intent intent = new Intent(FacilitiesManagementActivity.this, FacilitySettingsActivity.class);
-			intent.putExtra("facility", facility);
+			intent.putExtra(EXTRA_FACILITY, facility);
 			startActivity(intent);
 		}
 	}

@@ -47,6 +47,7 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
+            android:theme="@android:style/Theme.Dialog"
             android:name="ch.hsr.faith.android.app.activities.LoginUserAccountActivity"
             android:label="@string/title_activity_login_user_account" >
         </activity>
@@ -68,6 +69,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.hsr.faith.android.app.activities.FacilitiesManagementActivity" />
+        </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.AddFacilityActivity"
+            android:label="@string/title_activity_add_facility" >
         </activity>
     </application>
 
