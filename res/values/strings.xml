@@ -46,6 +46,7 @@
     <string name="button_add_item_needed">Add piece of furniture</string>
     <string name="add_item_needed_title">Add needed piece of furniture:</string>
     <string name="add_item_needed_no_piece_of_furniture_selected">No piece of furniture selected.</string>
+    <string name="add_item_needed_piece_of_furniture_selected">Selected piece of furniture:</string>
     <string name="button_select_piece_of_furniture">Select piece of furniture</string>
     <string name="add_item_needed_amount">Amount</string>
     <string name="add_item_needed_description">Description</string>
@@ -53,5 +54,10 @@
     <string name="title_add_item_needed_activity">Add needed item</string>
     <string name="add_item_needed_error_amount_empty">Amount is required!</string>
     <string name="add_item_needed_error_piece_of_furniture_empty">Please select a piece of furniture!</string>
+    <string name="select_piece_of_furniture_popup_title">Select piece of furniture:</string>
+    <string name="button_select_piece_of_furniture_popup_cancel">Cancel</string>
+    <string name="select_piece_of_furniture_top_item_text">Up to</string>
+    <string name="select_piece_of_furniture_top_item_root_text">Up to root</string>
+    <string name="add_item_needed_successfully_saved">Successfully saved piece of furniture</string>
 
 </resources>

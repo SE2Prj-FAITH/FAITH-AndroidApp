@@ -14,4 +14,9 @@
         android:onClick="addItemNeededClicked"
         android:text="@string/button_add_item_needed" />
 
+    <ListView
+        android:id="@+id/itemsNeeded_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
 </LinearLayout>

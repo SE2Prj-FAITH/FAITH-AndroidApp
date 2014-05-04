@@ -10,7 +10,6 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -28,7 +27,6 @@ import ch.hsr.faith.android.app.services.response.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.services.response.PieceOfFurnitureListResponse;
 import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.android.app.util.PropertyReader;
-import ch.hsr.faith.domain.FacilityCategory;
 import ch.hsr.faith.domain.FurnitureCategory;
 import ch.hsr.faith.domain.PieceOfFurniture;
 
@@ -166,7 +164,7 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 			listAdapter.notifyDataSetChanged();
 		}
 	}
-	
+
 	private void loadPieceOfFurniture(FurnitureCategory parent) {
 		FurnitureMainActivity.this.setProgressBarIndeterminateVisibility(true);
 		PieceOfFurnituresGetByCategoryRequest request = new PieceOfFurnituresGetByCategoryRequest(parent);
@@ -177,7 +175,7 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 	private class PieceOfFurnituresListRequestListener extends BaseRequestListener<PieceOfFurnitureListResponse, PieceOfFurnitureList> {
 
 		Logger logger = Logger.getRootLogger();
-		
+
 		public PieceOfFurnituresListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
@@ -194,45 +192,9 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 		}
 	}
 
-	// private void loadFurnitureSubCategories(FurnitureCategory parent) {
-	// MainActivity.this.setProgressBarIndeterminateVisibility(true);
-	// FurnitureCategoriesGetRequest request = new
-	// FurnitureCategoriesGetRequest(parent);
-	// lastFurnitureCategoriesGetRequestCacheKey = request.createCacheKey();
-	// spiceManager.execute(request, lastFurnitureCategoriesGetRequestCacheKey,
-	// DurationInMillis.ONE_MINUTE, new
-	// FurnitureSubCategoriesListRequestListener(this));
-	// }
-	//
-	// private class FurnitureSubCategoriesListRequestListener extends
-	// BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList>
-	// {
-	//
-	// public FurnitureSubCategoriesListRequestListener(BaseActivity
-	// baseActivity) {
-	// super(baseActivity);
-	// }
-	//
-	// @Override
-	// protected void handleSuccess(FurnitureCategoryList data) {
-	// for (FurnitureCategory s : data) {
-	// String subCategory = s.getName().getText(LocaleUtil.getCurrentLocale());
-	// subCategoryList.add(subCategory);
-	// }
-	// listDataChild.put(parentObject.getName().getText(LocaleUtil.getCurrentLocale()),
-	// subCategoryList);
-	// listAdapter.notifyDataSetChanged();
-	// }
-	// }
-	
 	private class OnListDataChildClickedListener implements OnChildClickListener {
 
 		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//			Intent intent = new Intent(FurnitureMainActivity.this, FacilitiesTabActivity.class);
-//			intent.putExtra("facilityCategory", facilityCategory);
-//			startActivity(intent);
-			// calling finish() on an activity, the method onDestroy() is executed
-//			finish();
 			return false;
 		}
 
@@ -245,7 +207,6 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 			parentObject = listDataHeaderFurnitureCategory.get(groupPosition);
 			subCategoryList.clear();
 			loadPieceOfFurniture(parentObject);
-			// loadFurnitureSubCategories(parentObject);
 			return false;
 		}
 

@@ -1,6 +1,7 @@
 package ch.hsr.faith.android.app.activities;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import ch.hsr.faith.android.app.R;
@@ -36,9 +37,11 @@ public class EditFacilityActivity extends BaseActivity {
 		actionBar.addTab(tabFacilityInfo);
 		actionBar.addTab(tabFacilityItemsNeeded);
 	}
-	
+
 	public void addItemNeededClicked(View view) {
-		startActivity(AddItemNeededActivity.class);
+		Intent intent = new Intent(EditFacilityActivity.this, AddItemNeededActivity.class);
+		intent.putExtra("facility", facility);
+		startActivity(intent);
 	}
 
 }

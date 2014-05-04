@@ -17,7 +17,6 @@ import ch.hsr.faith.android.app.util.Login;
 
 import com.octo.android.robospice.SpiceManager;
 
-
 public abstract class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
@@ -28,6 +27,7 @@ public abstract class BaseActivity extends Activity {
 
 	private static Login loginObject;
 	private ProgressDialog requestProgressDialog;
+	private static int requestProgressDialogCounter = 0;
 
 	protected Login getLoginObject() {
 		if (BaseActivity.loginObject == null) {
@@ -37,7 +37,7 @@ public abstract class BaseActivity extends Activity {
 		}
 		return BaseActivity.loginObject;
 	}
-	
+
 	protected void clearLoginObject() {
 		BaseActivity.loginObject = null;
 	}
@@ -126,13 +126,17 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	public void showRequestProgressDialog(String message) {
-		requestProgressDialog.setMessage(message);
-		requestProgressDialog.setCancelable(false);
-		requestProgressDialog.show();
+		BaseActivity.requestProgressDialogCounter++;
+		if (BaseActivity.requestProgressDialogCounter == 1) {
+			requestProgressDialog.setMessage(message);
+			requestProgressDialog.setCancelable(false);
+			requestProgressDialog.show();
+		}
 	}
 
 	public void hideRequestProgressDialog() {
-		if (requestProgressDialog.isShowing())
+		BaseActivity.requestProgressDialogCounter--;
+		if (requestProgressDialog.isShowing() && BaseActivity.requestProgressDialogCounter == 0)
 			requestProgressDialog.dismiss();
 	}
 
