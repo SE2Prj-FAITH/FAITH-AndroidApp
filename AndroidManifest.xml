@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="ch.hsr.faith.android.app.activities.MainActivity"
+            android:name="ch.hsr.faith.android.app.activities.FurnitureMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
