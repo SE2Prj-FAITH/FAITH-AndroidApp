@@ -37,6 +37,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 
 	private ListView facilityCategoriesListView;
 	private FacilityCategoryAdapter adapter;
+	protected static final String EXTRA_FACILITY_CATEGORY = "ch.hsr.faith.android.app.activities.EXTRA_FACILITY_CATEGORY";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

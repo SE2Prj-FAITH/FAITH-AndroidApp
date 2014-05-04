@@ -18,10 +18,6 @@ import com.octo.android.robospice.SpiceManager;
 
 public abstract class BaseActivity extends Activity {
 
-	protected static final String EXTRA_FACILITY = "ch.hsr.faith.android.app.activities.EXTRA_FACILITY";
-	protected static final String EXTRA_FACILITY_CATEGORY = "ch.hsr.faith.android.app.activities.EXTRA_FACILITY_GROUP";
-	protected static final String EXTRA_USER_ACCOUNT = "ch.hsr.faith.android.app.activities.EXTRA_USER_ACCOUNT";
-
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
 	protected SharedPreferences loginData;
 	protected String faithLoginEmailPreferenceName = "LOGIN_EMAIL";

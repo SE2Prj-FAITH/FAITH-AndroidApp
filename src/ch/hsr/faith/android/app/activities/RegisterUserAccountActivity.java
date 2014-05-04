@@ -69,6 +69,7 @@ public class RegisterUserAccountActivity extends BaseActivity {
 	}
 
 	private class RegisterUserAccountRequestListener extends BaseRequestListener<UserAccountResponse, UserAccount> {
+		protected static final String EXTRA_USER_ACCOUNT = "ch.hsr.faith.android.app.activities.EXTRA_USER_ACCOUNT";
 
 		public RegisterUserAccountRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);

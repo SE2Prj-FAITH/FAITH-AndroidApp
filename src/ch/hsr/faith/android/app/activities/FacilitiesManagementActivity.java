@@ -29,6 +29,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	ArrayList<String> listData;
 	private ListView facilityListView;
 	private FacilityAdapter adapter;
+	protected static final String EXTRA_FACILITY = "ch.hsr.faith.android.app.activities.EXTRA_FACILITY";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

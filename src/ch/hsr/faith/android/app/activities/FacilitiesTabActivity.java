@@ -21,6 +21,7 @@ public class FacilitiesTabActivity extends BaseActivity {
 
 	private FacilityCategory facilityCategory;
 	private FacilityList facilityList = new FacilityList();
+	protected static final String EXTRA_FACILITY_CATEGORY = "ch.hsr.faith.android.app.activities.EXTRA_FACILITY_CATEGORY";
 
 	private String facilitiesGetByCategoryRequestCacheKey;
 
