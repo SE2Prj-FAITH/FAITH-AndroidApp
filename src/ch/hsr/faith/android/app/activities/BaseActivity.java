@@ -97,7 +97,7 @@ public abstract class BaseActivity extends Activity {
 		}
 	}
 
-	private void startActivity(Class<?> activityClass) {
+	public void startActivity(Class<?> activityClass) {
 		Intent intent = new Intent(this.getBaseContext(), activityClass);
 		startActivity(intent);
 	}

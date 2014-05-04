@@ -2,6 +2,7 @@ package ch.hsr.faith.android.app.activities;
 
 import android.app.ActionBar;
 import android.os.Bundle;
+import android.view.View;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.listeners.FacilitiesTabListener;
 import ch.hsr.faith.domain.Facility;
@@ -34,6 +35,10 @@ public class EditFacilityActivity extends BaseActivity {
 
 		actionBar.addTab(tabFacilityInfo);
 		actionBar.addTab(tabFacilityItemsNeeded);
+	}
+	
+	public void addItemNeededClicked(View view) {
+		startActivity(AddItemNeededActivity.class);
 	}
 
 }

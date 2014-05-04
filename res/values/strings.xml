@@ -43,5 +43,15 @@
     <string name="error">Error</string>
     <string name="edit_facility_tab_info">Info</string>
     <string name="edit_facility_tab_inventory">Inventory</string>
+    <string name="button_add_item_needed">Add piece of furniture</string>
+    <string name="add_item_needed_title">Add needed piece of furniture:</string>
+    <string name="add_item_needed_no_piece_of_furniture_selected">No piece of furniture selected.</string>
+    <string name="button_select_piece_of_furniture">Select piece of furniture</string>
+    <string name="add_item_needed_amount">Amount</string>
+    <string name="add_item_needed_description">Description</string>
+    <string name="add_item_needed_save">Save</string>
+    <string name="title_add_item_needed_activity">Add needed item</string>
+    <string name="add_item_needed_error_amount_empty">Amount is required!</string>
+    <string name="add_item_needed_error_piece_of_furniture_empty">Please select a piece of furniture!</string>
 
 </resources>
