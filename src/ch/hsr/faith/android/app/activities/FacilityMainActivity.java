@@ -97,7 +97,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 	}
 
 	private void onFurnitureSpinnerClick() {
-		Intent intent = new Intent(this.getBaseContext(), MainActivity.class);
+		Intent intent = new Intent(this.getBaseContext(), FurnitureMainActivity.class);
 		startActivity(intent);
 		// calling finish() on an activity, the method onDestroy() is executed
 		finish();

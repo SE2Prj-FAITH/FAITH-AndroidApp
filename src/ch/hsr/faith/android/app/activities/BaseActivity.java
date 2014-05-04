@@ -17,6 +17,7 @@ import ch.hsr.faith.android.app.util.Login;
 
 import com.octo.android.robospice.SpiceManager;
 
+
 public abstract class BaseActivity extends Activity {
 
 	protected SpiceManager spiceManager = new SpiceManager(JSONService.class);
@@ -109,7 +110,7 @@ public abstract class BaseActivity extends Activity {
 			editor.apply();
 			clearLoginObject();
 			Toast.makeText(getApplicationContext(), getString(R.string.authentication_message_logout), Toast.LENGTH_LONG).show();
-			startActivity(MainActivity.class);
+			startActivity(FurnitureMainActivity.class);
 		} else {
 			startActivity(LoginUserAccountActivity.class);
 		}
