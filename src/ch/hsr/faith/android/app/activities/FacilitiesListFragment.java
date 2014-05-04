@@ -21,9 +21,14 @@ public class FacilitiesListFragment extends Fragment {
 	private FacilitiesTabActivity context;
 	private ListView facilitiesListView;
 	private FacilitiesAdapter adapter;
-
-	public FacilitiesListFragment(FacilitiesTabActivity context) {
-		this.context = context;
+	
+	public FacilitiesListFragment() {
+		this.context = (FacilitiesTabActivity) getActivity();
+	}
+	
+	@Override
+	public void setArguments(Bundle bundle) {
+		
 	}
 
 	@Override

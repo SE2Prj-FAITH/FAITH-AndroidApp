@@ -120,7 +120,7 @@ public abstract class BaseActivity extends Activity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		AlertDialog dialog = builder.create();
 		dialog.setTitle(R.string.error);
-		dialog.setMessage(R.string.error_occured_message + message);
+		dialog.setMessage(R.string.error_occurred_message + message);
 		dialog.setIcon(android.R.drawable.ic_dialog_alert);
 		dialog.show();
 	}

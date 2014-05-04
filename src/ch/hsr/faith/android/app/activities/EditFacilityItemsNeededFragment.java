@@ -11,8 +11,8 @@ public class EditFacilityItemsNeededFragment extends Fragment {
 
 	private EditFacilityActivity context;
 
-	public EditFacilityItemsNeededFragment(EditFacilityActivity context) {
-		this.context = context;
+	public EditFacilityItemsNeededFragment() {
+		this.context = (EditFacilityActivity) getActivity();
 	}
 
 	@Override

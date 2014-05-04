@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -147,9 +145,6 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 	}
 
 	private class FurnitureCategoriesListRequestListener extends BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList> {
-
-		Logger logger = Logger.getRootLogger();
-
 		public FurnitureCategoriesListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
@@ -173,8 +168,6 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 	}
 
 	private class PieceOfFurnituresListRequestListener extends BaseRequestListener<PieceOfFurnitureListResponse, PieceOfFurnitureList> {
-
-		Logger logger = Logger.getRootLogger();
 
 		public PieceOfFurnituresListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);

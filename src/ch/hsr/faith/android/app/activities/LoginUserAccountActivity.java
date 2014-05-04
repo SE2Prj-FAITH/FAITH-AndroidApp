@@ -1,6 +1,7 @@
 package ch.hsr.faith.android.app.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -55,6 +56,16 @@ public class LoginUserAccountActivity extends BaseActivity {
 
 		LoginUserAccountRequest request = new LoginUserAccountRequest(login);
 		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
+	}
+	
+	public void RegisterButtonClicked(View view) {
+		Intent intent = new Intent(this, RegisterUserAccountActivity.class);
+		startActivity(intent);
+	}
+	
+	public void CancelButtonClicked(View view) {
+		Intent intent = new Intent(this, FurnitureMainActivity.class);
+		startActivity(intent);
 	}
 
 	private void storeCredentialsOnSharedMemory(Login login) {

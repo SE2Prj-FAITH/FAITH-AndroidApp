@@ -28,8 +28,8 @@ public class EditFacilityActivity extends BaseActivity {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		tabFacilityInfo = actionBar.newTab().setText(getString(R.string.edit_facility_tab_info));
 		tabFacilityItemsNeeded = actionBar.newTab().setText(getString(R.string.edit_facility_tab_inventory));
-		editFacilityInfoFragment = new EditFacilityInfoFragment(this);
-		editFacilityItemsNeededFragment = new EditFacilityItemsNeededFragment(this);
+		editFacilityInfoFragment = new EditFacilityInfoFragment();
+		editFacilityItemsNeededFragment = new EditFacilityItemsNeededFragment();
 
 		tabFacilityInfo.setTabListener(new FacilitiesTabListener(editFacilityInfoFragment));
 		tabFacilityItemsNeeded.setTabListener(new FacilitiesTabListener(editFacilityItemsNeededFragment));

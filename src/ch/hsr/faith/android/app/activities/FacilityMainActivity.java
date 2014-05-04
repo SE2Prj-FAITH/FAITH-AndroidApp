@@ -3,8 +3,6 @@ package ch.hsr.faith.android.app.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FacilityCategoryList;
 import ch.hsr.faith.android.app.services.request.FacilityCategoriesGetAllRequest;
@@ -39,6 +38,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 
 	private ListView facilityCategoriesListView;
 	private FacilityCategoryAdapter adapter;
+	protected static final String EXTRA_FACILITY_CATEGORY = "ch.hsr.faith.android.app.activities.EXTRA_FACILITY_CATEGORY";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,9 +116,6 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 	}
 
 	private class FacilityCategoriesListRequestListener extends BaseRequestListener<FacilityCategoryListResponse, FacilityCategoryList> {
-
-		Logger logger = Logger.getRootLogger();
-		
 		public FacilityCategoriesListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
@@ -168,7 +165,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 
 		private void openFacilitiesList(FacilityCategory facilityCategory) {
 			Intent intent = new Intent(FacilityMainActivity.this, FacilitiesTabActivity.class);
-			intent.putExtra("facilityCategory", facilityCategory);
+			intent.putExtra(IntentExtras.EXTRA_FACILITY_CATEGORY, facilityCategory);
 			startActivity(intent);
 		}
 	}

@@ -6,8 +6,8 @@ public class EditFacilityInfoFragment extends Fragment {
 
 	private EditFacilityActivity context;
 
-	public EditFacilityInfoFragment(EditFacilityActivity context) {
-		this.context = context;
+	public EditFacilityInfoFragment() {
+		this.context = (EditFacilityActivity) getActivity();
 	}
 
 }

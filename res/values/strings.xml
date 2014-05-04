@@ -59,5 +59,18 @@
     <string name="select_piece_of_furniture_top_item_text">Up to</string>
     <string name="select_piece_of_furniture_top_item_root_text">Up to root</string>
     <string name="add_item_needed_successfully_saved">Successfully saved piece of furniture</string>
-
+    <string name="error_occurred_message">Error occurred: </string>
+    <string name="button_add_facility">Add Facility</string>
+    <string name="title_activity_add_facility">Add Facility</string>
+    <string name="labelFacilityName">Name of Facility</string>
+	<string name="labelFacilityStreet">Street</string>
+	<string name="labelFacilityZip">Zipcode</string>
+	<string name="labelFacilityCity">City</string>
+	<string name="labelFacilityHomepage">Homepage</string>
+	<string name="labelFacilityPhone">Phone</string>
+	<string name="labelFacilityEmail">E-Mail Address</string>
+	<string name="buttonAddFacility">Add Facility</string>
+	<string name="authentication_button_register_text">Register</string>
+	<string name="authentication_button_cancel_text">Cancel</string>
+	
 </resources>
