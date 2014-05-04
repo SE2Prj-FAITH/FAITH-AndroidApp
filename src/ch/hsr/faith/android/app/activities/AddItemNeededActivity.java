@@ -22,6 +22,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
 import ch.hsr.faith.android.app.dto.PieceOfFurnitureList;
@@ -71,7 +72,7 @@ public class AddItemNeededActivity extends BaseActivity {
 		amountField.setText("1");
 		descriptionField = (EditText) findViewById(R.id.addItemNeededDescription);
 		selectedPieceOfFurnitureLabel = (TextView) findViewById(R.id.AddItemNeededPieceOfFurniture);
-		facility = (Facility) getIntent().getExtras().get("facility");
+		facility = (Facility) getIntent().getExtras().get(IntentExtras.EXTRA_FACILITY);
 	}
 
 	public void selectPieceOfFurnitureClicked(View view) {
@@ -115,7 +116,7 @@ public class AddItemNeededActivity extends BaseActivity {
 
 			AddItemNeededRequest request = new AddItemNeededRequest(getLoginObject(), itemNeeded);
 			saveItemNeededRequestCacheKey = request.createCacheKey();
-			spiceManager.execute(request, saveItemNeededRequestCacheKey, 0, new AddItemNeededRequestListener(this));
+			spiceManager.execute(request, saveItemNeededRequestCacheKey, DurationInMillis.ALWAYS_EXPIRED, new AddItemNeededRequestListener(this));
 		}
 	}
 
@@ -172,9 +173,6 @@ public class AddItemNeededActivity extends BaseActivity {
 		@Override
 		protected void handleSuccess(ItemNeeded ItemNeeded) {
 			Toast.makeText(getApplicationContext(), getString(R.string.add_item_needed_successfully_saved), Toast.LENGTH_LONG).show();
-//			Intent intent = new Intent(AddItemNeededActivity.this, EditFacilityActivity.class);
-//			intent.putExtra("facility", facility);
-//			startActivityIfNeeded(intent, 0);
 			finish();
 		}
 

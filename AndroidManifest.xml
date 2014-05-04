@@ -67,9 +67,6 @@
         <activity
             android:name="ch.hsr.faith.android.app.activities.EditFacilityActivity"
             android:label="@string/title_edit_facility_activity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.hsr.faith.android.app.activities.FacilitiesManagementActivity" />
         </activity>
         <activity
             android:name="ch.hsr.faith.android.app.activities.AddItemNeededActivity"

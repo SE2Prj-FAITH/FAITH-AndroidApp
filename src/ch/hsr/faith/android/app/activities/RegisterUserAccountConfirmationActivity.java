@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.domain.UserAccount;
 
 public class RegisterUserAccountConfirmationActivity extends BaseActivity {
@@ -18,7 +19,7 @@ public class RegisterUserAccountConfirmationActivity extends BaseActivity {
 	protected void onStart() {
 		super.onStart();
 		Intent intent = getIntent();
-		UserAccount userAccount = (UserAccount) intent.getExtras().get("registeredUserAccount");
+		UserAccount userAccount = (UserAccount) intent.getExtras().get(IntentExtras.EXTRA_USER_ACCOUNT);
 		fillData(userAccount);
 	}
 
