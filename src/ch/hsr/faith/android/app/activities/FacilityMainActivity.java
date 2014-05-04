@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FacilityCategoryList;
 import ch.hsr.faith.android.app.services.request.FacilityCategoriesGetAllRequest;
@@ -96,7 +97,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 	}
 
 	private void onFurnitureSpinnerClick() {
-		Intent intent = new Intent(this.getBaseContext(), MainActivity.class);
+		Intent intent = new Intent(this.getBaseContext(), FurnitureMainActivity.class);
 		startActivity(intent);
 		// calling finish() on an activity, the method onDestroy() is executed
 		finish();
@@ -164,7 +165,7 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 
 		private void openFacilitiesList(FacilityCategory facilityCategory) {
 			Intent intent = new Intent(FacilityMainActivity.this, FacilitiesTabActivity.class);
-			intent.putExtra(EXTRA_FACILITY_CATEGORY, facilityCategory);
+			intent.putExtra(IntentExtras.EXTRA_FACILITY_CATEGORY, facilityCategory);
 			startActivity(intent);
 		}
 	}

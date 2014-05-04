@@ -13,27 +13,36 @@
     <string name="labelUserAccountPassword">Password</string>
     <string name="labelUserAccountEmail">E-Mail</string>
     <string name="registeruser_confirmation_title">Thanks for registering. Your account information:</string>
-    <string name="title_activity_about_faith">About this application</string>
+    <string name="title_activity_about_faith">About Us</string>
     <string name="about_application">About</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="about_application_text">About our application some information</string>
+    <string name="about_application_text">This application is written and designed by TeamFAITH within the scope of the module "Software Engineering 2 Project" at the University of Applied Sciences, Rapperswil. \n \n Developpers: \n \t - Stefan Kapferer \n \t - Mathias Vetsch \n \t - Dominic Mühlhaupt \n \t - Daniel Kolb \n \t - Haris Sisic \n \n Contact: Mathias Vetsch, mvetsch@hsr.ch </string>
     <string name="title_activity_login_user_account">Log in</string>
-    <string name="action_facilities_management">Facilities</string>
+    <string name="title_activity_logout_user_account">Log out</string>
+    <string name="action_facilities_management">My Facilities</string>
     <string name="title_activity_facilities">Organize Facilities</string>
     <string name="authentication_email_field_default_text">E-mail</string>
     <string name="authentication_password_field_default_text">Password</string>
     <string name="authentication_button_text">Log in</string>
     <string name="authentication_message_success">authentication successful</string>
+    <string name="authentication_message_logout">Successfully logged out</string>
     <string name="authentication_message_failure">invalid credentials</string>
     <string name="title_activity_furniture_main">Furniture</string>
     <string name="title_activity_facility_main">Facility</string>
+    <string name="checkBoxSaveCurrentGpsLocation">Save my current GPS location</string>
+    <string name="dialog_alert_gps_disabled"> Your GPS is disabled. To receive exact location, please enable GPS in your phone settings.</string>
     <string name="request_progress_dialog_loading">Loading &#8230;</string>
     <string name="activity_facilities_tabbed_tab_list">List</string>
     <string name="activity_facilities_tabbed_tab_map">Map</string>
     <string name="title_activity_facilities_tabbed">Facilities</string>
     <string name="title_activity_facilities_management">Manage Facilities</string>
     <string name="facility_rowitem_level_image_description">Level Symbol</string>
-    <string name="title_activity_facility_settings">Facility Settings</string>
+    <string name="title_edit_facility_activity">Edit Facility</string>
+    <string name="error_occurred_message">Error occurred: </string>
+    <string name="service_return_status_unknown">Service returned unknown response status!</string>
+    <string name="error">Error</string>
+    <string name="edit_facility_tab_info">Info</string>
+    <string name="edit_facility_tab_inventory">Inventory</string>
     <string name="button_add_facility">Add Facility</string>
     <string name="title_activity_add_facility">Add Facility</string>
     <string name="labelFacilityName">Name of Facility</string>
@@ -46,5 +55,4 @@
 	<string name="buttonAddFacility">Add Facility</string>
 	<string name="authentication_button_register_text">Register</string>
 	<string name="authentication_button_cancel_text">Cancel</string>
-
 </resources>

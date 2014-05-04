@@ -9,7 +9,6 @@ import org.springframework.http.converter.json.MappingJacksonHttpMessageConverte
 import org.springframework.web.client.RestTemplate;
 
 import android.app.Application;
-
 import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.android.app.util.PropertyReader;
 

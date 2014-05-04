@@ -8,9 +8,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ch.hsr.faith.android.app.SettingsActivity$PlaceholderFragment" >
 
-    <TextView
+    <CheckBox
+        android:id="@+id/checkBoxSaveGpsData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:onClick="onCheckboxSaveGpsLocClicked"
+        android:text="@string/checkBoxSaveCurrentGpsLocation" />
+    
 
 </RelativeLayout>

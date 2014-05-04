@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FacilityList;
 import ch.hsr.faith.android.app.services.request.FacilitiesGetByLoggedInUserRequest;
@@ -29,8 +30,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 	ArrayList<String> listData;
 	private ListView facilityListView;
 	private FacilityAdapter adapter;
-	protected static final String EXTRA_FACILITY = "ch.hsr.faith.android.app.activities.EXTRA_FACILITY";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,13 +40,13 @@ public class FacilitiesManagementActivity extends BaseActivity {
 		facilityListView.setAdapter(adapter);
 		facilityListView.setOnItemClickListener(new OnFacilityClickedListener());
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
 		loadFacilityList();
 	}
-	
+
 	private void loadFacilityList() {
 		FacilitiesGetByLoggedInUserRequest request = new FacilitiesGetByLoggedInUserRequest(getLoginObject());
 		lastFacilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
@@ -74,7 +74,7 @@ public class FacilitiesManagementActivity extends BaseActivity {
 			adapter.notifyDataSetChanged();
 		}
 	}
-	
+
 	private class FacilityAdapter extends ArrayAdapter<Facility> {
 
 		public FacilityAdapter(Context context, int textViewResourceId, List<Facility> objects) {
@@ -98,17 +98,17 @@ public class FacilitiesManagementActivity extends BaseActivity {
 			return facility.getId();
 		}
 	}
-	
+
 	private class OnFacilityClickedListener implements OnItemClickListener {
 
 		public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-			Facility facility= (Facility) facilityListView.getItemAtPosition(position);
+			Facility facility = (Facility) facilityListView.getItemAtPosition(position);
 			openFacilitySettings(facility);
 		}
 
 		private void openFacilitySettings(Facility facility) {
-			Intent intent = new Intent(FacilitiesManagementActivity.this, FacilitySettingsActivity.class);
-			intent.putExtra(EXTRA_FACILITY, facility);
+			Intent intent = new Intent(FacilitiesManagementActivity.this, EditFacilityActivity.class);
+			intent.putExtra(IntentExtras.EXTRA_FACILITY, facility);
 			startActivity(intent);
 		}
 	}

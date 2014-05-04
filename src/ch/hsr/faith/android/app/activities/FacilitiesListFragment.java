@@ -14,23 +14,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.util.LocaleUtil;
-import ch.hsr.faith.domain.Facility;
+import ch.hsr.faith.domain.FacilityWithDistance;
 
 public class FacilitiesListFragment extends Fragment {
 
 	private FacilitiesTabActivity context;
 	private ListView facilitiesListView;
 	private FacilitiesAdapter adapter;
-
-	public FacilitiesListFragment(FacilitiesTabActivity context) {
-		this.context = context;
+	
+	public FacilitiesListFragment() {
+		this.context = (FacilitiesTabActivity) getActivity();
+	}
+	
+	@Override
+	public void setArguments(Bundle bundle) {
+		
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_facilities_listview_tab, container, false);
 		facilitiesListView = (ListView) view.findViewById(R.id.facilities_ListView);
-		adapter = new FacilitiesAdapter(context, R.layout.facilities_list_rowlayout, new ArrayList<Facility>());
+		adapter = new FacilitiesAdapter(context, R.layout.facilities_list_rowlayout, new ArrayList<FacilityWithDistance>());
 		facilitiesListView.setAdapter(adapter);
 		updateData();
 		return view;
@@ -44,15 +49,15 @@ public class FacilitiesListFragment extends Fragment {
 		}
 	}
 
-	private class FacilitiesAdapter extends ArrayAdapter<Facility> {
+	private class FacilitiesAdapter extends ArrayAdapter<FacilityWithDistance> {
 
-		public FacilitiesAdapter(Context context, int textViewResourceId, List<Facility> objects) {
+		public FacilitiesAdapter(Context context, int textViewResourceId, List<FacilityWithDistance> objects) {
 			super(context, textViewResourceId, objects);
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Facility facility = getItem(position);
+			FacilityWithDistance facility = getItem(position);
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.facilities_list_rowlayout, null);
 			}
@@ -61,13 +66,13 @@ public class FacilitiesListFragment extends Fragment {
 			TextView distanceTextView = (TextView) convertView.findViewById(R.id.facility_rowitem_distance);
 			categoryTextView.setText(facility.getFacilityCategory().getName().getText(LocaleUtil.getCurrentLocale()));
 			nameTextView.setText(facility.getName());
-			distanceTextView.setText("<<dist>>");
+			distanceTextView.setText(facility.getDistance() + " km");
 			return convertView;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			Facility facility = super.getItem(position);
+			FacilityWithDistance facility = super.getItem(position);
 			return facility.getId();
 		}
 	}

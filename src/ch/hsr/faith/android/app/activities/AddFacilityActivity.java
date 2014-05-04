@@ -32,9 +32,6 @@ public class AddFacilityActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_add_facility);
-		/*if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
 
 		facilityCategorySpinner = (Spinner) findViewById(R.id.selectFacilityCategory);
 		adapter = new FacilityCategoryAdapter(this, android.R.layout.simple_spinner_dropdown_item, new ArrayList<FacilityCategory>());
@@ -88,19 +85,4 @@ public class AddFacilityActivity extends BaseActivity {
 			return category.getId();
 		}
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 *
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_add_facility, container, false);
-			return rootView;
-		}
-	}*/
 }

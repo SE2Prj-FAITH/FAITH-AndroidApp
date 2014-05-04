@@ -2,8 +2,11 @@ package ch.hsr.faith.android.app.activities.listeners;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import android.content.Intent;
 import android.widget.Toast;
+import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.BaseActivity;
 import ch.hsr.faith.android.app.activities.LoginUserAccountActivity;
 import ch.hsr.faith.android.app.services.response.BaseJSONResponse;
@@ -11,12 +14,14 @@ import ch.hsr.faith.android.app.services.response.BaseJSONResponse;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
-public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> implements RequestListener<T> {
+public abstract class BaseRequestListener<T extends BaseJSONResponse<S>, S> implements RequestListener<T> {
 
 	protected BaseActivity activityRequesting;
+	protected Logger logger;
 
 	public BaseRequestListener(BaseActivity activityRequesting) {
 		this.activityRequesting = activityRequesting;
+		logger = Logger.getRootLogger();
 		showRequestProgressDialogOnGUI();
 	}
 
@@ -37,7 +42,7 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_SUCCESS)) {
 			handleSuccess(result.getData());
 		} else {
-			activityRequesting.showErrorDialog("Service returned unknown response status!");
+			activityRequesting.showErrorDialog(activityRequesting.getText(R.string.service_return_status_unknown).toString());
 		}
 		hideRequestProgressDialogOnGUI();
 	}
@@ -46,16 +51,16 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<R>, R> impl
 		return spiceException.getCause().getMessage().equals("401 Unauthorized");
 	}
 
-	protected abstract void handleSuccess(R data);
+	protected abstract void handleSuccess(S data);
 
 	protected void handleFailures(List<String> failures) {
 		// By default, failures are not handled. Override this method to handle!
 	}
 	
 	protected void handleAuthenticationFailure() {
+		Toast.makeText(activityRequesting.getApplicationContext(), activityRequesting.getString(ch.hsr.faith.android.app.R.string.authentication_message_failure), Toast.LENGTH_LONG).show();
 		Intent intent = new Intent(activityRequesting, LoginUserAccountActivity.class);
 		activityRequesting.startActivity(intent);
-		Toast.makeText(activityRequesting.getApplicationContext(), activityRequesting.getString(ch.hsr.faith.android.app.R.string.authentication_message_failure), Toast.LENGTH_LONG).show();
 	}
 
 	private void showRequestProgressDialogOnGUI() {
