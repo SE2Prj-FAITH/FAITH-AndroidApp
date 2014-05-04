@@ -12,6 +12,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
 
+
 public class ExpandableListAdapter extends BaseExpandableListAdapter  {
 
 	private Context _context;
@@ -85,15 +86,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter  {
         lblListHeader.setText(headerTitle);
  
         return convertView;
-	}
+
+ }
 
 	public boolean hasStableIds() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
+		// TODO Auto-generated method stub
 		return true;
-		// return false;
 	}
-
 }

@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ch.hsr.faith.android.app.activities.FacilityMainActivity"
+    tools:context="ch.hsr.faith.android.app.activities.FacilitiesTabActivity"
     tools:ignore="MergeRootFrame" >
 
     <ListView
-        android:id="@+id/facilityMain_ListView"
+        android:id="@+id/facilities_ListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
