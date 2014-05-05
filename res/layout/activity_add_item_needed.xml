@@ -3,11 +3,10 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="ch.hsr.faith.android.app.activities.AddItemNeededActivity"
+    tools:context="ch.hsr.faith.android.app.activities.AddOrEditItemNeededActivity"
     tools:ignore="MergeRootFrame" >
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/AddItemNeededScrollView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -71,14 +70,31 @@
                 android:inputType="textMultiLine" >
             </EditText>
 
-            <Button
-                android:id="@+id/buttonAddItemNeededSave"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/btnLL"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="22dp"
-                android:layout_marginTop="42dp"
-                android:onClick="saveButtonClicked"
-                android:text="@string/add_item_needed_save" />
+                android:layout_alignParentBottom="true" >
+
+                <Button
+                    android:id="@+id/buttonAddItemNeededSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:layout_weight="1"
+                    android:onClick="saveButtonClicked"
+                    android:text="@string/add_item_needed_save" />
+
+                <Button
+                    android:id="@+id/buttonAddItemNeededDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:layout_weight="1"
+                    android:onClick="deleteButtonClicked"
+                    android:text="@string/add_item_needed_delete"
+                    android:visibility="invisible" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

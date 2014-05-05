@@ -63,14 +63,16 @@
     <string name="button_add_facility">Add Facility</string>
     <string name="title_activity_add_facility">Add Facility</string>
     <string name="labelFacilityName">Name of Facility</string>
-	<string name="labelFacilityStreet">Street</string>
-	<string name="labelFacilityZip">Zipcode</string>
-	<string name="labelFacilityCity">City</string>
-	<string name="labelFacilityHomepage">Homepage</string>
-	<string name="labelFacilityPhone">Phone</string>
-	<string name="labelFacilityEmail">E-Mail Address</string>
-	<string name="buttonAddFacility">Add Facility</string>
-	<string name="authentication_button_register_text">Register</string>
-	<string name="authentication_button_cancel_text">Cancel</string>
-	
+    <string name="labelFacilityStreet">Street</string>
+    <string name="labelFacilityZip">Zipcode</string>
+    <string name="labelFacilityCity">City</string>
+    <string name="labelFacilityHomepage">Homepage</string>
+    <string name="labelFacilityPhone">Phone</string>
+    <string name="labelFacilityEmail">E-Mail Address</string>
+    <string name="buttonAddFacility">Add Facility</string>
+    <string name="authentication_button_register_text">Register</string>
+    <string name="authentication_button_cancel_text">Cancel</string>
+    <string name="add_item_needed_delete">Delete</string>
+    <string name="add_item_needed_successfully_deleted">Successfully deleted</string>
+
 </resources>

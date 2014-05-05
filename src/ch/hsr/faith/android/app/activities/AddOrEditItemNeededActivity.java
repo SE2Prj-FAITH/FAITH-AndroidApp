@@ -26,13 +26,15 @@ import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
 import ch.hsr.faith.android.app.dto.PieceOfFurnitureList;
-import ch.hsr.faith.android.app.services.request.AddItemNeededRequest;
+import ch.hsr.faith.android.app.services.request.AddOrUpdateItemNeededRequest;
 import ch.hsr.faith.android.app.services.request.FurnitureCategoriesGetByParentRequest;
 import ch.hsr.faith.android.app.services.request.FurnitureCategoriesRootRequest;
+import ch.hsr.faith.android.app.services.request.ItemNeededDeleteRequest;
 import ch.hsr.faith.android.app.services.request.PieceOfFurnituresGetByCategoryRequest;
 import ch.hsr.faith.android.app.services.response.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.services.response.ItemNeededResponse;
 import ch.hsr.faith.android.app.services.response.PieceOfFurnitureListResponse;
+import ch.hsr.faith.android.app.services.response.StringResponse;
 import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.domain.Facility;
 import ch.hsr.faith.domain.FurnitureCategory;
@@ -41,7 +43,7 @@ import ch.hsr.faith.domain.PieceOfFurniture;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 
-public class AddItemNeededActivity extends BaseActivity {
+public class AddOrEditItemNeededActivity extends BaseActivity {
 
 	private TextView failuresTextView;
 	private ListView popupListView;
@@ -50,13 +52,16 @@ public class AddItemNeededActivity extends BaseActivity {
 	private EditText amountField;
 	private EditText descriptionField;
 	private TextView selectedPieceOfFurnitureLabel;
+	private Button deleteButton;
 	private PieceOfFurniture selectedPieceOfFurniture;
 	private Facility facility;
+	private ItemNeeded itemNeeded;
 
 	private String lastFurnitureCategoriesRootRequestCacheKey;
 	private String lastFurnitureCategoriesRequestCacheKey;
 	private String lastPieceOfFurnituresRequestCacheKey;
 	private String saveItemNeededRequestCacheKey;
+	private String deleteItemNeededRequestCacheKey;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +77,20 @@ public class AddItemNeededActivity extends BaseActivity {
 		amountField.setText("1");
 		descriptionField = (EditText) findViewById(R.id.addItemNeededDescription);
 		selectedPieceOfFurnitureLabel = (TextView) findViewById(R.id.AddItemNeededPieceOfFurniture);
+		deleteButton = (Button) findViewById(R.id.buttonAddItemNeededDelete);
+		deleteButton.setVisibility(View.INVISIBLE);
 		facility = (Facility) getIntent().getExtras().get(IntentExtras.EXTRA_FACILITY);
+		itemNeeded = (ItemNeeded) getIntent().getExtras().get(IntentExtras.EXTRA_ITEM_NEEDED);
+		if (itemNeeded != null && itemNeeded.getId() > 0) {
+			initGuiForEditItemNeeded();
+		}
+	}
+
+	private void initGuiForEditItemNeeded() {
+		amountField.setText(itemNeeded.getAmount().toString());
+		descriptionField.setText(itemNeeded.getDescription());
+		selectPieceOfFurniture(itemNeeded.getPieceOfFurniture());
+		deleteButton.setVisibility(View.VISIBLE);
 	}
 
 	public void selectPieceOfFurnitureClicked(View view) {
@@ -108,16 +126,23 @@ public class AddItemNeededActivity extends BaseActivity {
 	public void saveButtonClicked(View view) {
 		cleanFailuresView();
 		if (isInputValid()) {
-			ItemNeeded itemNeeded = new ItemNeeded();
+			if (itemNeeded == null)
+				itemNeeded = new ItemNeeded();
 			itemNeeded.setAmount(Integer.parseInt(amountField.getText().toString()));
 			itemNeeded.setDescription(descriptionField.getText().toString());
 			itemNeeded.setFacility(facility);
 			itemNeeded.setPieceOfFurniture(selectedPieceOfFurniture);
 
-			AddItemNeededRequest request = new AddItemNeededRequest(getLoginObject(), itemNeeded);
+			AddOrUpdateItemNeededRequest request = new AddOrUpdateItemNeededRequest(getLoginObject(), itemNeeded);
 			saveItemNeededRequestCacheKey = request.createCacheKey();
-			spiceManager.execute(request, saveItemNeededRequestCacheKey, DurationInMillis.ALWAYS_EXPIRED, new AddItemNeededRequestListener(this));
+			spiceManager.execute(request, saveItemNeededRequestCacheKey, DurationInMillis.ALWAYS_EXPIRED, new AddOrEditItemNeededRequestListener(this));
 		}
+	}
+
+	public void deleteButtonClicked(View view) {
+		ItemNeededDeleteRequest request = new ItemNeededDeleteRequest(getLoginObject(), itemNeeded);
+		deleteItemNeededRequestCacheKey = request.createCacheKey();
+		spiceManager.execute(request, deleteItemNeededRequestCacheKey, DurationInMillis.ALWAYS_EXPIRED, new DeleteItemNeededRequestListener(this));
 	}
 
 	private boolean isInputValid() {
@@ -164,15 +189,38 @@ public class AddItemNeededActivity extends BaseActivity {
 				+ pieceOfFurniture.getName().getText(LocaleUtil.getCurrentLocale()));
 	}
 
-	private class AddItemNeededRequestListener extends BaseRequestListener<ItemNeededResponse, ItemNeeded> {
+	private class AddOrEditItemNeededRequestListener extends BaseRequestListener<ItemNeededResponse, ItemNeeded> {
 
-		public AddItemNeededRequestListener(BaseActivity baseActivity) {
+		public AddOrEditItemNeededRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
 		}
 
 		@Override
 		protected void handleSuccess(ItemNeeded ItemNeeded) {
 			Toast.makeText(getApplicationContext(), getString(R.string.add_item_needed_successfully_saved), Toast.LENGTH_LONG).show();
+			finish();
+		}
+
+		@Override
+		protected void handleFailures(List<String> failures) {
+			String failureText = new String();
+			for (String string : failures) {
+				failureText = failureText + string + "\n";
+			}
+			failuresTextView.setText(failureText);
+			failuresTextView.setVisibility(TextView.VISIBLE);
+		}
+	}
+
+	private class DeleteItemNeededRequestListener extends BaseRequestListener<StringResponse, String> {
+
+		public DeleteItemNeededRequestListener(BaseActivity baseActivity) {
+			super(baseActivity);
+		}
+
+		@Override
+		protected void handleSuccess(String string) {
+			Toast.makeText(getApplicationContext(), getString(R.string.add_item_needed_successfully_deleted), Toast.LENGTH_LONG).show();
 			finish();
 		}
 

@@ -55,7 +55,7 @@ public class EditFacilityActivity extends BaseActivity {
 	}
 
 	public void addItemNeededClicked(View view) {
-		Intent intent = new Intent(EditFacilityActivity.this, AddItemNeededActivity.class);
+		Intent intent = new Intent(EditFacilityActivity.this, AddOrEditItemNeededActivity.class);
 		intent.putExtra(IntentExtras.EXTRA_FACILITY, facility);
 		startActivity(intent);
 	}

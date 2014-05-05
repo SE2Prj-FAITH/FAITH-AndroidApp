@@ -69,7 +69,7 @@
             android:label="@string/title_edit_facility_activity" >
         </activity>
         <activity
-            android:name="ch.hsr.faith.android.app.activities.AddItemNeededActivity"
+            android:name="ch.hsr.faith.android.app.activities.AddOrEditItemNeededActivity"
             android:label="@string/title_add_item_needed_activity" >
         </activity>
         <activity
