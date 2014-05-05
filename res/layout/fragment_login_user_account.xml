@@ -10,11 +10,10 @@
 
     <EditText
         android:id="@+id/EditTextEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="25dp"
         android:layout_marginTop="37dp"
         android:ems="10"
         android:hint="@string/authentication_email_field_default_text"
@@ -25,7 +24,7 @@
 
     <EditText
         android:id="@+id/EditTextPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/EditTextEmail"
         android:layout_below="@+id/EditTextEmail"
@@ -34,15 +33,39 @@
         android:inputType="textPassword">
 
     </EditText>
-
-    <Button
-        android:id="@+id/ButtonLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditTextPassword"
-        android:layout_below="@+id/EditTextPassword"
-        android:layout_marginTop="18dp"
-        android:onClick="LoginButtonClicked"
-        android:text="@string/authentication_button_text" />
-
+    
+	<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+	        android:layout_below="@+id/EditTextPassword"
+	        style="?android:attr/buttonBarStyle" >
+        
+	    <Button
+	        android:id="@+id/ButtonLogin"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:onClick="LoginButtonClicked"
+	        android:text="@string/authentication_button_text"
+	        style="?android:attr/buttonBarButtonStyle" />
+	
+	    <Button
+	        android:id="@+id/ButtonRegister"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:onClick="RegisterButtonClicked"
+	        android:text="@string/authentication_button_register_text"
+	        style="?android:attr/buttonBarButtonStyle" />
+	
+	    <Button
+	        android:id="@+id/ButtonCancel"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:onClick="CancelButtonClicked"
+	        android:text="@string/authentication_button_cancel_text"
+	        style="?android:attr/buttonBarButtonStyle" />
+	</LinearLayout>
 </RelativeLayout>

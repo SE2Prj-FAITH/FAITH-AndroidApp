@@ -6,13 +6,12 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.services.request.RegisterUserAccountRequest;
 import ch.hsr.faith.android.app.services.response.UserAccountResponse;
@@ -38,21 +37,6 @@ public class RegisterUserAccountActivity extends BaseActivity {
 		failuresTextView = (TextView) findViewById(R.id.RegisterUserFailures);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	public void registerButtonClicked(View view) {
 		String email = ((EditText) findViewById(R.id.editUserAccountEmail)).getText().toString();
 		String password = ((EditText) findViewById(R.id.editUserAccountPasswort)).getText().toString();
@@ -76,8 +60,8 @@ public class RegisterUserAccountActivity extends BaseActivity {
 
 		@Override
 		protected void handleSuccess(UserAccount userAccount) {
-			Intent intent = new Intent(baseActivity, RegisterUserAccountConfirmationActivity.class);
-			intent.putExtra("registeredUserAccount", userAccount);
+			Intent intent = new Intent(activityRequesting, RegisterUserAccountConfirmationActivity.class);
+			intent.putExtra(IntentExtras.EXTRA_USER_ACCOUNT, userAccount);
 			startActivity(intent);
 		}
 

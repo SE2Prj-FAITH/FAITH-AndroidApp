@@ -2,10 +2,9 @@ package ch.hsr.faith.android.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.domain.UserAccount;
 
 public class RegisterUserAccountConfirmationActivity extends BaseActivity {
@@ -17,26 +16,11 @@ public class RegisterUserAccountConfirmationActivity extends BaseActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
 	protected void onStart() {
 		super.onStart();
 		Intent intent = getIntent();
-		UserAccount userAccount = (UserAccount) intent.getExtras().get("registeredUserAccount");
+		UserAccount userAccount = (UserAccount) intent.getExtras().get(IntentExtras.EXTRA_USER_ACCOUNT);
 		fillData(userAccount);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	private void fillData(UserAccount userAccount) {

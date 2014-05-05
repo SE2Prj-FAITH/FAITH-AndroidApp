@@ -117,11 +117,10 @@ public class SettingsActivity extends BaseActivity {
 				});
 			
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
 			this.runOnUiThread(new Runnable() {
 				  public void run() {
-
-			Toast.makeText(getBaseContext(), "Location could not be saved: ", Toast.LENGTH_LONG).show();
+					  Toast.makeText(getBaseContext(), "Location could not be saved: ", Toast.LENGTH_LONG).show();
 				  }
 			});
 		}

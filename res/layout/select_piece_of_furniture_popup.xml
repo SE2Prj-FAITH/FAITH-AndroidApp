@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/selectPieceOfFurniturePopup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/selectPieceOfFurniturePopupTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:padding="3pt"
+        android:text="@string/select_piece_of_furniture_popup_title"
+        android:textAppearance="?android:attr/textAppearanceLargePopupMenu" />
+
+    <ListView
+        android:id="@+id/selectPieceOfFurniturePopupListView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/selectPieceOfFurniturePopupCancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_select_piece_of_furniture_popup_cancel" />
+
+</LinearLayout>

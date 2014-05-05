@@ -22,12 +22,9 @@ public class FacilitiesListFragment extends Fragment {
 	private ListView facilitiesListView;
 	private FacilitiesAdapter adapter;
 
-	public FacilitiesListFragment(FacilitiesTabActivity context) {
-		this.context = context;
-	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		this.context = (FacilitiesTabActivity) getActivity();
 		View view = inflater.inflate(R.layout.activity_facilities_listview_tab, container, false);
 		facilitiesListView = (ListView) view.findViewById(R.id.facilities_ListView);
 		adapter = new FacilitiesAdapter(context, R.layout.facilities_list_rowlayout, new ArrayList<FacilityWithDistance>());

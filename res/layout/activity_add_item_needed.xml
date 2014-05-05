@@ -1,0 +1,101 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="ch.hsr.faith.android.app.activities.AddOrEditItemNeededActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <ScrollView
+        android:id="@+id/AddItemNeededScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:id="@+id/AddItemNeededTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/add_item_needed_title"
+                android:textSize="10pt" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/AddItemNeededFailures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:textColor="#F70D1A"
+                android:textSize="10pt"
+                android:visibility="invisible" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/AddItemNeededPieceOfFurniture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_needed_no_piece_of_furniture_selected" >
+            </TextView>
+
+            <Button
+                android:id="@+id/buttonSelectPieceOfFurniture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="selectPieceOfFurnitureClicked"
+                android:text="@string/button_select_piece_of_furniture" />
+
+            <EditText
+                android:id="@+id/addItemNeededAmount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_item_needed_amount"
+                android:inputType="number" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/addItemNeededDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_item_needed_description"
+                android:inputType="textMultiLine" >
+            </EditText>
+
+            <LinearLayout
+                android:id="@+id/btnLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" >
+
+                <Button
+                    android:id="@+id/buttonAddItemNeededSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:layout_weight="1"
+                    android:onClick="saveButtonClicked"
+                    android:text="@string/add_item_needed_save" />
+
+                <Button
+                    android:id="@+id/buttonAddItemNeededDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:layout_weight="1"
+                    android:onClick="deleteButtonClicked"
+                    android:text="@string/add_item_needed_delete"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

@@ -27,7 +27,7 @@ public class Login {
 	}
 	
 	public boolean isAuthenticated() { 
-		return email == null || password == null;
+		return email != null && password != null;
 	}
 
 }

@@ -1,10 +1,10 @@
 package ch.hsr.faith.android.app.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,17 +34,11 @@ public class LoginUserAccountActivity extends BaseActivity {
 		EditText emailField = ((EditText) findViewById(R.id.EditTextEmail));
 		EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 
-		if(getLoginObject().isAuthenticated()) { 
+		if (getLoginObject().isAuthenticated()) {
 			emailField.setText(getLoginObject().getEmail());
 			passwordField.setText("");
 			passwordField.requestFocus();
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
 	}
 
 	@Override
@@ -63,18 +57,30 @@ public class LoginUserAccountActivity extends BaseActivity {
 		LoginUserAccountRequest request = new LoginUserAccountRequest(login);
 		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
 	}
+	
+	public void RegisterButtonClicked(View view) {
+		Intent intent = new Intent(this, RegisterUserAccountActivity.class);
+		startActivity(intent);
+	}
+	
+	public void CancelButtonClicked(View view) {
+		Intent intent = new Intent(this, FurnitureMainActivity.class);
+		startActivity(intent);
+	}
 
 	private void storeCredentialsOnSharedMemory(Login login) {
 		Editor editor = loginData.edit();
 		editor.putString(PREFERENCE_NAME_LOGIN_EMAIL, login.getEmail());
 		editor.putString(PREFERENCE_NAME_LOGIN_PASWORD, login.getPassword());
 		editor.apply();
+		clearLoginObject();
 	}
-	
-	private void removePasswordFromSharedPreferences() { 
+
+	private void removePasswordFromSharedPreferences() {
 		Editor editor = loginData.edit();
 		editor.remove(PREFERENCE_NAME_LOGIN_PASWORD);
 		editor.apply();
+		clearLoginObject();
 	}
 
 	private class LoginUserAccountRequestListener extends BaseRequestListener<LoginUserAccountResponse, String> {
@@ -89,7 +95,7 @@ public class LoginUserAccountActivity extends BaseActivity {
 			EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 			passwordField.setText("");
 			passwordField.requestFocus();
-			
+
 			removePasswordFromSharedPreferences();
 		}
 
