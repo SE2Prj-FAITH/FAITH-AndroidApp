@@ -66,7 +66,9 @@ public abstract class BaseActivity extends Activity {
 		} else {
 			menu.add(0, MenuItems.MENU_LOGIN_LOGOUT, Menu.NONE, R.string.title_activity_login_user_account);
 		}
-		menu.add(0, MenuItems.MENU_REGISTER, Menu.NONE, R.string.activity_register_user);
+		if (!getLoginObject().isAuthenticated()) {
+			menu.add(0, MenuItems.MENU_REGISTER, Menu.NONE, R.string.activity_register_user);
+		}
 		if (getLoginObject().isAuthenticated()) {
 			menu.add(0, MenuItems.MENU_FACILITIES_MANAGEMENT, Menu.NONE, R.string.action_facilities_management);
 		}
