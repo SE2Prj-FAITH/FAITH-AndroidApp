@@ -16,7 +16,7 @@ public class AddItemNeededRequest extends AuthenticatedRequest<ItemNeededRespons
 
 	@Override
 	public ItemNeededResponse loadDataFromNetwork() throws Exception {
-		return getRestTemplate().postForObject(JSONService.getServiceUrl("/items-needed/add"), itemNeeded, ItemNeededResponse.class);
+		return loadDataFromPostRequest(JSONService.getServiceUrl("/items-needed/add"), itemNeeded);
 	}
 
 	public String createCacheKey() {
