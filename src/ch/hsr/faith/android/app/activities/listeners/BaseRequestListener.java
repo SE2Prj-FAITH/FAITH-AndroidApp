@@ -28,12 +28,12 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<S>, S> impl
 	}
 
 	public void onRequestSuccess(T result) {
-		if (result.getStatus().equals(BaseJSONResponse.STATUS_ERROR)) {
-			baseActivity.showErrorDialog(result.getErrorMessage());
+		if (result.getStatus().equals(BaseJSONResponse.STATUS_SUCCESS)) {
+			handleSuccess(result.getData());
 		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_FAIL)) {
 			handleFailures(result.getFailures());
-		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_SUCCESS)) {
-			handleSuccess(result.getData());
+		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_ERROR)) {
+			baseActivity.showErrorDialog(result.getErrorMessage());
 		} else {
 			baseActivity.showErrorDialog(baseActivity.getText(R.string.service_return_status_unknown).toString());
 		}
