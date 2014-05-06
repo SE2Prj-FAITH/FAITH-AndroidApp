@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ch.hsr.faith.MainActivity"
+    tools:context="ch.hsr.faith.android.app.activities.FurnitureMainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <ExpandableListView
-        android:id="@+id/lvExp"
+    <ListView
+        android:id="@+id/furnitureMainListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
