@@ -17,8 +17,10 @@ import ch.hsr.faith.android.app.activities.components.FurnitureListHandler;
 import ch.hsr.faith.android.app.activities.components.GotoParentCategoryListItem;
 import ch.hsr.faith.android.app.activities.components.PieceOfFurnitureListItem;
 import ch.hsr.faith.android.app.activities.components.SelectPieceOfFurnitureListItem;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.logging.Log4JConfigurator;
 import ch.hsr.faith.android.app.util.PropertyReader;
+import ch.hsr.faith.domain.PieceOfFurniture;
 
 public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnNavigationListener {
 
@@ -95,7 +97,7 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 				furnitureListHandler.loadSubCategory(furnitureCategoryListItem.getFurnitureCategory());
 			} else if (item instanceof PieceOfFurnitureListItem) {
 				PieceOfFurnitureListItem pieceOfFurnitureListItem = (PieceOfFurnitureListItem) item;
-				// TODO ska: open piece of furniture
+				openFacilitiesList(pieceOfFurnitureListItem.getPieceOfFurniture());
 			} else if (item instanceof GotoParentCategoryListItem) {
 				GotoParentCategoryListItem gotoParentCategoryListItem = (GotoParentCategoryListItem) item;
 				if (gotoParentCategoryListItem.getFurnitureCategory() == null) {
@@ -104,6 +106,12 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 					furnitureListHandler.loadSubCategory(gotoParentCategoryListItem.getFurnitureCategory());
 				}
 			}
+		}
+
+		private void openFacilitiesList(PieceOfFurniture pieceOfFurniture) {
+			Intent intent = new Intent(FurnitureMainActivity.this, FacilitiesTabActivity.class);
+			intent.putExtra(IntentExtras.EXTRA_PIECE_OF_FURNITURE, pieceOfFurniture);
+			startActivity(intent);
 		}
 	}
 

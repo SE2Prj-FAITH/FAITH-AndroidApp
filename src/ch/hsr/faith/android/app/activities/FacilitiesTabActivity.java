@@ -8,8 +8,10 @@ import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.activities.listeners.FacilitiesTabListener;
 import ch.hsr.faith.android.app.dto.FacilityWithDistanceList;
 import ch.hsr.faith.android.app.services.request.FacilitiesWithDistanceGetByCategoryRequest;
+import ch.hsr.faith.android.app.services.request.FacilitiesWithDistanceGetByPieceOfItemsNeededRequest;
 import ch.hsr.faith.android.app.services.response.FacilityWithDistanceListResponse;
 import ch.hsr.faith.domain.FacilityCategory;
+import ch.hsr.faith.domain.PieceOfFurniture;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
 
@@ -21,15 +23,18 @@ public class FacilitiesTabActivity extends BaseActivity {
 	private FacilitiesMapFragment facilitiesMapFragment;
 
 	private FacilityCategory facilityCategory;
+	private PieceOfFurniture pieceOfFurniture;
 	private FacilityWithDistanceList facilityList = new FacilityWithDistanceList();
 
 	private String facilitiesGetByCategoryRequestCacheKey;
+	private String facilitiesGetByPieceOfItemsNeededRequest;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_facilities_tabbed);
 		facilityCategory = (FacilityCategory) getIntent().getExtras().get(IntentExtras.EXTRA_FACILITY_CATEGORY);
+		pieceOfFurniture = (PieceOfFurniture) getIntent().getExtras().get(IntentExtras.EXTRA_PIECE_OF_FURNITURE);
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -52,12 +57,17 @@ public class FacilitiesTabActivity extends BaseActivity {
 	}
 
 	private void loadFacilities() {
+		// TODO: get current or saved location (now fixed location HSR is
+		// used)
+		double latitude = 47.22332;
+		double longitude = 8.81728;
 		if (facilityCategory != null) {
-			// TODO: get current or saved location (now fixed location HSR is
-			// used)
-			FacilitiesWithDistanceGetByCategoryRequest request = new FacilitiesWithDistanceGetByCategoryRequest(facilityCategory, 47.22332, 8.81728);
-			facilitiesGetByCategoryRequestCacheKey = request.createCacheKey();
+			FacilitiesWithDistanceGetByCategoryRequest request = new FacilitiesWithDistanceGetByCategoryRequest(facilityCategory, latitude, longitude);
 			spiceManager.execute(request, facilitiesGetByCategoryRequestCacheKey, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
+		} else if (pieceOfFurniture != null) {
+			FacilitiesWithDistanceGetByPieceOfItemsNeededRequest request = new FacilitiesWithDistanceGetByPieceOfItemsNeededRequest(pieceOfFurniture, latitude, longitude);
+			facilitiesGetByPieceOfItemsNeededRequest = request.createCacheKey();
+			spiceManager.execute(request, facilitiesGetByPieceOfItemsNeededRequest, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
 		}
 	}
 
