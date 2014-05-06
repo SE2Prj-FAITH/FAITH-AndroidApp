@@ -1,48 +1,32 @@
 package ch.hsr.faith.android.app.activities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.ListView;
 import ch.hsr.faith.android.app.R;
-import ch.hsr.faith.android.app.activities.adapters.ExpandableListAdapter;
-import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
-import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
-import ch.hsr.faith.android.app.dto.PieceOfFurnitureList;
+import ch.hsr.faith.android.app.activities.adapters.PieceOfFurnituresAdapter;
+import ch.hsr.faith.android.app.activities.components.FurnitureCategoryListItem;
+import ch.hsr.faith.android.app.activities.components.FurnitureListHandler;
+import ch.hsr.faith.android.app.activities.components.GotoParentCategoryListItem;
+import ch.hsr.faith.android.app.activities.components.PieceOfFurnitureListItem;
+import ch.hsr.faith.android.app.activities.components.SelectPieceOfFurnitureListItem;
 import ch.hsr.faith.android.app.logging.Log4JConfigurator;
-import ch.hsr.faith.android.app.services.request.FurnitureCategoriesRootRequest;
-import ch.hsr.faith.android.app.services.request.PieceOfFurnituresGetByCategoryRequest;
-import ch.hsr.faith.android.app.services.response.FurnitureCategoryListResponse;
-import ch.hsr.faith.android.app.services.response.PieceOfFurnitureListResponse;
-import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.android.app.util.PropertyReader;
-import ch.hsr.faith.domain.FurnitureCategory;
-import ch.hsr.faith.domain.PieceOfFurniture;
-
-import com.octo.android.robospice.persistence.DurationInMillis;
 
 public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnNavigationListener {
 
-	private String lastFurnitureCategoriesRootRequestCacheKey;
-	private String lastPieceOfFurnituresGetRequestCacheKey;
-	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+	private ListView listView;
+	private PieceOfFurnituresAdapter popupListAdapter;
+	private FurnitureListHandler furnitureListHandler;
 
-	ExpandableListAdapter listAdapter;
-	ExpandableListView expListView;
-	ArrayList<String> listDataHeader;
-	HashMap<String, List<String>> listDataChild;
-	ArrayList<FurnitureCategory> listDataHeaderFurnitureCategory;
-	List<String> subCategoryList;
-	FurnitureCategory parentObject;
+	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
 	@Override
 	protected void onStart() {
@@ -53,50 +37,21 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		// Set up the action bar to show a dropdown list.
+		setContentView(R.layout.activity_furniture_main);
+
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setListNavigationCallbacks(new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1, android.R.id.text1, new String[] {
+				getString(R.string.title_activity_furniture_main), getString(R.string.title_activity_facility_main), }), this);
 
-		// Set up the dropdown list navigation in the action bar.
-		actionBar.setListNavigationCallbacks(
-		// Specify a SpinnerAdapter to populate the dropdown
-		// list.
-				new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1, android.R.id.text1, new String[] {
-						getString(R.string.title_activity_furniture_main), getString(R.string.title_activity_facility_main), }), this);
-
-		// get the listview
-		expListView = (ExpandableListView) findViewById(R.id.lvExp);
-
-		listDataHeader = new ArrayList<String>();
-		listDataHeaderFurnitureCategory = new ArrayList<FurnitureCategory>();
-		listDataChild = new HashMap<String, List<String>>();
-		subCategoryList = new ArrayList<String>();
-
-		loadFurnitureCategories();
-
-		listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-		expListView.setAdapter(listAdapter);
-		expListView.setOnGroupClickListener(new OnListDataHeaderClickedListener());
-		expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
-			int previousItem = -1;
-
-			public void onGroupExpand(int groupPosition) {
-				if (groupPosition != previousItem)
-					expListView.collapseGroup(previousItem);
-				previousItem = groupPosition;
-			}
-		});
-		expListView.setOnChildClickListener(new OnListDataChildClickedListener());
+		listView = (ListView) findViewById(R.id.furnitureMainListView);
+		popupListAdapter = new PieceOfFurnituresAdapter(this, R.layout.select_piece_of_furniture_popup_listview_item, new ArrayList<SelectPieceOfFurnitureListItem>());
+		listView.setAdapter(popupListAdapter);
+		listView.setOnItemClickListener(new OnSelectPieceOfFurnitureListItemClickedListener());
+		furnitureListHandler = new FurnitureListHandler(this, spiceManager, popupListAdapter);
+		furnitureListHandler.loadRootCategories();
 	}
-
-	/**
-	 * folgende Methoden onRestoreInstanceState und onSaveInstanceState könnten
-	 * eventuell noch gebraucht werden, sind allerdings bisher ohne funktion in
-	 * unserer app
-	 */
 
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -124,85 +79,32 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 		default:
 			return true;
 		}
-
 	}
 
 	private void onFacilitySpinnerClick() {
 		Intent intent = new Intent(this.getBaseContext(), FacilityMainActivity.class);
 		startActivity(intent);
-		// calling finish() on an activity, the method onDestroy() is executed
 		finish();
 	}
 
-	/**
-	 * Laedt alle Hauptkategorien (Furniture-Categories)
-	 */
-	private void loadFurnitureCategories() {
-		FurnitureMainActivity.this.setProgressBarIndeterminateVisibility(true);
-		FurnitureCategoriesRootRequest request = new FurnitureCategoriesRootRequest();
-		lastFurnitureCategoriesRootRequestCacheKey = request.createCacheKey();
-		spiceManager.execute(request, lastFurnitureCategoriesRootRequestCacheKey, DurationInMillis.ONE_MINUTE, new FurnitureCategoriesListRequestListener(this));
-	}
-
-	private class FurnitureCategoriesListRequestListener extends BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList> {
-		public FurnitureCategoriesListRequestListener(BaseActivity baseActivity) {
-			super(baseActivity);
-		}
-
-		@Override
-		protected void handleSuccess(FurnitureCategoryList data) {
-			logger.debug("List with FurnitureCategories successfully loaded");
-			for (FurnitureCategory s : data) {
-				listDataHeaderFurnitureCategory.add(s);
-				listDataHeader.add(s.getName().getText(LocaleUtil.getCurrentLocale()));
+	private class OnSelectPieceOfFurnitureListItemClickedListener implements OnItemClickListener {
+		public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+			SelectPieceOfFurnitureListItem item = (SelectPieceOfFurnitureListItem) listView.getItemAtPosition(position);
+			if (item instanceof FurnitureCategoryListItem) {
+				FurnitureCategoryListItem furnitureCategoryListItem = (FurnitureCategoryListItem) item;
+				furnitureListHandler.loadSubCategory(furnitureCategoryListItem.getFurnitureCategory());
+			} else if (item instanceof PieceOfFurnitureListItem) {
+				PieceOfFurnitureListItem pieceOfFurnitureListItem = (PieceOfFurnitureListItem) item;
+				// TODO ska: open piece of furniture
+			} else if (item instanceof GotoParentCategoryListItem) {
+				GotoParentCategoryListItem gotoParentCategoryListItem = (GotoParentCategoryListItem) item;
+				if (gotoParentCategoryListItem.getFurnitureCategory() == null) {
+					furnitureListHandler.loadRootCategories();
+				} else {
+					furnitureListHandler.loadSubCategory(gotoParentCategoryListItem.getFurnitureCategory());
+				}
 			}
-			listAdapter.notifyDataSetChanged();
 		}
-	}
-
-	private void loadPieceOfFurniture(FurnitureCategory parent) {
-		FurnitureMainActivity.this.setProgressBarIndeterminateVisibility(true);
-		PieceOfFurnituresGetByCategoryRequest request = new PieceOfFurnituresGetByCategoryRequest(parent);
-		lastPieceOfFurnituresGetRequestCacheKey = request.createCacheKey();
-		spiceManager.execute(request, lastPieceOfFurnituresGetRequestCacheKey, DurationInMillis.ONE_MINUTE, new PieceOfFurnituresListRequestListener(this));
-	}
-
-	private class PieceOfFurnituresListRequestListener extends BaseRequestListener<PieceOfFurnitureListResponse, PieceOfFurnitureList> {
-
-		public PieceOfFurnituresListRequestListener(BaseActivity baseActivity) {
-			super(baseActivity);
-		}
-
-		@Override
-		protected void handleSuccess(PieceOfFurnitureList data) {
-			logger.debug("List with PieceOfFurnitures successfully loaded");
-			for (PieceOfFurniture s : data) {
-				String subCategory = s.getName().getText(LocaleUtil.getCurrentLocale());
-				subCategoryList.add(subCategory);
-			}
-			listDataChild.put(parentObject.getName().getText(LocaleUtil.getCurrentLocale()), subCategoryList);
-			listAdapter.notifyDataSetChanged();
-		}
-	}
-
-	private class OnListDataChildClickedListener implements OnChildClickListener {
-
-		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-			return false;
-		}
-
-	}
-
-	private class OnListDataHeaderClickedListener implements OnGroupClickListener {
-
-		public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-
-			parentObject = listDataHeaderFurnitureCategory.get(groupPosition);
-			subCategoryList.clear();
-			loadPieceOfFurniture(parentObject);
-			return false;
-		}
-
 	}
 
 	private void loadSystemProperties() {

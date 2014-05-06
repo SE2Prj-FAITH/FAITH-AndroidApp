@@ -9,35 +9,30 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.adapters.PieceOfFurnituresAdapter;
+import ch.hsr.faith.android.app.activities.components.FurnitureCategoryListItem;
+import ch.hsr.faith.android.app.activities.components.FurnitureListHandler;
+import ch.hsr.faith.android.app.activities.components.GotoParentCategoryListItem;
+import ch.hsr.faith.android.app.activities.components.PieceOfFurnitureListItem;
+import ch.hsr.faith.android.app.activities.components.SelectPieceOfFurnitureListItem;
 import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
-import ch.hsr.faith.android.app.dto.FurnitureCategoryList;
-import ch.hsr.faith.android.app.dto.PieceOfFurnitureList;
 import ch.hsr.faith.android.app.services.request.AddOrUpdateItemNeededRequest;
-import ch.hsr.faith.android.app.services.request.FurnitureCategoriesGetByParentRequest;
-import ch.hsr.faith.android.app.services.request.FurnitureCategoriesRootRequest;
 import ch.hsr.faith.android.app.services.request.ItemNeededDeleteRequest;
-import ch.hsr.faith.android.app.services.request.PieceOfFurnituresGetByCategoryRequest;
-import ch.hsr.faith.android.app.services.response.FurnitureCategoryListResponse;
 import ch.hsr.faith.android.app.services.response.ItemNeededResponse;
-import ch.hsr.faith.android.app.services.response.PieceOfFurnitureListResponse;
 import ch.hsr.faith.android.app.services.response.StringResponse;
 import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.domain.Facility;
-import ch.hsr.faith.domain.FurnitureCategory;
 import ch.hsr.faith.domain.ItemNeeded;
 import ch.hsr.faith.domain.PieceOfFurniture;
 
@@ -48,6 +43,7 @@ public class AddOrEditItemNeededActivity extends BaseActivity {
 	private TextView failuresTextView;
 	private ListView popupListView;
 	private PieceOfFurnituresAdapter popupListAdapter;
+	private FurnitureListHandler furnitureListHandler;
 
 	private EditText amountField;
 	private EditText descriptionField;
@@ -57,9 +53,6 @@ public class AddOrEditItemNeededActivity extends BaseActivity {
 	private Facility facility;
 	private ItemNeeded itemNeeded;
 
-	private String lastFurnitureCategoriesRootRequestCacheKey;
-	private String lastFurnitureCategoriesRequestCacheKey;
-	private String lastPieceOfFurnituresRequestCacheKey;
 	private String saveItemNeededRequestCacheKey;
 	private String deleteItemNeededRequestCacheKey;
 
@@ -117,7 +110,8 @@ public class AddOrEditItemNeededActivity extends BaseActivity {
 			popupListAdapter = new PieceOfFurnituresAdapter(this, R.layout.select_piece_of_furniture_popup_listview_item, new ArrayList<SelectPieceOfFurnitureListItem>());
 			popupListView.setAdapter(popupListAdapter);
 			popupListView.setOnItemClickListener(new OnSelectPieceOfFurnitureListItemClickedListener(popup));
-			loadRootCategories();
+			furnitureListHandler = new FurnitureListHandler(this, spiceManager, popupListAdapter);
+			furnitureListHandler.loadRootCategories();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -161,26 +155,6 @@ public class AddOrEditItemNeededActivity extends BaseActivity {
 	private void cleanFailuresView() {
 		failuresTextView.setText("");
 		failuresTextView.setVisibility(TextView.INVISIBLE);
-	}
-
-	private void loadRootCategories() {
-		popupListAdapter.clear();
-		FurnitureCategoriesRootRequest request = new FurnitureCategoriesRootRequest();
-		lastFurnitureCategoriesRootRequestCacheKey = request.createCacheKey();
-		spiceManager.execute(request, lastFurnitureCategoriesRootRequestCacheKey, DurationInMillis.ONE_HOUR, new FurnitureCategoriesListRequestListener(this));
-	}
-
-	private void loadSubCategory(FurnitureCategory furnitureCategory) {
-		popupListAdapter.clear();
-		GotoParentCategoryListItem gotoParentListItem = new GotoParentCategoryListItem(furnitureCategory.getParent());
-		popupListAdapter.add(gotoParentListItem);
-		FurnitureCategoriesGetByParentRequest request = new FurnitureCategoriesGetByParentRequest(furnitureCategory);
-		lastFurnitureCategoriesRequestCacheKey = request.createCacheKey();
-		spiceManager.execute(request, lastFurnitureCategoriesRequestCacheKey, DurationInMillis.ONE_HOUR, new FurnitureCategoriesListRequestListener(this));
-
-		PieceOfFurnituresGetByCategoryRequest requestPieceOfFurnitures = new PieceOfFurnituresGetByCategoryRequest(furnitureCategory);
-		lastPieceOfFurnituresRequestCacheKey = requestPieceOfFurnitures.createCacheKey();
-		spiceManager.execute(requestPieceOfFurnitures, lastPieceOfFurnituresRequestCacheKey, DurationInMillis.ONE_HOUR, new PieceOfFurnitureListRequestListener(this));
 	}
 
 	private void selectPieceOfFurniture(PieceOfFurniture pieceOfFurniture) {
@@ -246,7 +220,7 @@ public class AddOrEditItemNeededActivity extends BaseActivity {
 			SelectPieceOfFurnitureListItem item = (SelectPieceOfFurnitureListItem) popupListView.getItemAtPosition(position);
 			if (item instanceof FurnitureCategoryListItem) {
 				FurnitureCategoryListItem furnitureCategoryListItem = (FurnitureCategoryListItem) item;
-				loadSubCategory(furnitureCategoryListItem.getFurnitureCategory());
+				furnitureListHandler.loadSubCategory(furnitureCategoryListItem.getFurnitureCategory());
 			} else if (item instanceof PieceOfFurnitureListItem) {
 				PieceOfFurnitureListItem pieceOfFurnitureListItem = (PieceOfFurnitureListItem) item;
 				selectPieceOfFurniture(pieceOfFurnitureListItem.getPieceOfFurniture());
@@ -254,134 +228,11 @@ public class AddOrEditItemNeededActivity extends BaseActivity {
 			} else if (item instanceof GotoParentCategoryListItem) {
 				GotoParentCategoryListItem gotoParentCategoryListItem = (GotoParentCategoryListItem) item;
 				if (gotoParentCategoryListItem.getFurnitureCategory() == null) {
-					loadRootCategories();
+					furnitureListHandler.loadRootCategories();
 				} else {
-					loadSubCategory(gotoParentCategoryListItem.getFurnitureCategory());
+					furnitureListHandler.loadSubCategory(gotoParentCategoryListItem.getFurnitureCategory());
 				}
 			}
 		}
 	}
-
-	private class FurnitureCategoriesListRequestListener extends BaseRequestListener<FurnitureCategoryListResponse, FurnitureCategoryList> {
-		public FurnitureCategoriesListRequestListener(BaseActivity baseActivity) {
-			super(baseActivity);
-		}
-
-		@Override
-		protected void handleSuccess(FurnitureCategoryList data) {
-			for (FurnitureCategory furnitureCategory : data) {
-				popupListAdapter.add(new FurnitureCategoryListItem(furnitureCategory));
-			}
-			popupListAdapter.notifyDataSetChanged();
-		}
-	}
-
-	private class PieceOfFurnitureListRequestListener extends BaseRequestListener<PieceOfFurnitureListResponse, PieceOfFurnitureList> {
-		public PieceOfFurnitureListRequestListener(BaseActivity baseActivity) {
-			super(baseActivity);
-		}
-
-		@Override
-		protected void handleSuccess(PieceOfFurnitureList data) {
-			for (PieceOfFurniture pieceOfFurniture : data) {
-				popupListAdapter.add(new PieceOfFurnitureListItem(pieceOfFurniture));
-			}
-			popupListAdapter.notifyDataSetChanged();
-		}
-	}
-
-	private class PieceOfFurnituresAdapter extends ArrayAdapter<SelectPieceOfFurnitureListItem> {
-
-		public PieceOfFurnituresAdapter(Context context, int textViewResourceId, List<SelectPieceOfFurnitureListItem> objects) {
-			super(context, textViewResourceId, objects);
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			SelectPieceOfFurnitureListItem listItem = getItem(position);
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.select_piece_of_furniture_popup_listview_item, null);
-			ImageView image = (ImageView) convertView.findViewById(R.id.item_icon);
-			TextView textView = (TextView) convertView.findViewById(R.id.item_title);
-			if (listItem instanceof FurnitureCategoryListItem) {
-				FurnitureCategoryListItem furnitureCategoryListItem = (FurnitureCategoryListItem) listItem;
-				image.setImageResource(android.R.drawable.ic_menu_more);
-				textView.setText(furnitureCategoryListItem.getFurnitureCategory().getName().getText(LocaleUtil.getCurrentLocale()));
-			} else if (listItem instanceof PieceOfFurnitureListItem) {
-				PieceOfFurnitureListItem pieceOfFurnitureListItem = (PieceOfFurnitureListItem) listItem;
-				image.setImageResource(android.R.drawable.ic_menu_add);
-				textView.setText(pieceOfFurnitureListItem.getPieceOfFurniture().getName().getText(LocaleUtil.getCurrentLocale()));
-			} else if (listItem instanceof GotoParentCategoryListItem) {
-				GotoParentCategoryListItem gotoParentCategoryListItem = (GotoParentCategoryListItem) listItem;
-				image.setImageResource(R.drawable.ic_menu_top);
-				if (gotoParentCategoryListItem.getFurnitureCategory() == null) {
-					textView.setText(getString(R.string.select_piece_of_furniture_top_item_root_text));
-				} else {
-					textView.setText(getString(R.string.select_piece_of_furniture_top_item_text) + " '"
-							+ gotoParentCategoryListItem.getFurnitureCategory().getName().getText(LocaleUtil.getCurrentLocale()) + "'");
-				}
-			}
-			return convertView;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			SelectPieceOfFurnitureListItem listItem = super.getItem(position);
-			return listItem.getId();
-		}
-	}
-
-	private interface SelectPieceOfFurnitureListItem {
-		public long getId();
-	}
-
-	private class FurnitureCategoryListItem implements SelectPieceOfFurnitureListItem {
-		private FurnitureCategory furnitureCategory;
-
-		FurnitureCategoryListItem(FurnitureCategory furnitureCategory) {
-			this.furnitureCategory = furnitureCategory;
-		}
-
-		public long getId() {
-			return furnitureCategory.getId();
-		}
-
-		public FurnitureCategory getFurnitureCategory() {
-			return this.furnitureCategory;
-		}
-	}
-
-	private class PieceOfFurnitureListItem implements SelectPieceOfFurnitureListItem {
-		private PieceOfFurniture pieceOfFurniture;
-
-		PieceOfFurnitureListItem(PieceOfFurniture pieceOfFurniture) {
-			this.pieceOfFurniture = pieceOfFurniture;
-		}
-
-		public long getId() {
-			return pieceOfFurniture.getId();
-		}
-
-		public PieceOfFurniture getPieceOfFurniture() {
-			return this.pieceOfFurniture;
-		}
-	}
-
-	private class GotoParentCategoryListItem implements SelectPieceOfFurnitureListItem {
-		private FurnitureCategory parentCategory;
-
-		GotoParentCategoryListItem(FurnitureCategory parentCategory) {
-			this.parentCategory = parentCategory;
-		}
-
-		public long getId() {
-			if (parentCategory == null)
-				return 0;
-			return parentCategory.getId();
-		}
-
-		public FurnitureCategory getFurnitureCategory() {
-			return this.parentCategory;
-		}
-	}
-
 }
