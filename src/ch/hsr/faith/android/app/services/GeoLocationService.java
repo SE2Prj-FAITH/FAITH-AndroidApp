@@ -3,11 +3,16 @@ package ch.hsr.faith.android.app.services;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.log4j.Logger;
+
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.Toast;
 import ch.hsr.faith.android.app.activities.BaseActivity;
 
 public class GeoLocationService extends BaseActivity {
@@ -17,23 +22,79 @@ public class GeoLocationService extends BaseActivity {
 	protected LocationResult locationResult;
 	private boolean gps_enabled = false;
 	private boolean network_enabled = false;
+	private Editor editor;
+	private Logger logger = Logger.getRootLogger();
+	private SharedPreferences geoLocation;
+	public static final String GEO_LOCATION_LATITUDE = "LOCATION_LATITUDE", GEO_LOCATION_LONGITUDE = "LOCATION_LONGITUDE", GEO_LOCATION = "FAITH-POSITION";
+	private Context context;
 
-	public static final String geoLocationLatitudePreferenceName = "LOCATION_LATITUDE", geoLocationLongitudePreferenceName = "LOCATION_LONGITUDE",
-			positionSharedPreference = "FAITH-POSITION";
-	
-	public static String getGeoLocationLatitudePreferenceName() {
-		return geoLocationLatitudePreferenceName;
+	public GeoLocationService(Context context) {
+		super();
+		this.context = context;
+		geoLocation = context.getSharedPreferences(GEO_LOCATION, MODE_PRIVATE);
 	}
 
-	public static String getGeoLocationLongitudePreferenceName(){
-		return geoLocationLongitudePreferenceName;
+	public Location getPositionFromSharedPreferences() {
+
+		String latitudePreferencesString = geoLocation.getString(GEO_LOCATION_LATITUDE, null);
+		String longitudePreferencesString = geoLocation.getString(GEO_LOCATION_LONGITUDE, null);
+
+		if (latitudePreferencesString == null || longitudePreferencesString == null) {
+			return null;
+		} else {
+			double latitude = Double.parseDouble(latitudePreferencesString);
+			double longitude = Double.parseDouble(longitudePreferencesString);
+
+			Location location = new Location("Location from Shared Preference");
+			location.setLatitude(latitude);
+			location.setLongitude(longitude);
+
+			return location;
+		}
 	}
 
-	public static String getPositionSharedPreference() {
-		return positionSharedPreference;
+	public void saveGeoLocation(Location location) {
+		saveGeoLocationOnSharedMemory(location);
 	}
-	
-	public boolean invokeGettingLocation(Context context, LocationResult result) {
+
+	public void saveGeoLocationOnSharedMemory(Location loc) {
+
+		try {
+			editor = geoLocation.edit();
+			editor.putString(GEO_LOCATION_LATITUDE, String.valueOf((float) loc.getLatitude()));
+			editor.putString(GEO_LOCATION_LONGITUDE, String.valueOf((float) loc.getLongitude()));
+			editor.apply();
+			logger.info("Wrote to shared preferences: Longitude -> " + geoLocation.getString(GEO_LOCATION_LONGITUDE, null) + " and Latitude -> "
+					+ geoLocation.getString(GEO_LOCATION_LATITUDE, null));
+
+			this.runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(context, "Location successfully saved.", Toast.LENGTH_SHORT).show();
+				}
+			});
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			this.runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(getBaseContext(), "Location could not be saved: ", Toast.LENGTH_LONG).show();
+				}
+			});
+		}
+		return;
+	}
+
+	public void deleteSavedGpsLocation() {
+
+		editor = geoLocation.edit();
+		editor.clear();
+		editor.apply();
+		Toast t = Toast.makeText(context, "Location sucessfully removed", Toast.LENGTH_LONG);
+		t.show();
+
+	}
+
+	public boolean isGpsOrNetworkEnabled(Context context, LocationResult result) {
 		locationResult = result;
 		if (locationManager == null)
 			locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -139,10 +200,5 @@ public class GeoLocationService extends BaseActivity {
 
 	public static abstract class LocationResult {
 		public abstract void gotLocation(Location location);
-
-		public abstract Location getLoc();
-
-		public abstract void setLoc(Location location);
-
 	}
 }
