@@ -41,18 +41,26 @@ public class SettingsActivity extends BaseActivity {
 				LocationResult locationResult = new GeoLocationService.LocationResult() {
 					@Override
 					public void gotLocation(Location location) {
-						geoLocationService.saveGeoLocation(location);
+						boolean locationSaved = geoLocationService.saveGeoLocationOnSharedMemory(location);
+						if (locationSaved)
+							Toast.makeText(getApplicationContext(), R.string.location_successfully_saved, Toast.LENGTH_SHORT).show();
+						else
+							Toast.makeText(getBaseContext(), R.string.location_not_saved, Toast.LENGTH_LONG).show();
 					}
 				};
 				boolean gpsOrNetworkEnabled = geoLocationService.isGpsOrNetworkEnabled(getApplicationContext(), locationResult);
 
 				if (gpsOrNetworkEnabled == false) {
-					Toast.makeText(getApplicationContext(), getText(R.string.dialog_alert_gps_disabled).toString(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), getText(R.string.dialog_alert_gps_or_network_disabled).toString(), Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(getApplicationContext(), "fetching location...", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), R.string.fetching_location, Toast.LENGTH_LONG).show();
 				}
 			} else {
-				geoLocationService.deleteSavedGpsLocation();
+				if (geoLocationService.deleteSavedGpsLocation())
+					Toast.makeText(getApplicationContext(), R.string.location_removing_successful, Toast.LENGTH_LONG).show();
+				else
+					Toast.makeText(getApplicationContext(), R.string.location_removing_failed, Toast.LENGTH_LONG).show();
+
 			}
 		}
 	}

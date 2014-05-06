@@ -12,7 +12,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.widget.Toast;
 import ch.hsr.faith.android.app.activities.BaseActivity;
 
 public class GeoLocationService extends BaseActivity {
@@ -26,11 +25,9 @@ public class GeoLocationService extends BaseActivity {
 	private Logger logger = Logger.getRootLogger();
 	private SharedPreferences geoLocation;
 	public static final String GEO_LOCATION_LATITUDE = "LOCATION_LATITUDE", GEO_LOCATION_LONGITUDE = "LOCATION_LONGITUDE", GEO_LOCATION = "FAITH-POSITION";
-	private Context context;
 
 	public GeoLocationService(Context context) {
 		super();
-		this.context = context;
 		geoLocation = context.getSharedPreferences(GEO_LOCATION, MODE_PRIVATE);
 	}
 
@@ -45,7 +42,7 @@ public class GeoLocationService extends BaseActivity {
 			double latitude = Double.parseDouble(latitudePreferencesString);
 			double longitude = Double.parseDouble(longitudePreferencesString);
 
-			Location location = new Location("Location from Shared Preference");
+			Location location = new Location("LocationFromPreference");
 			location.setLatitude(latitude);
 			location.setLongitude(longitude);
 
@@ -53,11 +50,7 @@ public class GeoLocationService extends BaseActivity {
 		}
 	}
 
-	public void saveGeoLocation(Location location) {
-		saveGeoLocationOnSharedMemory(location);
-	}
-
-	public void saveGeoLocationOnSharedMemory(Location loc) {
+	public boolean saveGeoLocationOnSharedMemory(Location loc) {
 
 		try {
 			editor = geoLocation.edit();
@@ -66,31 +59,24 @@ public class GeoLocationService extends BaseActivity {
 			editor.apply();
 			logger.info("Wrote to shared preferences: Longitude -> " + geoLocation.getString(GEO_LOCATION_LONGITUDE, null) + " and Latitude -> "
 					+ geoLocation.getString(GEO_LOCATION_LATITUDE, null));
-
-			this.runOnUiThread(new Runnable() {
-				public void run() {
-					Toast.makeText(context, "Location successfully saved.", Toast.LENGTH_SHORT).show();
-				}
-			});
+			return true;
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			this.runOnUiThread(new Runnable() {
-				public void run() {
-					Toast.makeText(getBaseContext(), "Location could not be saved: ", Toast.LENGTH_LONG).show();
-				}
-			});
+			return false;
 		}
-		return;
 	}
 
-	public void deleteSavedGpsLocation() {
+	public boolean deleteSavedGpsLocation() {
 
-		editor = geoLocation.edit();
-		editor.clear();
-		editor.apply();
-		Toast t = Toast.makeText(context, "Location sucessfully removed", Toast.LENGTH_LONG);
-		t.show();
+		try {
+			editor = geoLocation.edit();
+			editor.clear();
+			editor.apply();
+			return true;
+
+		} catch (Exception e) {
+			return false;
+		}
 
 	}
 
