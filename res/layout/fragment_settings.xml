@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:onClick="onCheckboxSaveGpsLocClicked"
-        android:text="@string/checkBoxSaveCurrentGpsLocation" />
+        android:text="@string/checkox_save_current_gps_location" />
     
 
 </RelativeLayout>

@@ -35,12 +35,12 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<S>, S> impl
 	}
 
 	public void onRequestSuccess(T result) {
-		if (result.getStatus().equals(BaseJSONResponse.STATUS_ERROR)) {
-			activityRequesting.showErrorDialog(result.getErrorMessage());
+		if (result.getStatus().equals(BaseJSONResponse.STATUS_SUCCESS)) {
+			handleSuccess(result.getData());
 		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_FAIL)) {
 			handleFailures(result.getFailures());
-		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_SUCCESS)) {
-			handleSuccess(result.getData());
+		} else if (result.getStatus().equals(BaseJSONResponse.STATUS_ERROR)) {
+			activityRequesting.showErrorDialog(result.getErrorMessage());
 		} else {
 			activityRequesting.showErrorDialog(activityRequesting.getText(R.string.service_return_status_unknown).toString());
 		}
@@ -56,9 +56,10 @@ public abstract class BaseRequestListener<T extends BaseJSONResponse<S>, S> impl
 	protected void handleFailures(List<String> failures) {
 		// By default, failures are not handled. Override this method to handle!
 	}
-	
+
 	protected void handleAuthenticationFailure() {
-		Toast.makeText(activityRequesting.getApplicationContext(), activityRequesting.getString(ch.hsr.faith.android.app.R.string.authentication_message_failure), Toast.LENGTH_LONG).show();
+		Toast.makeText(activityRequesting.getApplicationContext(), activityRequesting.getString(ch.hsr.faith.android.app.R.string.authentication_message_failure),
+				Toast.LENGTH_LONG).show();
 		Intent intent = new Intent(activityRequesting, LoginUserAccountActivity.class);
 		activityRequesting.startActivity(intent);
 	}

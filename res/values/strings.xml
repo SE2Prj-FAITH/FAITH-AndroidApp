@@ -29,8 +29,8 @@
     <string name="authentication_message_failure">invalid credentials</string>
     <string name="title_activity_furniture_main">Furniture</string>
     <string name="title_activity_facility_main">Facility</string>
-    <string name="checkBoxSaveCurrentGpsLocation">Save my current GPS location</string>
-    <string name="dialog_alert_gps_disabled"> Your GPS is disabled. To receive exact location, please enable GPS in your phone settings.</string>
+    <string name="checkox_save_current_gps_location">Save my current GPS location</string>
+    <string name="dialog_alert_gps_or_network_disabled"> Your GPS is disabled. To receive exact location, please enable GPS in your phone settings.</string>
     <string name="request_progress_dialog_loading">Loading &#8230;</string>
     <string name="activity_facilities_tabbed_tab_list">List</string>
     <string name="activity_facilities_tabbed_tab_map">Map</string>
@@ -76,6 +76,11 @@
         <item>Switzerland</item>
         <item>Liechtenstein</item>
     </string-array>
-	
-	
+    <string name="add_item_needed_delete">Delete</string>
+    <string name="add_item_needed_successfully_deleted">Successfully deleted</string>
+    <string name="location_successfully_saved">Location successfully saved</string>
+    <string name="location_not_saved">Location could not be saved</string>
+    <string name="fetching_location">Fetching location</string>
+    <string name="location_removing_successful">Location successfully removed</string>
+    <string name="location_removing_failed">Location removing failed</string>
 </resources>

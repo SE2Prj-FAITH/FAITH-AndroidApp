@@ -15,8 +15,7 @@ public class AboutFaithActivity extends BaseActivity {
 		setContentView(R.layout.activity_about_faith);
 
 		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -29,10 +28,8 @@ public class AboutFaithActivity extends BaseActivity {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_about_faith,
-					container, false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_about_faith, container, false);
 			return rootView;
 		}
 	}
