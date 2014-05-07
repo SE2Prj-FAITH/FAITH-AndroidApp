@@ -36,6 +36,11 @@
             android:layout_height="wrap_content"
             android:hint="@string/labelFacilityName"
             android:inputType="textCapWords" />
+        
+    	<Spinner 
+    	    android:id="@+id/selectFacilityCountry"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/editFacilityStreet"
@@ -80,12 +85,12 @@
             android:inputType="textEmailAddress" />
 
         <Button
-            android:id="@+id/buttonRegister"
+            android:id="@+id/buttonAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="22dp"
             android:layout_marginTop="42dp"
-            android:onClick="registerButtonClicked"
+            android:onClick="addButtonClicked"
             android:text="@string/buttonAddFacility" />
     </LinearLayout>
 

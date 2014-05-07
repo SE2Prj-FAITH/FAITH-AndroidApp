@@ -72,5 +72,10 @@
 	<string name="buttonAddFacility">Add Facility</string>
 	<string name="authentication_button_register_text">Register</string>
 	<string name="authentication_button_cancel_text">Cancel</string>
+	<string-array name="countries_available">
+        <item>Switzerland</item>
+        <item>Liechtenstein</item>
+    </string-array>
+	
 	
 </resources>
