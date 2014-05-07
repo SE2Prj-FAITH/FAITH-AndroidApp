@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">FAITH App</string>
+    <string name="app_name">FAITH</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="activity_register_user">Register account</string>
@@ -9,9 +9,9 @@
     <string name="title_activity_register_user_acccount_confirmation">Account registered</string>
     <string name="button_register">Register</string>
     <string name="registeruser_form_title">Please enter the following information to create a new user account:</string>
-    <string name="labelUserAccountUserId">id</string>
-    <string name="labelUserAccountPassword">Password</string>
-    <string name="labelUserAccountEmail">E-Mail</string>
+    <string name="label_user_account_user_id">id</string>
+    <string name="label_user_account_password">Password</string>
+    <string name="label_user_account_email">E-Mail</string>
     <string name="registeruser_confirmation_title">Thanks for registering. Your account information:</string>
     <string name="title_activity_about_faith">About Us</string>
     <string name="about_application">About</string>
@@ -62,14 +62,13 @@
     <string name="error_occurred_message">Error occurred: </string>
     <string name="button_add_facility">Add Facility</string>
     <string name="title_activity_add_facility">Add Facility</string>
-    <string name="labelFacilityName">Name of Facility</string>
-    <string name="labelFacilityStreet">Street</string>
-    <string name="labelFacilityZip">Zipcode</string>
-    <string name="labelFacilityCity">City</string>
-    <string name="labelFacilityHomepage">Homepage</string>
-    <string name="labelFacilityPhone">Phone</string>
-    <string name="labelFacilityEmail">E-Mail Address</string>
-    <string name="buttonAddFacility">Add Facility</string>
+    <string name="label_facility_name">Name of Facility</string>
+    <string name="label_facility_street">Street</string>
+    <string name="label_facility_zip">Zipcode</string>
+    <string name="label_facility_city">City</string>
+    <string name="label_facility_homepage">Homepage</string>
+    <string name="label_facility_phone">Phone</string>
+    <string name="label_facility_email">E-Mail Address</string>
     <string name="authentication_button_register_text">Register</string>
     <string name="authentication_button_cancel_text">Cancel</string>
     <string name="add_item_needed_delete">Delete</string>
