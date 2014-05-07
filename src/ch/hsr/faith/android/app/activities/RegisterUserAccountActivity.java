@@ -42,7 +42,7 @@ public class RegisterUserAccountActivity extends BaseActivity {
 	}
 
 	public void registerButtonClicked(View view) {
-		if(!isINputValid()) { 
+		if(!isInputValid()) { 
 			return;
 		}
 
@@ -57,7 +57,7 @@ public class RegisterUserAccountActivity extends BaseActivity {
 		spiceManager.execute(request, new RegisterUserAccountRequestListener(this));
 	}
 	
-	private boolean isINputValid() { 
+	private boolean isInputValid() { 
 		CharSequence email = emailEditText.getText();
 		if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) { 
 			emailEditText.setError(getString(R.string.register_user_invalid_email_address));
