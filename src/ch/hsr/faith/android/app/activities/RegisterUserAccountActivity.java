@@ -20,6 +20,8 @@ import ch.hsr.faith.domain.UserAccount;
 public class RegisterUserAccountActivity extends BaseActivity {
 
 	private TextView failuresTextView;
+	private EditText emailEditText;
+	private EditText passwordEditText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +37,37 @@ public class RegisterUserAccountActivity extends BaseActivity {
 	protected void onStart() {
 		super.onStart();
 		failuresTextView = (TextView) findViewById(R.id.RegisterUserFailures);
+		emailEditText = ((EditText) findViewById(R.id.editUserAccountEmail));
+		passwordEditText= ((EditText) findViewById(R.id.editUserAccountPasswort));
 	}
 
 	public void registerButtonClicked(View view) {
-		String email = ((EditText) findViewById(R.id.editUserAccountEmail)).getText().toString();
-		String password = ((EditText) findViewById(R.id.editUserAccountPasswort)).getText().toString();
+		if(!isINputValid()) { 
+			return;
+		}
 
 		UserAccount user = new UserAccount();
-		user.setEmail(email);
-		user.setPassword(password);
+		user.setEmail(emailEditText.getText().toString());
+		user.setPassword(passwordEditText.getText().toString());
 
 		failuresTextView.setText("");
 		failuresTextView.setVisibility(TextView.INVISIBLE);
 
 		RegisterUserAccountRequest request = new RegisterUserAccountRequest(user);
 		spiceManager.execute(request, new RegisterUserAccountRequestListener(this));
+	}
+	
+	private boolean isINputValid() { 
+		CharSequence email = emailEditText.getText();
+		if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) { 
+			emailEditText.setError(getString(R.string.register_user_invalid_email_address));
+			return false;
+		}
+		if(passwordEditText.getText().length()<4) { 
+			passwordEditText.setError(getString(R.string.register_user_invalid_password));
+			return false;
+		}
+		return true;
 	}
 
 	private class RegisterUserAccountRequestListener extends BaseRequestListener<UserAccountResponse, UserAccount> {

@@ -5,6 +5,5 @@
     android:layout_height="fill_parent"
     tools:context="ch.hsr.faith.android.app.activities.RegisterUserAccountActivity"
     tools:ignore="MergeRootFrame" >
-
 </FrameLayout>
 

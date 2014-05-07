@@ -78,4 +78,8 @@
     <string name="location_removing_successful">Location successfully removed</string>
     <string name="location_removing_failed">Location removing failed</string>
     <string name="title_activity_facility_info">FacilityInfoActivity</string>
+    
+    <!--  The strings below this line are not yet translated  -->
+    <string name="register_user_invalid_email_address">Enter a valid Mail Address</string>
+    <string name="register_user_invalid_password">Password must have a minimum of 4 chars</string>
 </resources>
