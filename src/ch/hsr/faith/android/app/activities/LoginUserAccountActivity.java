@@ -112,11 +112,11 @@ public class LoginUserAccountActivity extends BaseActivity {
 	private boolean isInputValid() {
 		CharSequence email = emailField.getText();
 		if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-			emailField.setError(getString(R.string.register_user_invalid_email_address));
+			emailField.setError(getString(R.string.user_input_validation_message_invalid_email_address));
 			return false;
 		}
 		if (passwordField.getText().length() < 4) {
-			passwordField.setError(getString(R.string.register_user_invalid_password));
+			passwordField.setError(getString(R.string.user_input_validation_message_invalid_password));
 			return false;
 		}
 		return true;

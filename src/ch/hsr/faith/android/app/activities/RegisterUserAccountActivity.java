@@ -60,11 +60,11 @@ public class RegisterUserAccountActivity extends BaseActivity {
 	private boolean isInputValid() { 
 		CharSequence email = emailEditText.getText();
 		if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) { 
-			emailEditText.setError(getString(R.string.register_user_invalid_email_address));
+			emailEditText.setError(getString(R.string.user_input_validation_message_invalid_email_address));
 			return false;
 		}
 		if(passwordEditText.getText().length()<4) { 
-			passwordEditText.setError(getString(R.string.register_user_invalid_password));
+			passwordEditText.setError(getString(R.string.user_input_validation_message_invalid_password));
 			return false;
 		}
 		return true;
