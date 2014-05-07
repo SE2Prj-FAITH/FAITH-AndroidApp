@@ -34,49 +34,49 @@
             android:id="@+id/editFacilityName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelFacilityName"
+            android:hint="@string/label_facility_name"
             android:inputType="textCapWords" />
 
         <EditText
             android:id="@+id/editFacilityStreet"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelFacilityStreet"
+            android:hint="@string/label_facility_street"
             android:inputType="textCapSentences" />
 
         <EditText
             android:id="@+id/editFacilityZip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelFacilityZip"
+            android:hint="@string/label_facility_zip"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/editFacilityCity"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelFacilityCity"
+            android:hint="@string/label_facility_city"
             android:inputType="textCapSentences" />
 
         <EditText
             android:id="@+id/editFacilityHomepage"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelFacilityHomepage"
+            android:hint="@string/label_facility_homepage"
             android:inputType="textUri" />
 
         <EditText
             android:id="@+id/editFacilityPhone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelFacilityPhone"
+            android:hint="@string/label_facility_phone"
             android:inputType="phone" />
 
         <EditText
             android:id="@+id/editFacilityEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelFacilityEmail"
+            android:hint="@string/label_facility_email"
             android:inputType="textEmailAddress" />
 
         <Button
@@ -86,7 +86,7 @@
             android:layout_marginRight="22dp"
             android:layout_marginTop="42dp"
             android:onClick="registerButtonClicked"
-            android:text="@string/buttonAddFacility" />
+            android:text="@string/button_add_facility" />
     </LinearLayout>
 
 </ScrollView>

@@ -36,7 +36,7 @@
             android:id="@+id/editUserAccountEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelUserAccountEmail"
+            android:hint="@string/label_user_account_email"
             android:inputType="textEmailAddress" >
         </EditText>
 
@@ -44,7 +44,7 @@
             android:id="@+id/editUserAccountPasswort"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/labelUserAccountPassword"
+            android:hint="@string/label_user_account_password"
             android:inputType="textPassword" >
         </EditText>
 

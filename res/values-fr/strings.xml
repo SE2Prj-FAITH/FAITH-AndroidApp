@@ -15,7 +15,7 @@
     <string name="registeruser_confirmation_title">Merci pour vous inscrire. Information de votre compte:</string>
 	<string name="about_application">a propos de nous</string>
 	<string name="title_activity_settings">Ajustage</string>
-	<string name="about_application_text">"Cette application est rédigé et conçu par TeamFAITH dans le cadre du module "Software Engineering Project 2" à l'Université des Sciences Appliquées, Rapperswil. \ n Développeurs \ n \ n \ t - Stefan Kapferer \ n \ t - Mathias Vetsch \ n \ t - Dominic Mühlhaupt \ n \ t - Daniel Kolb \ n \ t - Haris Sisic \ n \ n Contact: Mathias Vetsch, mvetsch@hsr.ch"</string>
+	<string name="about_application_text">"Cette application est rédigé et conçu par TeamFAITH dans le cadre du module "Software Engineering Project 2" à l'Université des Sciences Appliquées, Rapperswil. \ n Développeurs \ n \ n \ t - Stefan Kapferer \ n \ t - Mathias Vetsch \ n \ t - Dominic Mühlhaupt \ n \ t - Daniel Kolb \ n \ t - Haris Sisic \ n \ n Contact: Haris Sisic, hsisic@hsr.ch"</string>
 	 <string name="request_progress_dialog_loading">chargement en cours &#8230;</string>
     <string name="title_activity_about_faith">a propos de nous</string>
     <string name="title_activity_login_user_account">identifier</string>

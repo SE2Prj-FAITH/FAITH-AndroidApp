@@ -12,10 +12,17 @@
         android:id="@+id/textViewAbout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
         android:text="@string/about_application_text" />
+
+    <ImageView
+        android:id="@+id/imageViewHsrLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textViewAbout"
+        android:layout_alignTop="@+id/textViewAbout"
+        android:layout_marginTop="87dp"
+        android:src="@drawable/ic_hsrlogo" />
 
 </RelativeLayout>

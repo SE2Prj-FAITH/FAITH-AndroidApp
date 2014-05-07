@@ -16,7 +16,7 @@
     <string name="title_activity_about_faith">Über Uns</string>
     <string name="about_application">Über Uns</string>
     <string name="title_activity_settings">Einstellungen</string>
-    <string name="about_application_text">Diese Anwendung wurde im Rahmen des Modules "Software Engineering 2 Projekt" an der Hochschule für Technik, Rapperswil entwickelt. Entwickler: \n \t - Stefan Kapferer \n \t - Mathias Vetsch \n \t - Dominic Mühlhaupt \n \t - Daniel Kolb \n \t - Haris Sisic \n \n Kontakt: Mathias Vetsch, mvetsch@hsr.ch</string>
+    <string name="about_application_text">Diese Anwendung wurde im Rahmen des Modules "Software Engineering 2 Projekt" an der Hochschule für Technik, Rapperswil entwickelt. Entwickler: \n \t - Stefan Kapferer \n \t - Mathias Vetsch \n \t - Dominic Mühlhaupt \n \t - Daniel Kolb \n \t - Haris Sisic \n \n Kontakt: Haris Sisic, hsisic@hsr.ch</string>
     <string name="title_activity_login_user_account">Anmelden</string>
     <string name="title_activity_logout_user_account">Abmelden</string>
     <string name="action_facilities_management">Meine Einrichtungen</string>

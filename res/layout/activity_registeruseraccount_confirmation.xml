@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:textSize="8pt"
-            android:text="@string/labelUserAccountUserId" >
+            android:text="@string/label_user_account_user_id" >
         </TextView>
         <TextView
             android:id="@+id/textViewUserAccountUserId"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:textSize="8pt"
-            android:text="@string/labelUserAccountEmail" >
+            android:text="@string/label_user_account_email" >
         </TextView>
         <TextView
             android:id="@+id/textViewUserAccountEmail"
