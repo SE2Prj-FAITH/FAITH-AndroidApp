@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ch.hsr.faith.android.app.FacilityInfoActivity$PlaceholderFragment" >
+
+    <TextView
+        android:id="@+id/textViewFacilityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewFacilityCategory"
+        android:layout_below="@+id/textViewFacilityCategory"
+        android:layout_marginTop="36dp"
+        android:text="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/textViewFacilityAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewFacilityName"
+        android:layout_below="@+id/textViewFacilityName"
+        android:text="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/textViewFacilityWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewFacilityCity"
+        android:layout_below="@+id/textViewFacilityCity"
+        android:layout_marginTop="48dp"
+        android:text="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/textViewFacilityMails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewFacilityPhone"
+        android:layout_below="@+id/textViewFacilityPhone"
+        android:text="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/textViewFacilityCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="91dp"
+        android:text="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/textViewFacilityPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewFacilityWebsite"
+        android:layout_below="@+id/textViewFacilityWebsite"
+        android:text="@string/hello_world" />
+
+    <TextView
+        android:id="@+id/textViewFacilityCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewFacilityAddress"
+        android:layout_below="@+id/textViewFacilityAddress"
+        android:text="@string/hello_world" />
+
+</RelativeLayout>
