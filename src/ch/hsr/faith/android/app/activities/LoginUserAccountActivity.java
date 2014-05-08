@@ -94,7 +94,6 @@ public class LoginUserAccountActivity extends BaseActivity {
 
 		@Override
 		protected void handleAuthenticationFailure() {
-			super.handleAuthenticationFailure();
 			EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 			passwordField.setText("");
 			passwordField.requestFocus();
