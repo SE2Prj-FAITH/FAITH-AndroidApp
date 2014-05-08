@@ -16,7 +16,7 @@ import ch.hsr.faith.android.app.activities.BaseActivity;
 
 public class GeoLocationService extends BaseActivity {
 
-	private Timer timer1;
+	private Timer fetchTimer;
 	private LocationManager locationManager;
 	protected LocationResult locationResult;
 	private boolean gps_enabled = false;
@@ -101,20 +101,24 @@ public class GeoLocationService extends BaseActivity {
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
 		if (network_enabled)
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork);
-		timer1 = new Timer();
-		timer1.schedule(new GetLastLocation(), 2000);
+		fetchTimer = new Timer();
+		fetchTimer.schedule(new GetLastLocation(), 2000);
 		return true;
 	}
 
 	public void cancelTimer() {
-		timer1.cancel();
-		locationManager.removeUpdates(locationListenerGps);
-		locationManager.removeUpdates(locationListenerNetwork);
+		if (fetchTimer != null)
+			fetchTimer.cancel();
+		if (locationManager != null) {
+			locationManager.removeUpdates(locationListenerGps);
+			locationManager.removeUpdates(locationListenerNetwork);
+		}
 	}
 
 	LocationListener locationListenerGps = new LocationListener() {
 		public void onLocationChanged(Location location) {
-			timer1.cancel();
+			fetchTimer.cancel();
+			fetchTimer.purge();
 			locationResult.gotLocation(location);
 			locationManager.removeUpdates(this);
 			locationManager.removeUpdates(locationListenerNetwork);
@@ -133,7 +137,7 @@ public class GeoLocationService extends BaseActivity {
 
 	LocationListener locationListenerNetwork = new LocationListener() {
 		public void onLocationChanged(Location location) {
-			timer1.cancel();
+			fetchTimer.cancel();
 			locationResult.gotLocation(location);
 			locationManager.removeUpdates(this);
 			locationManager.removeUpdates(locationListenerGps);

@@ -71,7 +71,7 @@ public class SettingsActivity extends BaseActivity {
 		if (geoLocationService != null)
 			geoLocationService.cancelTimer();
 	}
-
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
