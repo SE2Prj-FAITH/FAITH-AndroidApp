@@ -5,16 +5,22 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.domain.FacilityWithDistance;
+import ch.hsr.faith.android.app.activities.FacilityInfoActivity;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 
 public class FacilitiesListFragment extends Fragment {
 
@@ -29,6 +35,7 @@ public class FacilitiesListFragment extends Fragment {
 		facilitiesListView = (ListView) view.findViewById(R.id.facilities_ListView);
 		adapter = new FacilitiesAdapter(context, R.layout.facilities_list_rowlayout, new ArrayList<FacilityWithDistance>());
 		facilitiesListView.setAdapter(adapter);
+		facilitiesListView.setOnItemClickListener(new OnFacilityClickedListener());
 		updateData();
 		return view;
 	}
@@ -67,6 +74,17 @@ public class FacilitiesListFragment extends Fragment {
 			FacilityWithDistance facility = super.getItem(position);
 			return facility.getId();
 		}
+	}
+
+	private class OnFacilityClickedListener implements OnItemClickListener {
+
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Intent facilityInfo = new Intent(context.getBaseContext(), FacilityInfoActivity.class);
+			facilityInfo.putExtra(IntentExtras.EXTRA_FACILITY, adapter.getItem(position));
+			startActivity(facilityInfo);
+
+		}
+
 	}
 
 }

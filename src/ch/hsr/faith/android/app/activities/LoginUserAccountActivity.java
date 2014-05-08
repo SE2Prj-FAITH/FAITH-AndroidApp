@@ -17,6 +17,8 @@ import ch.hsr.faith.android.app.services.response.LoginUserAccountResponse;
 import ch.hsr.faith.android.app.util.Login;
 
 public class LoginUserAccountActivity extends BaseActivity {
+	EditText emailField;
+	EditText passwordField;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,8 @@ public class LoginUserAccountActivity extends BaseActivity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		EditText emailField = ((EditText) findViewById(R.id.EditTextEmail));
-		EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
+		emailField = ((EditText) findViewById(R.id.EditTextEmail));
+		passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 
 		if (getLoginObject().isAuthenticated()) {
 			emailField.setText(getLoginObject().getEmail());
@@ -47,22 +49,23 @@ public class LoginUserAccountActivity extends BaseActivity {
 	}
 
 	public void LoginButtonClicked(View view) {
-		String email = ((EditText) findViewById(R.id.EditTextEmail)).getText().toString();
-		String password = ((EditText) findViewById(R.id.EditTextPassword)).getText().toString();
+		if (!isInputValid()) {
+			return;
+		}
 
-		Login login = new Login(email, password);
+		Login login = new Login(emailField.getText().toString(), passwordField.getText().toString());
 
 		storeCredentialsOnSharedMemory(login);
 
 		LoginUserAccountRequest request = new LoginUserAccountRequest(login);
 		spiceManager.execute(request, new LoginUserAccountRequestListener(this));
 	}
-	
+
 	public void RegisterButtonClicked(View view) {
 		Intent intent = new Intent(this, RegisterUserAccountActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void CancelButtonClicked(View view) {
 		Intent intent = new Intent(this, FurnitureMainActivity.class);
 		startActivity(intent);
@@ -91,7 +94,6 @@ public class LoginUserAccountActivity extends BaseActivity {
 
 		@Override
 		protected void handleAuthenticationFailure() {
-			super.handleAuthenticationFailure();
 			EditText passwordField = ((EditText) findViewById(R.id.EditTextPassword));
 			passwordField.setText("");
 			passwordField.requestFocus();
@@ -104,6 +106,19 @@ public class LoginUserAccountActivity extends BaseActivity {
 			Toast.makeText(getApplicationContext(), getString(R.string.authentication_message_success), Toast.LENGTH_LONG).show();
 			finish();
 		}
+	}
+
+	private boolean isInputValid() {
+		CharSequence email = emailField.getText();
+		if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+			emailField.setError(getString(R.string.user_input_validation_message_invalid_email_address));
+			return false;
+		}
+		if (passwordField.getText().length() < 4) {
+			passwordField.setError(getString(R.string.user_input_validation_message_invalid_password));
+			return false;
+		}
+		return true;
 	}
 
 	/**

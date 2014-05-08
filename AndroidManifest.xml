@@ -76,6 +76,10 @@
             android:name="ch.hsr.faith.android.app.activities.AddFacilityActivity"
             android:label="@string/title_activity_add_facility" >
         </activity>
+        <activity
+            android:name="ch.hsr.faith.android.app.activities.FacilityInfoActivity"
+            android:label="@string/title_activity_facility_info" >
+        </activity>
     </application>
 
 </manifest>

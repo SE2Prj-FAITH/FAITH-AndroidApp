@@ -58,6 +58,9 @@
     <string name="button_select_piece_of_furniture_popup_cancel">Cancel</string>
     <string name="select_piece_of_furniture_top_item_text">Up to</string>
     <string name="select_piece_of_furniture_top_item_root_text">Up to root</string>
+    <string name="label_user_account_user_id">id</string>
+    <string name="label_user_account_password">Password</string>
+    <string name="label_user_account_email">E-Mail</string>
     <string name="add_item_needed_successfully_saved">Successfully saved piece of furniture</string>
     <string name="error_occurred_message">Error occurred: </string>
     <string name="button_add_facility">Add Facility</string>
@@ -83,4 +86,17 @@
     <string name="fetching_location">Fetching location</string>
     <string name="location_removing_successful">Location successfully removed</string>
     <string name="location_removing_failed">Location removing failed</string>
+    <string name="label_facility_name">Name of Facility</string>
+    <string name="label_facility_street">Street</string>
+    <string name="label_facility_zip">Zipcode</string>
+    <string name="label_facility_city">City</string>
+    <string name="label_facility_homepage">Homepage</string>
+    <string name="label_facility_phone">Phone</string>
+    <string name="label_facility_email">E-Mail Address</string>
+    <string name="title_activity_facility_info">FacilityInfoActivity</string>
+        
+    <!--  The strings below this line are not yet translated  -->
+    <string name="user_input_validation_message_invalid_email_address">Enter a valid Mail Address</string>
+    <string name="user_input_validation_message_invalid_password">Password must have a minimum of 4 chars</string>
+    <string name="hsr_logo_description">HSR Logo</string>
 </resources>
