@@ -17,12 +17,12 @@
         android:text="@string/about_application_text" />
 
     <ImageView
-        android:id="@+id/imageViewHsrLogo"
+        android:id="@+id/imageViewLogoHsr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textViewAbout"
-        android:layout_alignTop="@+id/textViewAbout"
-        android:layout_marginTop="87dp"
-        android:src="@drawable/ic_hsrlogo" />
+        android:layout_below="@+id/textViewAbout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp"
+        android:src="@drawable/hsr" />
 
 </RelativeLayout>

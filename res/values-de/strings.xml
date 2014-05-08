@@ -56,8 +56,8 @@
     <string name="add_item_needed_error_piece_of_furniture_empty">Bitte ein Möbelstück auswählen.</string>
     <string name="select_piece_of_furniture_popup_title">Wählen Sie das Möbelstück:</string>
     <string name="button_select_piece_of_furniture_popup_cancel">Abbrechen</string>
-    <string name="select_piece_of_furniture_top_item_text">Hinauf</string>
-    <string name="select_piece_of_furniture_top_item_root_text">zurück</string>
+    <string name="select_piece_of_furniture_top_item_text">hinauf zu</string>
+    <string name="select_piece_of_furniture_top_item_root_text">hinauf</string>
     <string name="add_item_needed_successfully_saved">Möbelstück erfolgreich gespeichert.</string>
     <string name="button_add_facility">Einrichtung hinzufügen</string>
     <string name="title_activity_add_facility">Einrichtung Hinzufügen</string>
