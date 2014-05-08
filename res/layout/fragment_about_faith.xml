@@ -23,6 +23,7 @@
         android:layout_below="@+id/textViewAbout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp"
-        android:src="@drawable/hsr" />
+        android:src="@drawable/hsr" 
+        android:contentDescription="@string/hsr_logo_description"/>
 
 </RelativeLayout>

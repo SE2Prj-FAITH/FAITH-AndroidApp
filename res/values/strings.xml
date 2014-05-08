@@ -82,4 +82,5 @@
     <!--  The strings below this line are not yet translated  -->
     <string name="user_input_validation_message_invalid_email_address">Enter a valid Mail Address</string>
     <string name="user_input_validation_message_invalid_password">Password must have a minimum of 4 chars</string>
+    <string name="hsr_logo_description">HSR Logo</string>
 </resources>
