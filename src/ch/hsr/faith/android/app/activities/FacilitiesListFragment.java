@@ -15,12 +15,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
+import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.util.LocaleUtil;
 import ch.hsr.faith.domain.FacilityWithDistance;
-import ch.hsr.faith.android.app.activities.FacilityInfoActivity;
-import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 
 public class FacilitiesListFragment extends Fragment {
 
