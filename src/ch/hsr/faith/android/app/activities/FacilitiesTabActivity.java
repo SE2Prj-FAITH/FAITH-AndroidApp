@@ -84,6 +84,7 @@ public class FacilitiesTabActivity extends BaseActivity {
 					runOnUiThread(new Runnable() {
 						public void run() {
 							locationLoaded(location.getLatitude(), location.getLongitude());
+							hideRequestProgressDialog();
 						}
 					});
 				}
