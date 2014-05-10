@@ -76,7 +76,8 @@ public class FacilitiesTabActivity extends BaseActivity {
 		if (location != null) {
 			locationLoaded(location.getLatitude(), location.getLongitude());
 		} else {
-
+			
+			showRequestProgressDialog(getString(R.string.request_progress_dialog_loading));
 			GeoLocationService.LocationResult locationResult = new GeoLocationService.LocationResult() {
 				@Override
 				public void gotLocation(final Location location) {
