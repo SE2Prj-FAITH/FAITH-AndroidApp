@@ -1,0 +1,99 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AddFacilityScrollView"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical" >
+
+    	<TextView
+            android:id="@+id/add_facility_failures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10pt"
+            android:paddingBottom="10dp"
+            android:textColor="#F70D1A"
+            android:visibility="invisible" >
+        </TextView>
+        
+    	<Spinner 
+    	    android:id="@+id/select_facility_category"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:prompt="@string/facility_category_prompt"  />
+        
+        <EditText
+            android:id="@+id/edit_facility_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_facility_name"
+            android:inputType="textCapSentences" />
+        
+    	<Spinner 
+    	    android:id="@+id/select_facility_country"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:prompt="@string/country_prompt"
+    		android:entries="@array/countries_available"  />
+
+        <EditText
+            android:id="@+id/edit_facility_street"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_facility_street"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/edit_facility_zip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_facility_zip"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/edit_facility_city"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_facility_city"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/edit_facility_homepage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_facility_homepage"
+            android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/edit_facility_phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_facility_phone"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/edit_facility_email"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_facility_email"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/button_add_or_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="42dp"
+            android:onClick="buttonClicked" />
+    </LinearLayout>
+
+</ScrollView>

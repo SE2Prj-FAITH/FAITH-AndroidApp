@@ -65,14 +65,16 @@
     <string name="error_occurred_message">Error occurred: </string>
     <string name="button_add_facility">Add Facility</string>
     <string name="title_activity_add_facility">Add Facility</string>
-    <string name="labelFacilityName">Name of Facility</string>
-	<string name="labelFacilityStreet">Street</string>
-	<string name="labelFacilityZip">Zipcode</string>
-	<string name="labelFacilityCity">City</string>
-	<string name="labelFacilityHomepage">Homepage</string>
-	<string name="labelFacilityPhone">Phone</string>
-	<string name="labelFacilityEmail">E-Mail Address</string>
-	<string name="buttonAddFacility">Add Facility</string>
+    <string name="label_facility_name">Name of Facility</string>
+	<string name="label_facility_street">Street</string>
+	<string name="label_facility_zip">Zipcode</string>
+	<string name="label_facility_city">City</string>
+	<string name="label_facility_homepage">Homepage</string>
+	<string name="label_facility_phone">Phone</string>
+	<string name="label_facility_email">E-Mail Address</string>
+	<string name="button_add_or_edit_facility">Add Facility</string>
+	<string name="label_button_add_facility">Add Facility</string>
+	<string name="label_button_edit_facility">Edit Facility</string>
 	<string name="authentication_button_register_text">Register</string>
 	<string name="authentication_button_cancel_text">Cancel</string>
 	<string-array name="countries_available">
@@ -86,17 +88,20 @@
     <string name="fetching_location">Fetching location</string>
     <string name="location_removing_successful">Location successfully removed</string>
     <string name="location_removing_failed">Location removing failed</string>
-    <string name="label_facility_name">Name of Facility</string>
-    <string name="label_facility_street">Street</string>
-    <string name="label_facility_zip">Zipcode</string>
-    <string name="label_facility_city">City</string>
-    <string name="label_facility_homepage">Homepage</string>
-    <string name="label_facility_phone">Phone</string>
-    <string name="label_facility_email">E-Mail Address</string>
     <string name="title_activity_facility_info">FacilityInfoActivity</string>
         
     <!--  The strings below this line are not yet translated  -->
     <string name="user_input_validation_message_invalid_email_address">Enter a valid Mail Address</string>
     <string name="user_input_validation_message_invalid_password">Password must have a minimum of 4 chars</string>
-    <string name="hsr_logo_description">HSR Logo</string>
+    <string name="hsr_logo_description">HSR Logo</string>    
+    <string name="add_facility_error_name_empty">The name of the facility is required.</string>
+    <string name="add_facility_error_street_empty">A street is required.</string>
+    <string name="add_facility_error_zip_empty">The zipcode is required.</string>
+    <string name="add_facility_error_city_empty">The city is required.</string>
+    <string name="add_facility_error_email_empty">An e-mail address is required.</string>
+    <string name="add_facility_error_no_country_selected">Please select a country.</string>
+    <string name="add_facility_error_no_category_selected">Please choose the category your facility belongs to.</string>
+    <string name="add_facility_successfully_saved">Facility added.</string>
+	<string name="facility_category_prompt">Select Facility Category</string>
+	<string name="country_prompt">Select Country</string>
 </resources>

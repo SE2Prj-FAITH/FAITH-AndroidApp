@@ -59,7 +59,12 @@
     <string name="select_piece_of_furniture_top_item_text">"jusqu'à"</string>
     <string name="select_piece_of_furniture_top_item_root_text">"Jusqu'à racine"</string>
     <string name="add_item_needed_successfully_saved">"Pièce de meubles enregistrée avec succès"</string>
-    <string name="button_add_facility">"Ajouter facilité"</string>
+    <string name="label_button_add_facility">"Ajouter facilité"</string>
+    <string name="label_button_edit_facility">"Ajouter facilité"</string>
+	<string-array name="countries_available">
+        <item>Suisse</item>
+        <item>Liechtenstein</item>
+    </string-array>
     <string name="title_activity_add_facility">Ajouter Facilité</string>
     <string name="label_facility_name">"nom de facilité"</string>
     <string name="label_facility_street">rue</string>

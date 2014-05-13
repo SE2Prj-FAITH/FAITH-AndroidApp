@@ -19,7 +19,7 @@ public class EditFacilityActivity extends BaseActivity {
 
 	private ActionBar.Tab tabFacilityInfo;
 	private ActionBar.Tab tabFacilityItemsNeeded;
-	private EditFacilityInfoFragment editFacilityInfoFragment;
+	private AddOrEditFacilityFragment editFacilityInfoFragment;
 	private EditFacilityItemsNeededFragment editFacilityItemsNeededFragment;
 
 	private Facility facility;
@@ -38,7 +38,7 @@ public class EditFacilityActivity extends BaseActivity {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		tabFacilityInfo = actionBar.newTab().setText(getString(R.string.edit_facility_tab_info));
 		tabFacilityItemsNeeded = actionBar.newTab().setText(getString(R.string.edit_facility_tab_inventory));
-		editFacilityInfoFragment = new EditFacilityInfoFragment();
+		editFacilityInfoFragment = new AddOrEditFacilityFragment();
 		editFacilityItemsNeededFragment = new EditFacilityItemsNeededFragment();
 
 		tabFacilityInfo.setTabListener(new FacilitiesTabListener(editFacilityInfoFragment));
