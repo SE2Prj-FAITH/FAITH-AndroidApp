@@ -93,7 +93,6 @@
     <!--  The strings below this line are not yet translated  -->
     <string name="user_input_validation_message_invalid_email_address">Enter a valid Mail Address</string>
     <string name="user_input_validation_message_invalid_password">Password must have a minimum of 4 chars</string>
-    <string name="hsr_logo_description">HSR Logo</string>    
     <string name="add_facility_error_name_empty">The name of the facility is required.</string>
     <string name="add_facility_error_street_empty">A street is required.</string>
     <string name="add_facility_error_zip_empty">The zipcode is required.</string>
@@ -104,4 +103,7 @@
     <string name="add_facility_successfully_saved">Facility added.</string>
 	<string name="facility_category_prompt">Select Facility Category</string>
 	<string name="country_prompt">Select Country</string>
+    <string name="hsr_logo_description">HSR Logo</string>
+    <string name="activity_facility_info_tab_main">Info</string>
+    <string name="activity_facility_info_tab_items_needed">Inventory</string>
 </resources>

@@ -1,12 +1,15 @@
 package ch.hsr.faith.android.app.activities;
 
 import android.app.ActionBar;
+import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
 import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.activities.listeners.FacilitiesTabListener;
 import ch.hsr.faith.android.app.dto.FacilityWithDistanceList;
+import ch.hsr.faith.android.app.services.GeoLocationService;
 import ch.hsr.faith.android.app.services.request.FacilitiesWithDistanceGetByCategoryRequest;
 import ch.hsr.faith.android.app.services.request.FacilitiesWithDistanceGetByPieceOfItemsNeededRequest;
 import ch.hsr.faith.android.app.services.response.FacilityWithDistanceListResponse;
@@ -53,14 +56,10 @@ public class FacilitiesTabActivity extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		loadFacilities();
+		loadLocation();
 	}
 
-	private void loadFacilities() {
-		// TODO: get current or saved location (now fixed location HSR is
-		// used)
-		double latitude = 47.22332;
-		double longitude = 8.81728;
+	private void loadFacilities(double latitude, double longitude) {
 		if (facilityCategory != null) {
 			FacilitiesWithDistanceGetByCategoryRequest request = new FacilitiesWithDistanceGetByCategoryRequest(facilityCategory, latitude, longitude);
 			spiceManager.execute(request, facilitiesGetByCategoryRequestCacheKey, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
@@ -69,6 +68,37 @@ public class FacilitiesTabActivity extends BaseActivity {
 			facilitiesGetByPieceOfItemsNeededRequest = request.createCacheKey();
 			spiceManager.execute(request, facilitiesGetByPieceOfItemsNeededRequest, DurationInMillis.ONE_MINUTE, new FacilitiesListRequestListener(this));
 		}
+	}
+
+	private void loadLocation() {
+		GeoLocationService geoLocationService = new GeoLocationService(this);
+		Location location = geoLocationService.getPositionFromSharedPreferences();
+		if (location != null) {
+			locationLoaded(location.getLatitude(), location.getLongitude());
+		} else {
+			
+			showRequestProgressDialog(getString(R.string.request_progress_dialog_loading));
+			GeoLocationService.LocationResult locationResult = new GeoLocationService.LocationResult() {
+				@Override
+				public void gotLocation(final Location location) {
+					runOnUiThread(new Runnable() {
+						public void run() {
+							locationLoaded(location.getLatitude(), location.getLongitude());
+							hideRequestProgressDialog();
+						}
+					});
+				}
+			};
+			boolean gpsOrNetworkEnabled = geoLocationService.isGpsOrNetworkEnabled(getApplicationContext(), locationResult);
+
+			if (gpsOrNetworkEnabled == false) {
+				Toast.makeText(getApplicationContext(), getText(R.string.dialog_alert_gps_or_network_disabled).toString(), Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+
+	private void locationLoaded(double latitude, double longitude) {
+		loadFacilities(latitude, longitude);
 	}
 
 	public FacilityWithDistanceList getFacilityList() {
