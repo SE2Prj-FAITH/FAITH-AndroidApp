@@ -72,15 +72,8 @@
 	<string name="label_facility_homepage">Homepage</string>
 	<string name="label_facility_phone">Phone</string>
 	<string name="label_facility_email">E-Mail Address</string>
-	<string name="button_add_or_edit_facility">Add Facility</string>
-	<string name="label_button_add_facility">Add Facility</string>
-	<string name="label_button_edit_facility">Edit Facility</string>
 	<string name="authentication_button_register_text">Register</string>
 	<string name="authentication_button_cancel_text">Cancel</string>
-	<string-array name="countries_available">
-        <item>Switzerland</item>
-        <item>Liechtenstein</item>
-    </string-array>
     <string name="add_item_needed_delete">Delete</string>
     <string name="add_item_needed_successfully_deleted">Successfully deleted</string>
     <string name="location_successfully_saved">Location successfully saved</string>
@@ -100,10 +93,11 @@
     <string name="add_facility_error_email_empty">An e-mail address is required.</string>
     <string name="add_facility_error_no_country_selected">Please select a country.</string>
     <string name="add_facility_error_no_category_selected">Please choose the category your facility belongs to.</string>
-    <string name="add_facility_successfully_saved">Facility added.</string>
+    <string name="add_facility_successfully_saved">Facility saved.</string>
 	<string name="facility_category_prompt">Select Facility Category</string>
 	<string name="country_prompt">Select Country</string>
     <string name="hsr_logo_description">HSR Logo</string>
     <string name="activity_facility_info_tab_main">Info</string>
     <string name="activity_facility_info_tab_items_needed">Inventory</string>
+    <string name="button_save_facility">Save facility</string>
 </resources>

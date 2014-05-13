@@ -16,7 +16,7 @@ public class AddOrUpdateFacilityRequest extends AuthenticatedRequest<FacilityRes
 
 	@Override
 	public FacilityResponse loadDataFromNetwork() throws Exception {
-		return loadDataFromPostRequest(JSONService.getServiceUrl("/facilities/add"), facility);
+		return loadDataFromPostRequest(JSONService.getServiceUrl("/facilities/save"), facility);
 	}
 
 	public String createCacheKey() {

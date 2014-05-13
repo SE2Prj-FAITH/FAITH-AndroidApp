@@ -72,6 +72,10 @@ public class EditFacilityActivity extends BaseActivity {
 		return itemNeededList;
 	}
 
+	public Facility getFacility() {
+		return facility;
+	}
+
 	private class ItemNeededListRequestListener extends BaseRequestListener<ItemNeededListResponse, ItemNeededList> {
 		public ItemNeededListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);

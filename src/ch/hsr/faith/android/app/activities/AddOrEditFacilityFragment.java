@@ -3,13 +3,12 @@ package ch.hsr.faith.android.app.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import ch.hsr.faith.android.app.R;
-import ch.hsr.faith.android.app.activities.constants.IntentExtras;
 import ch.hsr.faith.android.app.activities.listeners.BaseRequestListener;
 import ch.hsr.faith.android.app.dto.FacilityCategoryList;
 import ch.hsr.faith.android.app.services.request.AddOrUpdateFacilityRequest;
@@ -35,7 +33,7 @@ public class AddOrEditFacilityFragment extends Fragment {
 
 	private BaseActivity context;
 	private TextView failuresTextView;
-	
+
 	private String addFacilityRequestCacheKey;
 	private String lastFacilityCategoriesGetAllRequestCacheKey;
 	private FacilityCategoryAdapter categoryAdapter;
@@ -47,24 +45,19 @@ public class AddOrEditFacilityFragment extends Fragment {
 	private EditText homepageField;
 	private EditText phoneField;
 	private EditText emailField;
+	private EditText countryField;
 	private Spinner facilityCategorySpinner;
-	private Spinner countrySpinner;
-	
-	private Facility facility;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		facility = (Facility) context.getIntent().getExtras().get(IntentExtras.EXTRA_FACILITY);
-		Button button = (Button) context.findViewById(R.id.button_add_or_edit);
-		if (facility == null) {
-			this.context = (AddFacilityActivity) getActivity();
-			button.setText(R.string.label_button_add_facility);
-		} else {
-			this.context = (EditFacilityActivity) getActivity();
-			button.setText(R.string.label_button_edit_facility);
-		}
 		View view = inflater.inflate(R.layout.fragment_add_or_edit_facility, container, false);
-		
+		Button button = (Button) view.findViewById(R.id.button_add_or_edit);
+		button.setOnClickListener(new OnSaveButtonClickedListener());
+		if (getActivity() instanceof AddFacilityActivity) {
+			this.context = (AddFacilityActivity) getActivity();
+		} else if (getActivity() instanceof EditFacilityActivity) {
+			this.context = (EditFacilityActivity) getActivity();
+		}
 		facilityCategorySpinner = (Spinner) view.findViewById(R.id.select_facility_category);
 		categoryAdapter = new FacilityCategoryAdapter(context, android.R.layout.simple_spinner_dropdown_item, new ArrayList<FacilityCategory>());
 		facilityCategorySpinner.setAdapter(categoryAdapter);
@@ -72,7 +65,7 @@ public class AddOrEditFacilityFragment extends Fragment {
 
 		return view;
 	}
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -84,12 +77,15 @@ public class AddOrEditFacilityFragment extends Fragment {
 		homepageField = (EditText) context.findViewById(R.id.edit_facility_homepage);
 		phoneField = (EditText) context.findViewById(R.id.edit_facility_phone);
 		emailField = (EditText) context.findViewById(R.id.edit_facility_email);
-		countrySpinner = (Spinner) context.findViewById(R.id.select_facility_country);
-		if (context instanceof EditFacilityActivity)
-			initGuiForEditFacility();
+		countryField = (EditText) context.findViewById(R.id.edit_facility_country);
+
+		// TODO: Implement for other countries
+		countryField.setText("Schweiz");
+
+		updateData();
 	}
-	
-	private void initGuiForEditFacility() {
+
+	private void initGuiForFacility(Facility facility) {
 		nameField.setText(facility.getName());
 		streetField.setText(facility.getStreet());
 		zipField.setText(facility.getZip());
@@ -98,23 +94,32 @@ public class AddOrEditFacilityFragment extends Fragment {
 		phoneField.setText(facility.getPhone());
 		emailField.setText(facility.getEmail());
 		facilityCategorySpinner.setSelection(categoryAdapter.getPosition(facility.getFacilityCategory()));
-		ArrayAdapter<String> countryAdapter = (ArrayAdapter<String>) countrySpinner.getAdapter();
-		countrySpinner.setSelection(countryAdapter.getPosition(facility.getCountry()));
 	}
 
 	public void updateData() {
+		if (getActivity() instanceof EditFacilityActivity) {
+			Facility facility = ((EditFacilityActivity) getActivity()).getFacility();
+			initGuiForFacility(facility);
+		} else {
+			initGuiForFacility(new Facility());
+		}
 	}
-	
+
 	private void loadFacilityCategoryList() {
 		FacilityCategoriesGetAllRequest request = new FacilityCategoriesGetAllRequest();
 		lastFacilityCategoriesGetAllRequestCacheKey = request.createCacheKey();
-		context.spiceManager.execute(request, lastFacilityCategoriesGetAllRequestCacheKey, DurationInMillis.ONE_MINUTE, new FacilityCategoriesListRequestListener(context));
+		context.spiceManager.execute(request, lastFacilityCategoriesGetAllRequestCacheKey, DurationInMillis.ONE_HOUR * 12, new FacilityCategoriesListRequestListener(context));
 	}
 
-	public void buttonClicked(View view) {
+	public void saveButtonClicked(View view) {
 		cleanFailuresView();
 		if (isInputValid()) {
-			Facility facility = new Facility();
+			Facility facility;
+			if (getActivity() instanceof EditFacilityActivity) {
+				facility = ((EditFacilityActivity) getActivity()).getFacility();
+			} else {
+				facility = new Facility();
+			}
 			facility.setName(nameField.getText().toString());
 			facility.setStreet(streetField.getText().toString());
 			facility.setZip(zipField.getText().toString());
@@ -123,9 +128,9 @@ public class AddOrEditFacilityFragment extends Fragment {
 			facility.setPhone(phoneField.getText().toString());
 			facility.setEmail(emailField.getText().toString());
 			facility.setFacilityCategory((FacilityCategory) facilityCategorySpinner.getSelectedItem());
-			facility.setCountry(countrySpinner.getSelectedItem().toString());
+			facility.setCountry(countryField.getText().toString());
 			facility.setLevel(0);
-			
+
 			AddOrUpdateFacilityRequest request = new AddOrUpdateFacilityRequest(context.getLoginObject(), facility);
 			addFacilityRequestCacheKey = request.createCacheKey();
 			context.spiceManager.execute(request, addFacilityRequestCacheKey, DurationInMillis.ALWAYS_EXPIRED, new FacilityRequestListener(context));
@@ -138,24 +143,19 @@ public class AddOrEditFacilityFragment extends Fragment {
 			return false;
 		}
 		if ("".equals(streetField.getText().toString())) {
-			nameField.setError(getString(R.string.add_facility_error_street_empty));
+			streetField.setError(getString(R.string.add_facility_error_street_empty));
 			return false;
 		}
 		if ("".equals(zipField.getText().toString())) {
-			nameField.setError(getString(R.string.add_facility_error_zip_empty));
+			zipField.setError(getString(R.string.add_facility_error_zip_empty));
 			return false;
 		}
 		if ("".equals(cityField.getText().toString())) {
-			nameField.setError(getString(R.string.add_facility_error_city_empty));
+			cityField.setError(getString(R.string.add_facility_error_city_empty));
 			return false;
 		}
 		if ("".equals(emailField.getText().toString())) {
-			nameField.setError(getString(R.string.add_facility_error_email_empty));
-			return false;
-		}
-		if (countrySpinner.getSelectedItem() == null) {
-			failuresTextView.setText(getString(R.string.add_facility_error_no_country_selected));
-			failuresTextView.setVisibility(TextView.VISIBLE);
+			emailField.setError(getString(R.string.add_facility_error_email_empty));
 			return false;
 		}
 		if (facilityCategorySpinner.getSelectedItem() == null) {
@@ -170,7 +170,7 @@ public class AddOrEditFacilityFragment extends Fragment {
 		failuresTextView.setText("");
 		failuresTextView.setVisibility(TextView.INVISIBLE);
 	}
-	
+
 	private class FacilityCategoriesListRequestListener extends BaseRequestListener<FacilityCategoryListResponse, FacilityCategoryList> {
 		public FacilityCategoriesListRequestListener(BaseActivity baseActivity) {
 			super(baseActivity);
@@ -186,7 +186,7 @@ public class AddOrEditFacilityFragment extends Fragment {
 			categoryAdapter.notifyDataSetChanged();
 		}
 	}
-	
+
 	private class FacilityCategoryAdapter extends ArrayAdapter<FacilityCategory> {
 
 		public FacilityCategoryAdapter(Context context, int textViewResourceId, List<FacilityCategory> objects) {
@@ -205,7 +205,7 @@ public class AddOrEditFacilityFragment extends Fragment {
 			return convertView;
 		}
 	}
-	
+
 	private class FacilityRequestListener extends BaseRequestListener<FacilityResponse, Facility> {
 
 		public FacilityRequestListener(BaseActivity baseActivity) {
@@ -226,6 +226,12 @@ public class AddOrEditFacilityFragment extends Fragment {
 			}
 			failuresTextView.setText(failureText);
 			failuresTextView.setVisibility(TextView.VISIBLE);
+		}
+	}
+
+	private class OnSaveButtonClickedListener implements OnClickListener {
+		public void onClick(View view) {
+			saveButtonClicked(view);
 		}
 	}
 

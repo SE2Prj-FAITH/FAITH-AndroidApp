@@ -38,12 +38,12 @@
             android:hint="@string/label_facility_name"
             android:inputType="textCapSentences" />
         
-    	<Spinner 
-    	    android:id="@+id/select_facility_country"
-    	    android:layout_width="match_parent"
-    	    android:layout_height="wrap_content"
-    	    android:prompt="@string/country_prompt"
-    		android:entries="@array/countries_available"  />
+    	<EditText
+            android:id="@+id/edit_facility_country"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:enabled="false" />
 
         <EditText
             android:id="@+id/edit_facility_street"
@@ -93,7 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="22dp"
             android:layout_marginTop="42dp"
-            android:onClick="buttonClicked" />
+            android:text="@string/button_save_facility"
+            android:onClick="saveButtonClicked" />
     </LinearLayout>
 
 </ScrollView>
