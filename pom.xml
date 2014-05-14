@@ -79,7 +79,7 @@
 		<!-- Google Play Services -->
 		<dependency>
 			<groupId>com.google.android.gms</groupId>
-			<artifactId>google-play-services</artifactId>
+			<artifactId>google-play-services-apklib</artifactId>
 			<version>16.0.0</version>
 			<type>apklib</type>
 		</dependency>
