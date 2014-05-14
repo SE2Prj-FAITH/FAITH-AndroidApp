@@ -16,6 +16,8 @@ import ch.hsr.faith.android.app.services.response.FacilityWithDistanceListRespon
 import ch.hsr.faith.domain.FacilityCategory;
 import ch.hsr.faith.domain.PieceOfFurniture;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 public class FacilitiesTabActivity extends BaseActivity {
@@ -44,13 +46,16 @@ public class FacilitiesTabActivity extends BaseActivity {
 		tabFacilitiesList = actionBar.newTab().setText(getString(R.string.activity_facilities_tabbed_tab_list));
 		tabFacilitiesMap = actionBar.newTab().setText(getString(R.string.activity_facilities_tabbed_tab_map));
 		facilitiesListFragment = new FacilitiesListFragment();
-		facilitiesMapFragment = new FacilitiesMapFragment();
-
 		tabFacilitiesList.setTabListener(new FacilitiesTabListener(facilitiesListFragment));
-		tabFacilitiesMap.setTabListener(new FacilitiesTabListener(facilitiesMapFragment));
-
 		actionBar.addTab(tabFacilitiesList);
-		actionBar.addTab(tabFacilitiesMap);
+
+		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
+			facilitiesMapFragment = new FacilitiesMapFragment();
+			tabFacilitiesMap.setTabListener(new FacilitiesTabListener(facilitiesMapFragment));
+			actionBar.addTab(tabFacilitiesMap);
+		} else {
+			Toast.makeText(getApplicationContext(), "Google Play Services are not available!", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override
@@ -76,7 +81,7 @@ public class FacilitiesTabActivity extends BaseActivity {
 		if (location != null) {
 			locationLoaded(location.getLatitude(), location.getLongitude());
 		} else {
-			
+
 			showRequestProgressDialog(getString(R.string.request_progress_dialog_loading));
 			GeoLocationService.LocationResult locationResult = new GeoLocationService.LocationResult() {
 				@Override
@@ -115,7 +120,9 @@ public class FacilitiesTabActivity extends BaseActivity {
 		protected void handleSuccess(FacilityWithDistanceList data) {
 			facilityList = data;
 			FacilitiesTabActivity.this.facilitiesListFragment.updateData();
-			FacilitiesTabActivity.this.facilitiesMapFragment.updateData();
+			if (facilitiesMapFragment != null) {
+				FacilitiesTabActivity.this.facilitiesMapFragment.updateData();
+			}
 		}
 	}
 
