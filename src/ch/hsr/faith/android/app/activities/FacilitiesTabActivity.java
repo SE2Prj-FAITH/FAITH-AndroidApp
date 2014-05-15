@@ -104,6 +104,9 @@ public class FacilitiesTabActivity extends BaseActivity {
 
 	private void locationLoaded(double latitude, double longitude) {
 		loadFacilities(latitude, longitude);
+		if(facilitiesMapFragment != null) {
+			facilitiesMapFragment.setCurrentLocation(latitude, longitude);
+		}
 	}
 
 	public FacilityWithDistanceList getFacilityList() {

@@ -29,7 +29,7 @@ public class FacilityInfoActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_add_or_edit_facility);
+		setContentView(R.layout.activity_facility_info);
 		displayedFacility = (Facility) getIntent().getExtras().get(IntentExtras.EXTRA_FACILITY);
 		this.setTitle(displayedFacility.getName());
 
