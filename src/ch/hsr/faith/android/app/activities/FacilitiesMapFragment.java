@@ -5,20 +5,15 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import android.content.Intent;
 import android.os.Bundle;
+import ch.hsr.faith.domain.FacilityWithDistance;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import ch.hsr.faith.android.app.activities.constants.IntentExtras;
-import ch.hsr.faith.domain.FacilityWithDistance;
 
 public class FacilitiesMapFragment extends MapFragment {
 

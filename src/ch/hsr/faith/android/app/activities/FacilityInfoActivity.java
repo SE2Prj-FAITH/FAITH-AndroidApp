@@ -29,7 +29,7 @@ public class FacilityInfoActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_add_or_edit_facility);
+		setContentView(R.layout.activity_facility_info);
 		displayedFacility = (Facility) getIntent().getExtras().get(IntentExtras.EXTRA_FACILITY);
 		this.setTitle(displayedFacility.getName());
 
@@ -55,7 +55,7 @@ public class FacilityInfoActivity extends BaseActivity {
 
 	private void loadItemsNeeded() {
 		if (displayedFacility != null) {
-			ItemsNeededGetByFacilityRequest request = new ItemsNeededGetByFacilityRequest(getLoginObject(), displayedFacility);
+			ItemsNeededGetByFacilityRequest request = new ItemsNeededGetByFacilityRequest(displayedFacility);
 			itemsNeededGetByFacilityRequestCacheKey = request.createCacheKey();
 			spiceManager.execute(request, itemsNeededGetByFacilityRequestCacheKey, DurationInMillis.ALWAYS_EXPIRED, new ItemNeededListRequestListener(this));
 		}
