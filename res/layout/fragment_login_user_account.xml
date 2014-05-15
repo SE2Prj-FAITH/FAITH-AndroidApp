@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ch.hsr.faith.android.app.LoginUserAccountActivity$PlaceholderFragment" >
+    tools:context="ch.hsr.faith.android.app.activities.LoginUserAccountActivity$PlaceholderFragment" >
 
     <EditText
         android:id="@+id/EditTextEmail"

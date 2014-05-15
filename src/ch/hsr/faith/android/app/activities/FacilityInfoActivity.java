@@ -55,7 +55,7 @@ public class FacilityInfoActivity extends BaseActivity {
 
 	private void loadItemsNeeded() {
 		if (displayedFacility != null) {
-			ItemsNeededGetByFacilityRequest request = new ItemsNeededGetByFacilityRequest(getLoginObject(), displayedFacility);
+			ItemsNeededGetByFacilityRequest request = new ItemsNeededGetByFacilityRequest(displayedFacility);
 			itemsNeededGetByFacilityRequestCacheKey = request.createCacheKey();
 			spiceManager.execute(request, itemsNeededGetByFacilityRequestCacheKey, DurationInMillis.ALWAYS_EXPIRED, new ItemNeededListRequestListener(this));
 		}
