@@ -45,6 +45,7 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().setHomeButtonEnabled(true);
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 			public void uncaughtException(Thread thread, Throwable throwable) {
 				showErrorDialog(throwable.getMessage());
@@ -80,6 +81,9 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case android.R.id.home:
+			startActivity(FurnitureMainActivity.class);
+			return true;
 		case MenuItems.MENU_LOGIN_LOGOUT:
 			menuLoginLogoutClicked();
 			return true;
