@@ -12,9 +12,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import ch.hsr.faith.android.app.activities.BaseActivity;
 
-public class GeoLocationService extends BaseActivity {
+public class GeoLocationService {
 
 	private Timer fetchTimer;
 	private LocationManager locationManager;
@@ -28,7 +27,7 @@ public class GeoLocationService extends BaseActivity {
 
 	public GeoLocationService(Context context) {
 		super();
-		geoLocation = context.getSharedPreferences(GEO_LOCATION, MODE_PRIVATE);
+		geoLocation = context.getSharedPreferences(GEO_LOCATION, 0);
 	}
 
 	public Location getPositionFromSharedPreferences() {
