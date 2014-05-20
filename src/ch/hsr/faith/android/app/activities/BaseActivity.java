@@ -1,5 +1,6 @@
 package ch.hsr.faith.android.app.activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -45,7 +46,9 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActionBar().setHomeButtonEnabled(true);
+		ActionBar actionBar = getActionBar();
+		if (actionBar != null)
+			actionBar.setHomeButtonEnabled(true);
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 			public void uncaughtException(Thread thread, Throwable throwable) {
 				showErrorDialog(throwable.getMessage());
