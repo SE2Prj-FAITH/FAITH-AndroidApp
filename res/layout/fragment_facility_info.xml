@@ -10,12 +10,25 @@
     tools:context="ch.hsr.faith.android.app.activities.FacilityInfoActivity" >
 
     <TextView
+        android:id="@+id/textViewFacilityCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="9pt" />
+    
+    <TextView
         android:id="@+id/textViewFacilityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewFacilityCategory"
         android:layout_below="@+id/textViewFacilityCategory"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="36dp"
+        android:textStyle="bold"
+        android:textSize="10pt" />
 
     <TextView
         android:id="@+id/textViewFacilityAddress"
@@ -30,23 +43,16 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewFacilityCity"
         android:layout_below="@+id/textViewFacilityCity"
-        android:layout_marginTop="48dp" />
+        android:layout_marginTop="48dp"
+        android:autoLink="web|email" />
 
     <TextView
         android:id="@+id/textViewFacilityMails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewFacilityPhone"
-        android:layout_below="@+id/textViewFacilityPhone" />
-
-    <TextView
-        android:id="@+id/textViewFacilityCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="91dp" />
+        android:layout_below="@+id/textViewFacilityPhone"
+        android:autoLink="web|email" />
 
     <TextView
         android:id="@+id/textViewFacilityPhone"

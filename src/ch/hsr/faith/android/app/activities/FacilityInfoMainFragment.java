@@ -45,7 +45,7 @@ public class FacilityInfoMainFragment extends Fragment {
 		facilityCategory.setText(displayedFacility.getFacilityCategory().getName().getText(LocaleUtil.getCurrentLocale()));
 		facilityName.setText(displayedFacility.getName());
 		facilityAddress.setText(displayedFacility.getStreet());
-		facilityCity.setText(displayedFacility.getCity());
+		facilityCity.setText(displayedFacility.getZip() + " " + displayedFacility.getCity());
 		facilityWebsite.setText(displayedFacility.getHomepage());
 		facilityPhone.setText(displayedFacility.getPhone());
 		facilityMail.setText(displayedFacility.getEmail());
