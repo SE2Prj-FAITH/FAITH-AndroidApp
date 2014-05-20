@@ -204,6 +204,18 @@ public class AddOrEditFacilityFragment extends Fragment {
 			textView.setText(facilityCategory.getName().getText(LocaleUtil.getCurrentLocale()));
 			return convertView;
 		}
+
+		@Override
+		public View getDropDownView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_dropdown_item, null);
+			}
+			TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
+			textView.setTextSize(18);
+			textView.setPadding(20, 30, 20, 30);
+			textView.setText(getItem(position).getName().getText(LocaleUtil.getCurrentLocale()));
+			return convertView;
+		}
 	}
 
 	private class FacilityRequestListener extends BaseRequestListener<FacilityResponse, Facility> {
