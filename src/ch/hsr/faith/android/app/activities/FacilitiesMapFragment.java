@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import android.content.Intent;
 import android.os.Bundle;
 import ch.hsr.faith.android.app.activities.constants.IntentExtras;
@@ -18,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -27,52 +26,79 @@ public class FacilitiesMapFragment extends MapFragment {
 	private FacilitiesTabActivity context;
 	private List<FacilityWithDistance> listOfFacilities;
 	private Map<Marker, FacilityWithDistance> allMarkersMap;
-	static final LatLng HSR = new LatLng(47.22332, 8.81728);
-	private double currentLatitude;
-	private double currentLongitude;
+
+	private double lastLatitude = 0;
+	private double lastLongitude = 0;
+
+	public FacilitiesMapFragment() {
+		listOfFacilities = new ArrayList<FacilityWithDistance>();
+		allMarkersMap = new HashMap<Marker, FacilityWithDistance>();
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		this.context = (FacilitiesTabActivity) getActivity();
 		super.onActivityCreated(savedInstanceState);
+		this.context = (FacilitiesTabActivity) getActivity();
 		map = getMap();
-		listOfFacilities = new ArrayList<FacilityWithDistance>();
-		listOfFacilities.addAll(context.getFacilityList());
-		allMarkersMap = new HashMap<Marker, FacilityWithDistance>();
-
-		LatLng pos = new LatLng(currentLatitude, currentLongitude);
-		Marker homeMarker = map.addMarker(new MarkerOptions().position(pos).title("HOME").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-		allMarkersMap.put(homeMarker, null);
-		
-		for (FacilityWithDistance fac : listOfFacilities) {
-			Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(fac.getGpsLatitude(), fac.getGpsLongitude())).title(fac.getName()));
-			allMarkersMap.put(marker, fac);
-		}
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, 15));
-		map.animateCamera(CameraUpdateFactory.zoomTo(9), 2000, null);
-
-		map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
-			public void onInfoWindowClick(Marker arg0) {
-				FacilityWithDistance facility = allMarkersMap.get(arg0);
-				if (facility != null){
-					Intent facilityInfo = new Intent(context.getBaseContext(), FacilityInfoActivity.class);
-					facilityInfo.putExtra(IntentExtras.EXTRA_FACILITY, facility);
-					startActivity(facilityInfo);
-				}
-			}
-		});
-
+		map.setOnInfoWindowClickListener(new OnMapInfoClickListener());
+		map.setOnMapLoadedCallback(new MapLoadedListener());
+		updateData();
 	}
 
 	public void updateData() {
-		// Toast.makeText(getActivity(), "update", Toast.LENGTH_LONG).show();
-		Logger.getRootLogger().info("update");
+		if (map != null) {
+			map.clear();
+			allMarkersMap.clear();
+			addCurrentLocationToMap(lastLatitude, lastLongitude);
+			updateFacilitiesOnMap();
+		}
+	}
 
+	private void updateFacilitiesOnMap() {
+		listOfFacilities.clear();
+		listOfFacilities.addAll(context.getFacilityList());
+		if (map != null) {
+			for (FacilityWithDistance fac : listOfFacilities) {
+				Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(fac.getGpsLatitude(), fac.getGpsLongitude())).title(fac.getName()));
+				allMarkersMap.put(marker, fac);
+			}
+		}
 	}
 
 	public void setCurrentLocation(double latitude, double longitude) {
-		this.currentLatitude = latitude;
-		this.currentLongitude = longitude;
+		lastLatitude = latitude;
+		lastLongitude = longitude;
+		addCurrentLocationToMap(latitude, longitude);
+	}
+
+	private void addCurrentLocationToMap(double latitude, double longitude) {
+		if (map != null && latitude > 0 && longitude > 0) {
+			LatLng pos = new LatLng(latitude, longitude);
+			Marker homeMarker = map.addMarker(new MarkerOptions().position(pos).title("HOME").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+			allMarkersMap.put(homeMarker, null);
+		}
+	}
+
+	private class OnMapInfoClickListener implements OnInfoWindowClickListener {
+		public void onInfoWindowClick(Marker arg0) {
+			FacilityWithDistance facility = allMarkersMap.get(arg0);
+			if (facility != null) {
+				Intent facilityInfo = new Intent(context.getBaseContext(), FacilityInfoActivity.class);
+				facilityInfo.putExtra(IntentExtras.EXTRA_FACILITY, facility);
+				startActivity(facilityInfo);
+			}
+		}
+	}
+
+	private class MapLoadedListener implements GoogleMap.OnMapLoadedCallback {
+		public void onMapLoaded() {
+			LatLngBounds.Builder zoomBuilder = new LatLngBounds.Builder();
+			for (Marker marker : allMarkersMap.keySet()) {
+				zoomBuilder.include(marker.getPosition());
+			}
+			LatLngBounds zoomBounds = zoomBuilder.build();
+			map.animateCamera(CameraUpdateFactory.newLatLngBounds(zoomBounds, 100));
+		}
 	}
 
 }
