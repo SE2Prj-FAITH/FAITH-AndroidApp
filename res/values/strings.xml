@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">FAITH App</string>
+    <string name="app_name">FAITH</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="activity_register_user">Register account</string>
@@ -9,9 +9,6 @@
     <string name="title_activity_register_user_acccount_confirmation">Account registered</string>
     <string name="button_register">Register</string>
     <string name="registeruser_form_title">Please enter the following information to create a new user account:</string>
-    <string name="labelUserAccountUserId">id</string>
-    <string name="labelUserAccountPassword">Password</string>
-    <string name="labelUserAccountEmail">E-Mail</string>
     <string name="registeruser_confirmation_title">Thanks for registering. Your account information:</string>
     <string name="title_activity_about_faith">About Us</string>
     <string name="about_application">About</string>
@@ -82,8 +79,6 @@
     <string name="location_removing_successful">Location successfully removed</string>
     <string name="location_removing_failed">Location removing failed</string>
     <string name="title_activity_facility_info">FacilityInfoActivity</string>
-        
-    <!--  The strings below this line are not yet translated  -->
     <string name="user_input_validation_message_invalid_email_address">Enter a valid Mail Address</string>
     <string name="user_input_validation_message_invalid_password">Password must have a minimum of 4 chars</string>
     <string name="add_facility_error_name_empty">The name of the facility is required.</string>
@@ -100,4 +95,5 @@
     <string name="activity_facility_info_tab_main">Info</string>
     <string name="activity_facility_info_tab_items_needed">Inventory</string>
     <string name="button_save_facility">Save facility</string>
+    
 </resources>

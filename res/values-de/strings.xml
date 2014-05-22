@@ -67,7 +67,7 @@
     <string name="label_facility_city">Stadt</string>
     <string name="label_facility_homepage">Webseite</string>
     <string name="label_facility_phone">Telefon</string>
-    <string name="label_facility_email">E-Mail Addresse</string>
+    <string name="label_facility_email">E-Mail Adresse</string>
     <string name="authentication_button_register_text">Registrieren</string>
     <string name="authentication_button_cancel_text">Abbrechen</string>
     <string name="add_item_needed_delete">Löschen</string>
@@ -77,5 +77,24 @@
     <string name="fetching_location">rufe Position ab &#8230;</string>
     <string name="location_removing_successful">Position erfolgreich gelöscht</string>
     <string name="location_removing_failed">Position konnte nicht gelöscht werden</string>
-
+    <string name="label_user_account_user_name">Benutzername</string>
+    <string name="error_occurred_message">Ein Fehler ist aufgetreten: </string>
+    <string name="title_activity_facility_info">FacilityInfoActivity</string>
+    <string name="user_input_validation_message_invalid_email_address">"Bitte eine gültige E-Mail Adresse eingeben."</string>
+    <string name="user_input_validation_message_invalid_password">Das Passwort muss mindestens vier Zeichen enthalten.</string>
+    <string name="add_facility_error_name_empty">Name der Einrichtung ist erforderlich.</string>
+    <string name="add_facility_error_street_empty">Die Strasse ist erforderlich.</string>
+    <string name="add_facility_error_zip_empty">Die PLZ ist erforderlich.</string>
+    <string name="add_facility_error_city_empty">Der Name der Stadt ist erforderlich.</string>
+    <string name="add_facility_error_email_empty">Eine E-Mail Adresse ist erforderlich.</string>
+    <string name="add_facility_error_no_country_selected">"Bitte ein Land auswählen."</string>
+    <string name="add_facility_error_no_category_selected">"Bitte eine Kategorie der Einrichtung auswählen."</string>
+    <string name="add_facility_successfully_saved">"Einrichtung wurde registriert."</string>
+	<string name="facility_category_prompt">"Kategorie der Einrichtung auswählen"</string>
+	<string name="country_prompt">"Ein Land auswählen"</string>
+    <string name="hsr_logo_description">HSR Logo</string>
+    <string name="activity_facility_info_tab_main">Information</string>
+    <string name="activity_facility_info_tab_items_needed">Inventar</string>
+    <string name="button_save_facility">"Einrichtung speichern"</string>
+    
 </resources>

@@ -76,6 +76,24 @@
     <string name="fetching_location">"Obtention emplacement "&#8230;</string>
     <string name="location_removing_successful">"Localisation retiré avec succès"</string>
     <string name="location_removing_failed">"Localisation enlever échoué"</string>
-	
+    <string name="error_occurred_message">Une erreur est survenue: </string>
+    <string name="button_add_facility">"Ajouter facilité"</string>
+    <string name="title_activity_facility_info">FacilityInfoActivity</string>
+    <string name="user_input_validation_message_invalid_email_address">Entrez une adresse email valide</string>
+    <string name="user_input_validation_message_invalid_password">"Mot de passe doit avoir un minimum de 4 caractères"</string>
+    <string name="add_facility_error_name_empty">"Le nom de l'établissement est tenu."</string>
+    <string name="add_facility_error_street_empty">"Une rue est nécessaire."</string>
+    <string name="add_facility_error_zip_empty">Le code postal est requis.</string>
+    <string name="add_facility_error_city_empty">"La ville est nécessaire."</string>
+    <string name="add_facility_error_email_empty">"Une adresse e-mail est nécessaire."</string>
+    <string name="add_facility_error_no_country_selected">"louer sélectionner un pays."</string>
+    <string name="add_facility_error_no_category_selected">"S'il vous plaît choisir la catégorie de votre établissement appartient."</string>
+    <string name="add_facility_successfully_saved">"Facilité enregistré."</string>
+	<string name="facility_category_prompt">"Sélectionnez Facilité Catégorie"</string>
+	<string name="country_prompt">"Sélectionnez un pays"</string>
+    <string name="hsr_logo_description">HSR Logo</string>
+    <string name="activity_facility_info_tab_main">Information</string>
+    <string name="activity_facility_info_tab_items_needed">inventaire</string>
+    <string name="button_save_facility">"enregistrer facilité"</string>
 	
 </resources>
