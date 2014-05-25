@@ -28,10 +28,6 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 
 public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNavigationListener {
 
-	/**
-	 * The serialization (saved instance state) Bundle key representing the
-	 * current dropdown position.
-	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
 	private String lastFacilityCategoriesRootRequestCacheKey;
@@ -44,46 +40,31 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_facility_main);
-
-		// Set up the action bar to show a dropdown list.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(false);
-
-		// Set up the dropdown list navigation in the action bar.
 		actionBar.setListNavigationCallbacks(new ArrayAdapter<String>(actionBar.getThemedContext(), android.R.layout.simple_list_item_1, android.R.id.text1, new String[] {
 				getString(R.string.title_activity_facility_main), getString(R.string.title_activity_furniture_main), }), this);
-
 		facilityCategoriesListView = (ListView) findViewById(R.id.facilityMain_ListView);
 		adapter = new FacilityCategoryAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<FacilityCategory>());
 		facilityCategoriesListView.setAdapter(adapter);
 		facilityCategoriesListView.setOnItemClickListener(new OnFacilityCategoryClickedListener());
 	}
 
-	/**
-	 * folgende Methoden onRestoreInstanceState und onSaveInstanceState könnten
-	 * eventuell noch gebraucht werden, sind allerdings bisher ohne funktion in
-	 * unserer app
-	 */
-
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
-		// Restore the previously serialized current dropdown position.
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
 			getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 		}
+		super.onRestoreInstanceState(savedInstanceState);
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		// Serialize the current dropdown position.
 		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar().getSelectedNavigationIndex());
 	}
 
 	public boolean onNavigationItemSelected(int position, long id) {
-		// When the given dropdown item is selected, show its activity in the
-		// container view.
 		switch (position) {
 		case 0:
 			return true;
@@ -99,7 +80,6 @@ public class FacilityMainActivity extends BaseActivity implements ActionBar.OnNa
 	private void onFurnitureSpinnerClick() {
 		Intent intent = new Intent(this.getBaseContext(), FurnitureMainActivity.class);
 		startActivity(intent);
-		// calling finish() on an activity, the method onDestroy() is executed
 		finish();
 	}
 

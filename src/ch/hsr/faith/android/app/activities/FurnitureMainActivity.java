@@ -57,7 +57,6 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
-		// Restore the previously serialized current dropdown position.
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
 			getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 		}
@@ -65,13 +64,10 @@ public class FurnitureMainActivity extends BaseActivity implements ActionBar.OnN
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		// Serialize the current dropdown position.
 		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar().getSelectedNavigationIndex());
 	}
 
 	public boolean onNavigationItemSelected(int position, long id) {
-		// When the given dropdown item is selected, show its activity in the
-		// container view.
 		switch (position) {
 		case 0:
 			return true;
